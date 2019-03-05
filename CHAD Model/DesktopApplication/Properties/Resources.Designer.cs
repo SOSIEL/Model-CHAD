@@ -106,6 +106,24 @@ namespace DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration name.
+        /// </summary>
+        public static string ConfigurationName {
+            get {
+                return ResourceManager.GetString("ConfigurationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure.
+        /// </summary>
+        public static string Configure {
+            get {
+                return ResourceManager.GetString("Configure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current day.
         /// </summary>
         public static string CurrentDay {
@@ -151,11 +169,38 @@ namespace DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a unique name for this configuration.
+        /// </summary>
+        public static string EditSimulationInfoText {
+            get {
+                return ResourceManager.GetString("EditSimulationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish.
+        /// </summary>
+        public static string Finish {
+            get {
+                return ResourceManager.GetString("Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydrology.
         /// </summary>
         public static string Hydrology {
             get {
                 return ResourceManager.GetString("Hydrology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -210,6 +255,15 @@ namespace DesktopApplication.Properties {
         public static string PreviousButtonText {
             get {
                 return ResourceManager.GetString("PreviousButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

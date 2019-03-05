@@ -9,6 +9,8 @@ namespace DesktopApplication
     /// </summary>
     public partial class MainWindow
     {
+        #region Constructors
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,7 +24,15 @@ namespace DesktopApplication
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Properties, Indexers
+
         public INavigationService NavigationService { get; }
+
+        #endregion
+
+        #region All other members
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -38,5 +48,7 @@ namespace DesktopApplication
         {
             NavigationService.NavigateNext();
         }
+
+        #endregion
     }
 }

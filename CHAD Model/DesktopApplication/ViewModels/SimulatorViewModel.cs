@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using DesktopApplication.Models;
 using DesktopApplication.Services;
 using DesktopApplication.Tools;
@@ -7,12 +8,29 @@ namespace DesktopApplication.ViewModels
 {
     public class SimulatorViewModel : ViewModelBase
     {
+        #region Fields
+
         private readonly IStorageService _storageService;
-        private SimulationViewModel _selectedViewModel;
-        private bool _canStart;
-        private bool _canPause;
-        private bool _canStop;
+        private ConfigurationViewModel _selectedViewModel;
         private SimulatorStatus _status;
+
+        #endregion
+
+        #region Constructors
+
+        public SimulatorViewModel(IStorageService storageService)
+        {
+            _storageService = storageService;
+
+            ConfigurationsViewModels = new ObservableCollection<ConfigurationViewModel>();
+
+            foreach (var simulation in storageService.GetSimulations())
+                ConfigurationsViewModels.Add(new ConfigurationViewModel(simulation));
+        }
+
+        #endregion
+
+        #region Properties, Indexers
 
         public SimulatorStatus Status
         {
@@ -21,93 +39,55 @@ namespace DesktopApplication.ViewModels
             {
                 _status = value;
 
-                switch (value)
-                {
-                    case SimulatorStatus.Stopped:
-                        CanStart = true;
-                        CanPause = false;
-                        CanStop = false;
-                        break;
-                    case SimulatorStatus.Run:
-                        CanStart = false;
-                        CanPause = true;
-                        CanStop = true;
-                        break;
-                    case SimulatorStatus.OnPaused:
-                        CanStart = true;
-                        CanPause = false;
-                        CanStop = true;
-                        break;
-                }
+                RaiseStatusChanged();
             }
         }
 
-        public bool CanStart
-        {
-            get => _canStart;
-            private set
-            {
-                _canStart = value;
-                OnPropertyChanged(nameof(CanStart));
-            }
-        }
+        public bool CanStart => (Status == SimulatorStatus.Stopped || Status == SimulatorStatus.OnPaused)
+                                && SelectedViewModel != null
+                                && SelectedViewModel.IsConfigured;
 
-        public bool CanPause
-        {
-            get => _canPause;
-            set
-            {
-                _canPause = value; 
-                OnPropertyChanged(nameof(CanPause));
-            }
-        }
+        public bool CanPause => Status == SimulatorStatus.Run;
 
-        public bool CanStop
-        {
-            get => _canStop;
-            set
-            {
-                _canStop = value;
-                OnPropertyChanged(nameof(CanStop));
-            }
-        }
+        public bool CanStop => Status == SimulatorStatus.Run || Status == SimulatorStatus.OnPaused;
 
-        public SimulatorViewModel(IStorageService storageService)
-        {
-            _storageService = storageService;
-
-            SimulationViewModels = new ObservableCollection<SimulationViewModel>();
-
-            foreach (var simulation in storageService.GetSimulations())
-                SimulationViewModels.Add(new SimulationViewModel(simulation));
-        }
-
-        public SimulationViewModel SelectedViewModel
+        public ConfigurationViewModel SelectedViewModel
         {
             get => _selectedViewModel;
             set
             {
                 _selectedViewModel = value;
 
-                if (_selectedViewModel != null)
-                    Configure();
-
                 OnPropertyChanged(nameof(SelectedViewModel));
+                RaiseStatusChanged();
             }
         }
 
+        public ObservableCollection<ConfigurationViewModel> ConfigurationsViewModels { get; }
 
-        public ObservableCollection<SimulationViewModel> SimulationViewModels { get; }
-
-        public SimulationViewModel AddNewSimulation(string name)
+        public void AddConfigurationViewModel(ConfigurationViewModel configurationViewModel)
         {
-            var simulation = new Simulation(name);
+            ConfigurationsViewModels.Add(configurationViewModel);
+            SelectedViewModel = configurationViewModel;
+        }
 
-            var simulationViewModel = new SimulationViewModel(simulation);
+        #endregion
 
-            SimulationViewModels.Add(simulationViewModel);
+        #region All other members
 
-            return simulationViewModel;
+        public event Action StatusChanged;
+
+        private void RaiseStatusChanged()
+        {
+            OnPropertyChanged(nameof(CanStart));
+            OnPropertyChanged(nameof(CanPause));
+            OnPropertyChanged(nameof(CanStop));
+            StatusChanged?.Invoke();
+        }
+
+        public ConfigurationViewModel MakeNewSimulationViewModel()
+        {
+            return new ConfigurationViewModel(new Configuration());
         }
 
         public void Start()
@@ -128,7 +108,9 @@ namespace DesktopApplication.ViewModels
         public void Configure()
         {
             SelectedViewModel?.Configure();
-            Status = SimulatorStatus.Stopped;
+            RaiseStatusChanged();
         }
+
+        #endregion
     }
 }

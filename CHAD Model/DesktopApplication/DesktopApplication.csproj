@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SOSIEL.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -70,14 +73,16 @@
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NullToBoolConverter.cs" />
-    <Compile Include="Models\Simulation.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\SimulatorStatus.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources\ImageResources.cs" />
     <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Services\StorageService.cs" />
+    <Compile Include="Tools\EditorViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
-    <Compile Include="ViewModels\SimulationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationEditorViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Tools\ViewModelBase.cs" />
     <Compile Include="ViewModels\SimulatorViewModel.cs" />
     <Compile Include="ViewServices\NavigationService.cs" />
@@ -87,8 +92,8 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NewSimulationView.xaml.cs">
-      <DependentUpon>NewSimulationView.xaml</DependentUpon>
+    <Compile Include="Views\EditSimulationView.xaml.cs">
+      <DependentUpon>EditSimulationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OutputView.xaml.cs">
       <DependentUpon>OutputView.xaml</DependentUpon>
@@ -124,7 +129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NewSimulationView.xaml">
+    <Page Include="Views\EditSimulationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,7 +170,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="SOSIEL.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SOSIEL.png" />
   </ItemGroup>

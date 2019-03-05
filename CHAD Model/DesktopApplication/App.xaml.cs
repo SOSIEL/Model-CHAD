@@ -14,7 +14,13 @@ namespace DesktopApplication
     /// </summary>
     public partial class App
     {
+        #region Fields
+
         private IUnityContainer _unityContainer;
+
+        #endregion
+
+        #region All other members
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,29 +40,34 @@ namespace DesktopApplication
             _unityContainer = new UnityContainer();
 
             // Services
-            _unityContainer.RegisterType<IStorageService, StorageService>(new TransientLifetimeManager());
+            _unityContainer.RegisterType<IStorageService, StorageService>(new ContainerControlledLifetimeManager());
 
             // View Models
-            _unityContainer.RegisterType<SimulatorViewModel>(new TransientLifetimeManager());
+            _unityContainer.RegisterType<SimulatorViewModel>(new ContainerControlledLifetimeManager());
 
             // View Services
-            _unityContainer.RegisterType<INavigationService, NavigationService>(new TransientLifetimeManager());
+            _unityContainer.RegisterType<INavigationService, NavigationService>(
+                new ContainerControlledLifetimeManager());
 
             // Windows
-            _unityContainer.RegisterType<MainWindow>(new TransientLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), _unityContainer.Resolve<SimulatorViewModel>()));
+            _unityContainer.RegisterType<MainWindow>(new ContainerControlledLifetimeManager(),
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
+                    _unityContainer.Resolve<SimulatorViewModel>()));
 
             // Views
             _unityContainer.RegisterType<MainView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), _unityContainer.Resolve<SimulatorViewModel>()));
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
+                    _unityContainer.Resolve<SimulatorViewModel>()));
             _unityContainer.RegisterType<ParametersView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
             _unityContainer.RegisterType<AgentsView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
             _unityContainer.RegisterType<OutputView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
-            _unityContainer.RegisterType<NewSimulationView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
+            _unityContainer.RegisterType<EditSimulationView>(new PerResolveLifetimeManager(),
+                new InjectionConstructor((ConfigurationEditorViewModel)null));
         }
+
+        #endregion
     }
 }

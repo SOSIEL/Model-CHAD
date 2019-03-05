@@ -6,6 +6,11 @@ namespace DesktopApplication.Resources
 {
     public static class ImageResources
     {
-        public static ImageSource Logo => new BitmapImage(new Uri("@pack://application:,,,/DesktopApplication;component/Resources/SOSIEL.png", UriKind.RelativeOrAbsolute));
+        #region Properties, Indexers
+
+        public static ImageSource Logo => new BitmapImage(new Uri(
+            "@pack://application:,,,/DesktopApplication;component/Resources/SOSIEL.png", UriKind.RelativeOrAbsolute));
+
+        #endregion
     }
 }

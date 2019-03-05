@@ -8,9 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:DesktopApplication.ViewModels"
     x:Name="Window"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ThreeDBorderWindow"
+    ResizeMode="CanMinimize"
     Title="{x:Static local:Properties.Resources.ChadModel}"
     Width="640"
     Height="500"
+    MinWidth="640"
+    MinHeight="500"
     d:DataContext="{d:DesignInstance viewModels:SimulatorViewModel}"
     Loaded="MainWindow_OnLoaded"
     mc:Ignorable="d">
@@ -46,12 +51,12 @@
                 Orientation="Horizontal">
                 <Button
                     Click="PreviousButton_OnClick"
-                    Content="{x:Static local:Properties.Resources.PreviousButtonText}"
+                    Content="{Binding ElementName=Window, Path=NavigationService.PreviousButtonText}"
                     IsEnabled="{Binding ElementName=Window, Path=NavigationService.CanNavigatePrevious}" />
                 <Button
                     Margin="8,0,0,0"
                     Click="NextButton_OnClick"
-                    Content="{x:Static local:Properties.Resources.NextButtonText}"
+                    Content="{Binding ElementName=Window, Path=NavigationService.NextButtonText}"
                     IsEnabled="{Binding ElementName=Window, Path=NavigationService.CanNavigateNext}" />
             </StackPanel>
 

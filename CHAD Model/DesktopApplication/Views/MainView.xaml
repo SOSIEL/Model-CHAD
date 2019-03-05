@@ -68,14 +68,18 @@
                     Grid.Column="1"
                     Orientation="Horizontal">
 
-                    <ComboBox ItemsSource="{Binding Path=SimulationViewModels}" SelectedItem="{Binding Path=SelectedViewModel, Mode=TwoWay}" />
+                    <ComboBox ItemsSource="{Binding Path=ConfigurationsViewModels}" SelectedItem="{Binding Path=SelectedViewModel, Mode=TwoWay}" />
 
                     <Button
                         Margin="16,0,0,0"
+                        Click="Edit_OnClick"
                         Content="{x:Static properties:Resources.Edit}"
                         IsEnabled="{Binding Path=SelectedViewModel, Converter={StaticResource NullToBoolConverter}}" />
 
-                    <Button Margin="16,0,0,0" Content="{x:Static properties:Resources.AddNew}" />
+                    <Button
+                        Margin="16,0,0,0"
+                        Click="AddNewSimulation_OnClick"
+                        Content="{x:Static properties:Resources.AddNew}" />
 
                 </StackPanel>
 

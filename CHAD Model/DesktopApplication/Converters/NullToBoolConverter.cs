@@ -6,6 +6,8 @@ namespace DesktopApplication.Converters
 {
     public class NullToBoolConverter : IValueConverter
     {
+        #region Interface Implementations
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value != null;
@@ -15,5 +17,7 @@ namespace DesktopApplication.Converters
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

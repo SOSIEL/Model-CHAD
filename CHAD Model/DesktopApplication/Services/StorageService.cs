@@ -5,13 +5,17 @@ namespace DesktopApplication.Services
 {
     public class StorageService : IStorageService
     {
-        public IEnumerable<Simulation> GetSimulations()
+        #region Interface Implementations
+
+        public IEnumerable<Configuration> GetSimulations()
         {
-           return new List<Simulation>
-           {
-               new Simulation("Simulation1"),
-               new Simulation("Simulation2")
-           };
+            return new List<Configuration>
+            {
+                new Configuration("Configuration1"),
+                new Configuration("Configuration2")
+            };
         }
+
+        #endregion
     }
 }

@@ -7,8 +7,9 @@ namespace DesktopApplication.Tools
     {
         #region Fields
 
-        private readonly Action<T> _execute;
         private readonly Predicate<T> _canExecute;
+
+        private readonly Action<T> _execute;
 
         #endregion
 

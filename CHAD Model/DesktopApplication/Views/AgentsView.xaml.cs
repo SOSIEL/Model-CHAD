@@ -7,7 +7,13 @@ namespace DesktopApplication.Views
     /// </summary>
     public partial class AgentsView
     {
+        #region Fields
+
         private readonly INavigationService _navigationService;
+
+        #endregion
+
+        #region Constructors
 
         public AgentsView()
         {
@@ -20,5 +26,7 @@ namespace DesktopApplication.Views
 
             InitializeComponent();
         }
+
+        #endregion
     }
 }

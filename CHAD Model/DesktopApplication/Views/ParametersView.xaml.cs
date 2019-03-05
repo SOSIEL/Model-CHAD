@@ -7,7 +7,13 @@ namespace DesktopApplication.Views
     /// </summary>
     public partial class ParametersView
     {
+        #region Fields
+
         private readonly INavigationService _navigationService;
+
+        #endregion
+
+        #region Constructors
 
         public ParametersView(INavigationService navigationService)
         {
@@ -15,5 +21,7 @@ namespace DesktopApplication.Views
 
             InitializeComponent();
         }
+
+        #endregion
     }
 }

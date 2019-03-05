@@ -5,6 +5,10 @@ namespace DesktopApplication.Services
 {
     public interface IStorageService
     {
-        IEnumerable<Simulation> GetSimulations();
+        #region All other members
+
+        IEnumerable<Configuration> GetSimulations();
+
+        #endregion
     }
 }

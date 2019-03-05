@@ -5,13 +5,19 @@ using DesktopApplication.ViewServices;
 namespace DesktopApplication.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    ///     Interaction logic for MainView.xaml
     /// </summary>
     public partial class MainView
     {
+        #region Fields
+
         private readonly INavigationService _navigationService;
 
         private readonly SimulatorViewModel _simulatorViewModel;
+
+        #endregion
+
+        #region Constructors
 
         public MainView()
         {
@@ -25,6 +31,10 @@ namespace DesktopApplication.Views
 
             InitializeComponent();
         }
+
+        #endregion
+
+        #region All other members
 
         private void Start_OnClick(object sender, RoutedEventArgs e)
         {
@@ -40,5 +50,17 @@ namespace DesktopApplication.Views
         {
             _simulatorViewModel.Pause();
         }
+
+        private void AddNewSimulation_OnClick(object sender, RoutedEventArgs e)
+        {
+            _navigationService.NavigateToEditSimulationView(_simulatorViewModel.MakeNewSimulationViewModel());
+        }
+
+        private void Edit_OnClick(object sender, RoutedEventArgs e)
+        {
+            _navigationService.NavigateToEditSimulationView(_simulatorViewModel.SelectedViewModel);
+        }
+
+        #endregion
     }
 }

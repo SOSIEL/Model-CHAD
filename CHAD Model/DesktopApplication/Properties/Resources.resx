@@ -132,6 +132,12 @@
   <data name="ChooseSimulationText" xml:space="preserve">
     <value>Choose below from an existing simulation configuration or create a new one.</value>
   </data>
+  <data name="ConfigurationName" xml:space="preserve">
+    <value>Configuration name</value>
+  </data>
+  <data name="Configure" xml:space="preserve">
+    <value>Configure</value>
+  </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>Current day</value>
   </data>
@@ -147,8 +153,17 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EditSimulationInfoText" xml:space="preserve">
+    <value>Please enter a unique name for this configuration</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
   <data name="Hydrology" xml:space="preserve">
     <value>Hydrology</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NextButtonText" xml:space="preserve">
     <value>Next &gt;</value>
@@ -167,6 +182,9 @@
   </data>
   <data name="PreviousButtonText" xml:space="preserve">
     <value> &lt; Previous</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="SelectConfiguration" xml:space="preserve">
     <value>Select configuration:</value>
