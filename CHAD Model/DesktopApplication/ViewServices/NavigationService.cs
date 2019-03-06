@@ -24,12 +24,10 @@ namespace DesktopApplication.ViewServices
         #region All other members
 
         void NavigateToMainView();
-        void NavigateToAgentsView();
-        void NavigateToParametersView();
-        void NavigateToOutputView();
-        void NavigateToEditSimulationView(ConfigurationViewModel simulationViewModel);
-        void NavigatePrevious();
-        void NavigateNext();
+        void NavigateToAgentsView(ConfigurationEditorViewModel configurationEditorViewModel);
+        void NavigateToParametersView(ConfigurationEditorViewModel configurationEditorViewModel);
+        void NavigateToOutputView(ConfigurationEditorViewModel configurationEditorViewModel);
+        void NavigateToConfigurationNameView(ConfigurationEditorViewModel configurationEditorViewModel);
 
         #endregion
     }
@@ -94,7 +92,7 @@ namespace DesktopApplication.ViewServices
                 {
                     case MainView _:
                         return Properties.Resources.Configure;
-                    case EditSimulationView _:
+                    case ConfigurationNameView _:
                         return Properties.Resources.Save;
                     case OutputView _:
                         return Properties.Resources.Finish;
@@ -102,7 +100,6 @@ namespace DesktopApplication.ViewServices
                         return Properties.Resources.NextButtonText;
                 }
             }
-           
         }
 
         #endregion
@@ -114,69 +111,30 @@ namespace DesktopApplication.ViewServices
             CurrentView = _unityContainer.Resolve<MainView>();
         }
 
-        public void NavigateToAgentsView()
+        public void NavigateToAgentsView(ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            CurrentView = _unityContainer.Resolve<AgentsView>();
+            CurrentView = _unityContainer.Resolve<AgentsView>(new ParameterOverride("configurationEditorViewModel",
+                configurationEditorViewModel));
         }
 
-        public void NavigateToParametersView()
+        public void NavigateToParametersView(ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            CurrentView = _unityContainer.Resolve<ParametersView>();
+            CurrentView =
+                _unityContainer.Resolve<ParametersView>(new ParameterOverride("configurationEditorViewModel",
+                    configurationEditorViewModel));
         }
 
-        public void NavigateToOutputView()
+        public void NavigateToOutputView(ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            CurrentView = _unityContainer.Resolve<OutputView>();
+            CurrentView = _unityContainer.Resolve<OutputView>(new ParameterOverride("configurationEditorViewModel",
+                configurationEditorViewModel));
         }
 
-        public void NavigateToEditSimulationView(ConfigurationViewModel simulationViewModel)
+        public void NavigateToConfigurationNameView(ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            var editor = new ConfigurationEditorViewModel(_simulatorViewModel, simulationViewModel);
-
-            CurrentView = _unityContainer.Resolve<EditSimulationView>(new ParameterOverride("simulationEditorViewModel", editor));
-        }
-
-        public void NavigatePrevious()
-        {
-            switch (CurrentView)
-            {
-                case ParametersView _:
-                    NavigateToMainView();
-                    return;
-                case AgentsView _:
-                    NavigateToParametersView();
-                    return;
-                case OutputView _:
-                    NavigateToAgentsView();
-                    return;
-                case EditSimulationView _:
-                    NavigateToMainView();
-                    break;
-            }
-        }
-
-        public void NavigateNext()
-        {
-            switch (CurrentView)
-            {
-                case MainView _:
-                    NavigateToParametersView();
-                    return;
-                case ParametersView _:
-                    NavigateToAgentsView();
-                    return;
-                case AgentsView _:
-                    NavigateToOutputView();
-                    return;
-                case EditSimulationView editSimulationView:
-                    editSimulationView.SimulationEditorViewModel.Save();
-                    NavigateToMainView();
-                    break;
-                case OutputView _:
-                    _simulatorViewModel.Configure();
-                    NavigateToMainView();
-                    break;
-            }
+            CurrentView =
+                _unityContainer.Resolve<ConfigurationNameView>(new ParameterOverride("configurationEditorViewModel",
+                    configurationEditorViewModel));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

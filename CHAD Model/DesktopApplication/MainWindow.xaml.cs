@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using DesktopApplication.Tools;
 using DesktopApplication.ViewModels;
 using DesktopApplication.ViewServices;
 
@@ -39,14 +41,9 @@ namespace DesktopApplication
             NavigationService.NavigateToMainView();
         }
 
-        private void PreviousButton_OnClick(object sender, RoutedEventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
-            NavigationService.NavigatePrevious();
-        }
-
-        private void NextButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.NavigateNext();
+            this.RemoveIcon();
         }
 
         #endregion

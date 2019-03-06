@@ -6,9 +6,11 @@
 
         public Configuration()
         {
+            Parameters = new Parameters();
         }
 
         public Configuration(string name)
+            : this()
         {
             Name = name;
         }
@@ -18,6 +20,8 @@
         #region Properties, Indexers
 
         public string Name { get; set; }
+
+        public Parameters Parameters { get; }
 
         #endregion
     }

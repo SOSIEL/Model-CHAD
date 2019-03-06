@@ -72,8 +72,10 @@
     <Compile Include="Controls\Logo.xaml.cs">
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NumericTextBox.cs" />
     <Compile Include="Converters\NullToBoolConverter.cs" />
     <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\SimulatorStatus.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources\ImageResources.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="Tools\EditorViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="Tools\WindowExtensions.cs" />
     <Compile Include="ViewModels\ConfigurationEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Tools\ViewModelBase.cs" />
@@ -92,8 +95,8 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditSimulationView.xaml.cs">
-      <DependentUpon>EditSimulationView.xaml</DependentUpon>
+    <Compile Include="Views\ConfigurationNameView.xaml.cs">
+      <DependentUpon>ConfigurationNameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OutputView.xaml.cs">
       <DependentUpon>OutputView.xaml</DependentUpon>
@@ -129,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditSimulationView.xaml">
+    <Page Include="Views\ConfigurationNameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

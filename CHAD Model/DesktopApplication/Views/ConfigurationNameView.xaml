@@ -1,11 +1,13 @@
 ﻿<UserControl
-    x:Class="DesktopApplication.Views.EditSimulationView"
+    x:Class="DesktopApplication.Views.ConfigurationNameView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:DesktopApplication.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:DesktopApplication.Properties"
     xmlns:viewModels="clr-namespace:DesktopApplication.ViewModels"
+    x:Name="UserControl"
     d:DataContext="{d:DesignInstance viewModels:ConfigurationEditorViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -24,6 +26,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Name}" />
@@ -40,5 +43,23 @@
                 Margin="16,0,0,0"
                 Text="{Binding Path=Value.Name, Mode=TwoWay}" />
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Click="PreviousButton_OnClick"
+                Content="{x:Static properties:Resources.PreviousButtonText}"
+                IsEnabled="{Binding ElementName=UserControl, Path=NavigationService.CanNavigatePrevious}" />
+            <Button
+                Margin="8,0,0,0"
+                Click="NextButton_OnClick"
+                Content="{x:Static properties:Resources.Finish}"
+                IsEnabled="{Binding ElementName=UserControl, Path=NavigationService.CanNavigateNext}" />
+        </StackPanel>
+
+        <controls:Logo Grid.Row="3" HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

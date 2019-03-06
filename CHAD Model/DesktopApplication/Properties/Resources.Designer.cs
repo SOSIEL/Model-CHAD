@@ -79,6 +79,15 @@ namespace DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The CHAD (Climate, Hydrology, Agriculture, &amp; Decision-making) model simulates interactions among some of the basic climatic, aquatic, agricultural, and decision-making processes impacting operations of farms..
         /// </summary>
         public static string ChadInfoText {
@@ -120,6 +129,33 @@ namespace DesktopApplication.Properties {
         public static string Configure {
             get {
                 return ResourceManager.GetString("Configure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CostAlfalfa.
+        /// </summary>
+        public static string CostAlfalfa {
+            get {
+                return ResourceManager.GetString("CostAlfalfa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CostBarley.
+        /// </summary>
+        public static string CostBarley {
+            get {
+                return ResourceManager.GetString("CostBarley", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CostWheat.
+        /// </summary>
+        public static string CostWheat {
+            get {
+                return ResourceManager.GetString("CostWheat", resourceCulture);
             }
         }
         
@@ -196,6 +232,42 @@ namespace DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LeakAquiferFrac.
+        /// </summary>
+        public static string LeakAquiferFrac {
+            get {
+                return ResourceManager.GetString("LeakAquiferFrac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MeanBushelsAlfalfaPerAcre.
+        /// </summary>
+        public static string MeanBushelsAlfalfaPerAcre {
+            get {
+                return ResourceManager.GetString("MeanBushelsAlfalfaPerAcre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MeanBushelsBarleyPerAcre.
+        /// </summary>
+        public static string MeanBushelsBarleyPerAcre {
+            get {
+                return ResourceManager.GetString("MeanBushelsBarleyPerAcre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MeanBushelsWheatPerAcre.
+        /// </summary>
+        public static string MeanBushelsWheatPerAcre {
+            get {
+                return ResourceManager.GetString("MeanBushelsWheatPerAcre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -210,6 +282,15 @@ namespace DesktopApplication.Properties {
         public static string NextButtonText {
             get {
                 return ResourceManager.GetString("NextButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number os seasons:.
+        /// </summary>
+        public static string NumberOfSeasons {
+            get {
+                return ResourceManager.GetString("NumberOfSeasons", resourceCulture);
             }
         }
         
@@ -237,6 +318,15 @@ namespace DesktopApplication.Properties {
         public static string Pause {
             get {
                 return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PercFromFieldFrac.
+        /// </summary>
+        public static string PercFromFieldFrac {
+            get {
+                return ResourceManager.GetString("PercFromFieldFrac", resourceCulture);
             }
         }
         
@@ -318,6 +408,60 @@ namespace DesktopApplication.Properties {
         public static string TimeSinceStart {
             get {
                 return ResourceManager.GetString("TimeSinceStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterCurtailmentBase.
+        /// </summary>
+        public static string WaterCurtailmentBase {
+            get {
+                return ResourceManager.GetString("WaterCurtailmentBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterCurtailmentRate.
+        /// </summary>
+        public static string WaterCurtailmentRate {
+            get {
+                return ResourceManager.GetString("WaterCurtailmentRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterInAquifer.
+        /// </summary>
+        public static string WaterInAquifer {
+            get {
+                return ResourceManager.GetString("WaterInAquifer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterInAquiferMax.
+        /// </summary>
+        public static string WaterInAquiferMax {
+            get {
+                return ResourceManager.GetString("WaterInAquiferMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterStorCap.
+        /// </summary>
+        public static string WaterStorCap {
+            get {
+                return ResourceManager.GetString("WaterStorCap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterUsageMax.
+        /// </summary>
+        public static string WaterUsageMax {
+            get {
+                return ResourceManager.GetString("WaterUsageMax", resourceCulture);
             }
         }
     }

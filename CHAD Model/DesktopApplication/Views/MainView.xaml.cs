@@ -53,12 +53,16 @@ namespace DesktopApplication.Views
 
         private void AddNewSimulation_OnClick(object sender, RoutedEventArgs e)
         {
-            _navigationService.NavigateToEditSimulationView(_simulatorViewModel.MakeNewSimulationViewModel());
+            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.MakeConfigurationViewModel());
+
+            _navigationService.NavigateToParametersView(configurationEditorViewModel);
         }
 
         private void Edit_OnClick(object sender, RoutedEventArgs e)
         {
-            _navigationService.NavigateToEditSimulationView(_simulatorViewModel.SelectedViewModel);
+            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.SelectedViewModel);
+
+            _navigationService.NavigateToParametersView(configurationEditorViewModel);
         }
 
         #endregion

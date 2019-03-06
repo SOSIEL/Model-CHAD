@@ -8,8 +8,8 @@ namespace DesktopApplication.Resources
     {
         #region Properties, Indexers
 
-        public static ImageSource Logo => new BitmapImage(new Uri(
-            "@pack://application:,,,/DesktopApplication;component/Resources/SOSIEL.png", UriKind.RelativeOrAbsolute));
+        public static ImageSource Logo =>
+            new BitmapImage(new Uri("pack://application:,,,/Resources/SOSIEL.png", UriKind.RelativeOrAbsolute));
 
         #endregion
     }

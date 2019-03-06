@@ -1,4 +1,7 @@
-﻿using DesktopApplication.ViewServices;
+﻿using System;
+using System.Windows;
+using DesktopApplication.ViewModels;
+using DesktopApplication.ViewServices;
 
 namespace DesktopApplication.Views
 {
@@ -9,7 +12,7 @@ namespace DesktopApplication.Views
     {
         #region Fields
 
-        private readonly INavigationService _navigationService;
+        private readonly ConfigurationEditorViewModel _configurationEditorViewModel;
 
         #endregion
 
@@ -20,13 +23,31 @@ namespace DesktopApplication.Views
             InitializeComponent();
         }
 
-        public OutputView(INavigationService navigationService)
+        public OutputView(INavigationService navigationService,
+            ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            _navigationService = navigationService;
+            NavigationService = navigationService;
+            _configurationEditorViewModel = configurationEditorViewModel;
 
             InitializeComponent();
         }
 
         #endregion
+
+        #region Properties, Indexers
+
+        public INavigationService NavigationService { get; }
+
+        #endregion
+
+        private void PreviousButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateToAgentsView(_configurationEditorViewModel);
+        }
+
+        private void NextButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateToConfigurationNameView(_configurationEditorViewModel);
+        }
     }
 }

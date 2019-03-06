@@ -58,14 +58,19 @@ namespace DesktopApplication
             _unityContainer.RegisterType<MainView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
                     _unityContainer.Resolve<SimulatorViewModel>()));
+
             _unityContainer.RegisterType<ParametersView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), null));
+
             _unityContainer.RegisterType<AgentsView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), null));
+
             _unityContainer.RegisterType<OutputView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor(_unityContainer.Resolve<INavigationService>()));
-            _unityContainer.RegisterType<EditSimulationView>(new PerResolveLifetimeManager(),
-                new InjectionConstructor((ConfigurationEditorViewModel)null));
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), null));
+
+            _unityContainer.RegisterType<ConfigurationNameView>(new PerResolveLifetimeManager(),
+                new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
+                    _unityContainer.Resolve<SimulatorViewModel>(), null));
         }
 
         #endregion

@@ -123,6 +123,9 @@
   <data name="Agriculture" xml:space="preserve">
     <value>Agriculture</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ChadInfoText" xml:space="preserve">
     <value>The CHAD (Climate, Hydrology, Agriculture, &amp; Decision-making) model simulates interactions among some of the basic climatic, aquatic, agricultural, and decision-making processes impacting operations of farms.</value>
   </data>
@@ -137,6 +140,15 @@
   </data>
   <data name="Configure" xml:space="preserve">
     <value>Configure</value>
+  </data>
+  <data name="CostAlfalfa" xml:space="preserve">
+    <value>CostAlfalfa</value>
+  </data>
+  <data name="CostBarley" xml:space="preserve">
+    <value>CostBarley</value>
+  </data>
+  <data name="CostWheat" xml:space="preserve">
+    <value>CostWheat</value>
   </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>Current day</value>
@@ -162,11 +174,26 @@
   <data name="Hydrology" xml:space="preserve">
     <value>Hydrology</value>
   </data>
+  <data name="LeakAquiferFrac" xml:space="preserve">
+    <value>LeakAquiferFrac</value>
+  </data>
+  <data name="MeanBushelsAlfalfaPerAcre" xml:space="preserve">
+    <value>MeanBushelsAlfalfaPerAcre</value>
+  </data>
+  <data name="MeanBushelsBarleyPerAcre" xml:space="preserve">
+    <value>MeanBushelsBarleyPerAcre</value>
+  </data>
+  <data name="MeanBushelsWheatPerAcre" xml:space="preserve">
+    <value>MeanBushelsWheatPerAcre</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="NextButtonText" xml:space="preserve">
     <value>Next &gt;</value>
+  </data>
+  <data name="NumberOfSeasons" xml:space="preserve">
+    <value>Number os seasons:</value>
   </data>
   <data name="NumberOfSimulations" xml:space="preserve">
     <value>Number of simulations:</value>
@@ -176,6 +203,9 @@
   </data>
   <data name="Pause" xml:space="preserve">
     <value>Pause</value>
+  </data>
+  <data name="PercFromFieldFrac" xml:space="preserve">
+    <value>PercFromFieldFrac</value>
   </data>
   <data name="PoweredBy" xml:space="preserve">
     <value>Powered by</value>
@@ -203,5 +233,23 @@
   </data>
   <data name="TimeSinceStart" xml:space="preserve">
     <value>Time since start</value>
+  </data>
+  <data name="WaterCurtailmentBase" xml:space="preserve">
+    <value>WaterCurtailmentBase</value>
+  </data>
+  <data name="WaterCurtailmentRate" xml:space="preserve">
+    <value>WaterCurtailmentRate</value>
+  </data>
+  <data name="WaterInAquifer" xml:space="preserve">
+    <value>WaterInAquifer</value>
+  </data>
+  <data name="WaterInAquiferMax" xml:space="preserve">
+    <value>WaterInAquiferMax</value>
+  </data>
+  <data name="WaterStorCap" xml:space="preserve">
+    <value>WaterStorCap</value>
+  </data>
+  <data name="WaterUsageMax" xml:space="preserve">
+    <value>WaterUsageMax</value>
   </data>
 </root>

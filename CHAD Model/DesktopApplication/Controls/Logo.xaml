@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:DesktopApplication.Properties"
+    xmlns:resources="clr-namespace:DesktopApplication.Resources"
     d:DesignHeight="60"
     d:DesignWidth="128"
     mc:Ignorable="d">
@@ -17,29 +18,24 @@
         <Image
             Width="60"
             Height="60"
-            Source="../Resources/SOSIEL.png"
+            Source="{x:Static resources:ImageResources.Logo}"
             Stretch="Fill" />
 
-        <Grid Grid.Column="1">
+        <StackPanel Grid.Column="1">
 
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
             <TextBlock
-                Grid.Row="0"
+                Margin="0,8,0,0"
                 VerticalAlignment="Center"
                 FontFamily="Calibri"
-                FontSize="10"
+                FontSize="14"
                 Text="{x:Static properties:Resources.PoweredBy}" />
             <TextBlock
-                Grid.Row="1"
                 VerticalAlignment="Top"
                 FontFamily="Calibri"
-                FontSize="18"
+                FontSize="24"
                 FontWeight="Bold"
                 Text="{x:Static properties:Resources.Sosiel}" />
-        </Grid>
+        </StackPanel>
 
     </Grid>
 </UserControl>

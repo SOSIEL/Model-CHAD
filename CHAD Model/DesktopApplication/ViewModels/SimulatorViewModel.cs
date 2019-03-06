@@ -85,7 +85,7 @@ namespace DesktopApplication.ViewModels
             StatusChanged?.Invoke();
         }
 
-        public ConfigurationViewModel MakeNewSimulationViewModel()
+        public ConfigurationViewModel MakeConfigurationViewModel()
         {
             return new ConfigurationViewModel(new Configuration());
         }

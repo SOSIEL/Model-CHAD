@@ -2,10 +2,13 @@
 {
     public abstract class EditorViewModel<T> : ViewModelBase
     {
-        protected EditorViewModel(T value)
+        protected EditorViewModel(T originalValue, T value)
         {
+            OriginalValue = originalValue;
             Value = value;
         }
+
+        public T OriginalValue { get; }
 
         public T Value { get; }
 
