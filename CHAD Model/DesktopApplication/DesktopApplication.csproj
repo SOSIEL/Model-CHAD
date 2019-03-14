@@ -179,5 +179,11 @@
   <ItemGroup>
     <Resource Include="Resources\SOSIEL.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SOSIEL\SOSIEL.csproj">
+      <Project>{62635466-da2e-4270-82d4-58d09a1164f6}</Project>
+      <Name>SOSIEL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
