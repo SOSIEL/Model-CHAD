@@ -1,7 +1,11 @@
-﻿namespace DesktopApplication.Models
+﻿namespace Model
 {
     public class Parameters
     {
+        #region Public Members
+
+        public decimal Beta { get; set; }
+
         public decimal MeanBushelsAlfalfaPerAcre { get; set; }
 
         public decimal MeanBushelsBarleyPerAcre { get; set; }
@@ -29,5 +33,7 @@
         public decimal WaterInAquiferMax { get; set; }
 
         public decimal WaterStorCap { get; set; }
+
+        #endregion
     }
 }

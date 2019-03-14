@@ -74,9 +74,6 @@
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NullToBoolConverter.cs" />
-    <Compile Include="Models\Configuration.cs" />
-    <Compile Include="Models\Parameters.cs" />
-    <Compile Include="Models\SimulatorStatus.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources\ImageResources.cs" />
     <Compile Include="Services\IStorageService.cs" />
@@ -87,7 +84,7 @@
     <Compile Include="ViewModels\ConfigurationEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Tools\ViewModelBase.cs" />
-    <Compile Include="ViewModels\SimulatorViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewServices\NavigationService.cs" />
     <Compile Include="Views\AgentsView.xaml.cs">
       <DependentUpon>AgentsView.xaml</DependentUpon>
@@ -180,6 +177,14 @@
     <Resource Include="Resources\SOSIEL.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{bef0d056-469b-4a3c-a4f0-665a987d6e7d}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{1ba05c24-df51-4daf-b7f7-b6607ade7b8d}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SOSIEL\SOSIEL.csproj">
       <Project>{62635466-da2e-4270-82d4-58d09a1164f6}</Project>
       <Name>SOSIEL</Name>

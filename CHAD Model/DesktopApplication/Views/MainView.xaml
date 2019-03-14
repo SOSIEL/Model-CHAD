@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:DesktopApplication.Properties"
     xmlns:viewModels="clr-namespace:DesktopApplication.ViewModels"
-    d:DataContext="{d:DesignInstance viewModels:SimulatorViewModel}"
+    d:DataContext="{d:DesignInstance viewModels:ApplicationViewModel}"
     d:DesignHeight="500"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -70,13 +70,13 @@
                     Grid.Column="1"
                     Orientation="Horizontal">
 
-                    <ComboBox ItemsSource="{Binding Path=ConfigurationsViewModels}" SelectedItem="{Binding Path=SelectedViewModel, Mode=TwoWay}" />
+                    <ComboBox ItemsSource="{Binding Path=ConfigurationsViewModels}" SelectedItem="{Binding Path=ConfigurationViewModel, Mode=TwoWay}" />
 
                     <Button
                         Margin="16,0,0,0"
                         Click="Edit_OnClick"
                         Content="{x:Static properties:Resources.Edit}"
-                        IsEnabled="{Binding Path=SelectedViewModel, Converter={StaticResource NullToBoolConverter}}" />
+                        IsEnabled="{Binding Path=ConfigurationViewModel, Converter={StaticResource NullToBoolConverter}}" />
 
                     <Button
                         Margin="16,0,0,0"

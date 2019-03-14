@@ -13,7 +13,7 @@ namespace DesktopApplication.Views
 
         private readonly INavigationService _navigationService;
 
-        private readonly SimulatorViewModel _simulatorViewModel;
+        private readonly ApplicationViewModel _simulatorViewModel;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace DesktopApplication.Views
             InitializeComponent();
         }
 
-        public MainView(INavigationService navigationService, SimulatorViewModel simulatorViewModel)
+        public MainView(INavigationService navigationService, ApplicationViewModel simulatorViewModel)
         {
             _navigationService = navigationService;
             DataContext = _simulatorViewModel = simulatorViewModel;
@@ -60,7 +60,7 @@ namespace DesktopApplication.Views
 
         private void Edit_OnClick(object sender, RoutedEventArgs e)
         {
-            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.SelectedViewModel);
+            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.ConfigurationViewModel);
 
             _navigationService.NavigateToParametersView(configurationEditorViewModel);
         }

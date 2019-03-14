@@ -43,7 +43,7 @@ namespace DesktopApplication
             _unityContainer.RegisterType<IStorageService, StorageService>(new ContainerControlledLifetimeManager());
 
             // View Models
-            _unityContainer.RegisterType<SimulatorViewModel>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<ApplicationViewModel>(new ContainerControlledLifetimeManager());
 
             // View Services
             _unityContainer.RegisterType<INavigationService, NavigationService>(
@@ -52,12 +52,12 @@ namespace DesktopApplication
             // Windows
             _unityContainer.RegisterType<MainWindow>(new ContainerControlledLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
-                    _unityContainer.Resolve<SimulatorViewModel>()));
+                    _unityContainer.Resolve<ApplicationViewModel>()));
 
             // Views
             _unityContainer.RegisterType<MainView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
-                    _unityContainer.Resolve<SimulatorViewModel>()));
+                    _unityContainer.Resolve<ApplicationViewModel>()));
 
             _unityContainer.RegisterType<ParametersView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>(), null));
@@ -70,7 +70,7 @@ namespace DesktopApplication
 
             _unityContainer.RegisterType<ConfigurationNameView>(new PerResolveLifetimeManager(),
                 new InjectionConstructor(_unityContainer.Resolve<INavigationService>(),
-                    _unityContainer.Resolve<SimulatorViewModel>(), null));
+                    _unityContainer.Resolve<ApplicationViewModel>(), null));
         }
 
         #endregion

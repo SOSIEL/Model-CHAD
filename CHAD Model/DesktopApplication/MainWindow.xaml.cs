@@ -18,7 +18,7 @@ namespace DesktopApplication
             InitializeComponent();
         }
 
-        public MainWindow(INavigationService navigationService, SimulatorViewModel simulatorViewModel)
+        public MainWindow(INavigationService navigationService, ApplicationViewModel simulatorViewModel)
         {
             NavigationService = navigationService;
             DataContext = simulatorViewModel;

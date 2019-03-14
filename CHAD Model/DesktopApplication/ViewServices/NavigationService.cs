@@ -36,7 +36,7 @@ namespace DesktopApplication.ViewServices
     {
         #region Fields
 
-        private readonly SimulatorViewModel _simulatorViewModel;
+        private readonly ApplicationViewModel _simulatorViewModel;
         private readonly IUnityContainer _unityContainer;
         private UserControl _currentView;
 
@@ -44,12 +44,12 @@ namespace DesktopApplication.ViewServices
 
         #region Constructors
 
-        public NavigationService(IUnityContainer unityContainer, SimulatorViewModel simulatorViewModel)
+        public NavigationService(IUnityContainer unityContainer, ApplicationViewModel simulatorViewModel)
         {
             _unityContainer = unityContainer;
             _simulatorViewModel = simulatorViewModel;
 
-            simulatorViewModel.StatusChanged += SimulatorViewModelOnStatusChanged;
+            simulatorViewModel.SimulatorStatusChanged += SimulatorViewModelOnStatusChanged;
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace DesktopApplication.ViewServices
             get
             {
                 if (CurrentView is MainView)
-                    return _simulatorViewModel.SelectedViewModel != null;
+                    return _simulatorViewModel.ConfigurationViewModel != null;
 
                 return true;
             }

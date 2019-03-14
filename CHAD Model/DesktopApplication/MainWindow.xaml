@@ -11,7 +11,7 @@
     MinWidth="640"
     MinHeight="484"
     ResizeMode="CanMinimize"
-    d:DataContext="{d:DesignInstance viewModels:SimulatorViewModel}"
+    d:DataContext="{d:DesignInstance viewModels:ApplicationViewModel}"
     Loaded="MainWindow_OnLoaded"
     WindowStartupLocation="CenterScreen"
     WindowStyle="ThreeDBorderWindow"

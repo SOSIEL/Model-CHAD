@@ -1,4 +1,4 @@
-﻿namespace DesktopApplication.Models
+﻿namespace Model
 {
     public enum SimulatorStatus
     {

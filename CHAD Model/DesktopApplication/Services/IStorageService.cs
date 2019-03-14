@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DesktopApplication.Models;
+using Model;
 
 namespace DesktopApplication.Services
 {
@@ -7,7 +7,7 @@ namespace DesktopApplication.Services
     {
         #region All other members
 
-        IEnumerable<Configuration> GetSimulations();
+        IEnumerable<Configuration> GetConfigurations();
 
         #endregion
     }

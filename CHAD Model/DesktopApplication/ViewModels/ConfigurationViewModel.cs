@@ -1,5 +1,5 @@
-﻿using DesktopApplication.Models;
-using DesktopApplication.Tools;
+﻿using DesktopApplication.Tools;
+using Model;
 
 namespace DesktopApplication.ViewModels
 {
@@ -7,7 +7,6 @@ namespace DesktopApplication.ViewModels
     {
         #region Fields
 
-        private readonly Configuration _configuration;
         private bool _isConfigured;
 
         #endregion
@@ -16,19 +15,21 @@ namespace DesktopApplication.ViewModels
 
         public ConfigurationViewModel(Configuration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         public ConfigurationViewModel(ConfigurationViewModel simulationViewModel)
         {
-            _configuration = new Configuration();
+            Configuration = new Configuration();
             Name = simulationViewModel.Name;
             IsConfigured = _isConfigured;
         }
 
         #endregion
 
-        #region Properties, Indexers
+        #region Public Interface
+
+        public Configuration Configuration { get; private set; }
 
         public bool IsConfigured
         {
@@ -42,183 +43,179 @@ namespace DesktopApplication.ViewModels
 
         public string Name
         {
-            get => _configuration.Name;
+            get => Configuration.Name;
             set
             {
-                if (value == _configuration.Name) return;
-                _configuration.Name = value;
+                if (value == Configuration.Name) return;
+                Configuration.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
         public decimal MeanBushelsAlfalfaPerAcre
         {
-            get => _configuration.Parameters.MeanBushelsAlfalfaPerAcre;
+            get => Configuration.Parameters.MeanBushelsAlfalfaPerAcre;
             set
             {
-                if (value == _configuration.Parameters.MeanBushelsAlfalfaPerAcre)
+                if (value == Configuration.Parameters.MeanBushelsAlfalfaPerAcre)
                     return;
-                _configuration.Parameters.MeanBushelsAlfalfaPerAcre = value;
+                Configuration.Parameters.MeanBushelsAlfalfaPerAcre = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal MeanBushelsBarleyPerAcre
         {
-            get => _configuration.Parameters.MeanBushelsBarleyPerAcre;
+            get => Configuration.Parameters.MeanBushelsBarleyPerAcre;
             set
             {
-                if (value == _configuration.Parameters.MeanBushelsBarleyPerAcre)
+                if (value == Configuration.Parameters.MeanBushelsBarleyPerAcre)
                     return;
-                _configuration.Parameters.MeanBushelsBarleyPerAcre = value;
+                Configuration.Parameters.MeanBushelsBarleyPerAcre = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal MeanBushelsWheatPerAcre
         {
-            get => _configuration.Parameters.MeanBushelsWheatPerAcre;
+            get => Configuration.Parameters.MeanBushelsWheatPerAcre;
             set
             {
-                if (value == _configuration.Parameters.MeanBushelsWheatPerAcre)
+                if (value == Configuration.Parameters.MeanBushelsWheatPerAcre)
                     return;
-                _configuration.Parameters.MeanBushelsWheatPerAcre = value;
+                Configuration.Parameters.MeanBushelsWheatPerAcre = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal CostAlfalfa
         {
-            get => _configuration.Parameters.CostAlfalfa;
+            get => Configuration.Parameters.CostAlfalfa;
             set
             {
-                if (value == _configuration.Parameters.CostAlfalfa)
+                if (value == Configuration.Parameters.CostAlfalfa)
                     return;
-                _configuration.Parameters.CostAlfalfa = value;
+                Configuration.Parameters.CostAlfalfa = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal CostBarley
         {
-            get => _configuration.Parameters.CostBarley;
+            get => Configuration.Parameters.CostBarley;
             set
             {
-                if (value == _configuration.Parameters.CostBarley)
+                if (value == Configuration.Parameters.CostBarley)
                     return;
-                _configuration.Parameters.CostBarley = value;
+                Configuration.Parameters.CostBarley = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal CostWheat
         {
-            get => _configuration.Parameters.CostWheat;
+            get => Configuration.Parameters.CostWheat;
             set
             {
-                if (value == _configuration.Parameters.CostWheat)
+                if (value == Configuration.Parameters.CostWheat)
                     return;
-                _configuration.Parameters.CostWheat = value;
+                Configuration.Parameters.CostWheat = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterCurtailmentBase
         {
-            get => _configuration.Parameters.WaterCurtailmentBase;
+            get => Configuration.Parameters.WaterCurtailmentBase;
             set
             {
-                if (value == _configuration.Parameters.WaterCurtailmentBase)
+                if (value == Configuration.Parameters.WaterCurtailmentBase)
                     return;
-                _configuration.Parameters.WaterCurtailmentBase = value;
+                Configuration.Parameters.WaterCurtailmentBase = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterCurtailmentRate
         {
-            get => _configuration.Parameters.WaterCurtailmentRate;
+            get => Configuration.Parameters.WaterCurtailmentRate;
             set
             {
-                if (value == _configuration.Parameters.WaterCurtailmentRate)
+                if (value == Configuration.Parameters.WaterCurtailmentRate)
                     return;
-                _configuration.Parameters.WaterCurtailmentRate = value;
+                Configuration.Parameters.WaterCurtailmentRate = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterUsageMax
         {
-            get => _configuration.Parameters.WaterUsageMax;
+            get => Configuration.Parameters.WaterUsageMax;
             set
             {
-                if (value == _configuration.Parameters.WaterUsageMax)
+                if (value == Configuration.Parameters.WaterUsageMax)
                     return;
-                _configuration.Parameters.WaterUsageMax = value;
+                Configuration.Parameters.WaterUsageMax = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal LeakAquiferFrac
         {
-            get => _configuration.Parameters.LeakAquiferFrac;
+            get => Configuration.Parameters.LeakAquiferFrac;
             set
             {
-                if (value == _configuration.Parameters.LeakAquiferFrac)
+                if (value == Configuration.Parameters.LeakAquiferFrac)
                     return;
-                _configuration.Parameters.LeakAquiferFrac = value;
+                Configuration.Parameters.LeakAquiferFrac = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal PercFromFieldFrac
         {
-            get => _configuration.Parameters.PercFromFieldFrac;
+            get => Configuration.Parameters.PercFromFieldFrac;
             set
             {
-                if (value == _configuration.Parameters.PercFromFieldFrac)
+                if (value == Configuration.Parameters.PercFromFieldFrac)
                     return;
-                _configuration.Parameters.PercFromFieldFrac = value;
+                Configuration.Parameters.PercFromFieldFrac = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterInAquifer
         {
-            get => _configuration.Parameters.WaterInAquifer;
+            get => Configuration.Parameters.WaterInAquifer;
             set
             {
-                if (value == _configuration.Parameters.WaterInAquifer) return;
-                _configuration.Parameters.WaterInAquifer = value;
+                if (value == Configuration.Parameters.WaterInAquifer) return;
+                Configuration.Parameters.WaterInAquifer = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterInAquiferMax
         {
-            get => _configuration.Parameters.WaterInAquiferMax;
+            get => Configuration.Parameters.WaterInAquiferMax;
             set
             {
-                if (value == _configuration.Parameters.WaterInAquiferMax) return;
-                _configuration.Parameters.WaterInAquiferMax = value;
+                if (value == Configuration.Parameters.WaterInAquiferMax) return;
+                Configuration.Parameters.WaterInAquiferMax = value;
                 OnPropertyChanged();
             }
         }
 
         public decimal WaterStorCap
         {
-            get => _configuration.Parameters.WaterStorCap;
+            get => Configuration.Parameters.WaterStorCap;
             set
             {
-                if (value == _configuration.Parameters.WaterStorCap) return;
-                _configuration.Parameters.WaterStorCap = value;
+                if (value == Configuration.Parameters.WaterStorCap) return;
+                Configuration.Parameters.WaterStorCap = value;
                 OnPropertyChanged();
             }
         }
-
-        #endregion
-
-        #region All other members
 
         public void Configure()
         {

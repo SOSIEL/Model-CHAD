@@ -1,4 +1,4 @@
-﻿namespace DesktopApplication.Models
+﻿namespace Model
 {
     public class Configuration
     {
@@ -17,7 +17,7 @@
 
         #endregion
 
-        #region Properties, Indexers
+        #region Public Members
 
         public string Name { get; set; }
 

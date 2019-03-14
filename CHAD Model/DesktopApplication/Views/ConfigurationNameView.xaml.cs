@@ -11,7 +11,7 @@ namespace DesktopApplication.Views
     {
         #region Fields
 
-        private readonly SimulatorViewModel _simulatorViewModel;
+        private readonly ApplicationViewModel _simulatorViewModel;
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace DesktopApplication.Views
             InitializeComponent();
         }
 
-        public ConfigurationNameView(INavigationService navigationService, SimulatorViewModel simulatorViewModel,
+        public ConfigurationNameView(INavigationService navigationService, ApplicationViewModel simulatorViewModel,
             ConfigurationEditorViewModel configurationEditorViewModel)
         {
             _simulatorViewModel = simulatorViewModel;
