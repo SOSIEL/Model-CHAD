@@ -32,13 +32,15 @@ namespace Model
                 return;
 
             Status = SimulatorStatus.Run;
+
+            Simulate();
         }
 
         public void Stop()
         {
             if(Status == SimulatorStatus.Stopped)
                 return;
-
+            
             Status = SimulatorStatus.Stopped;
         }
 
@@ -58,6 +60,18 @@ namespace Model
 
             Configuration = configuration;
         }
+
         #endregion
+
+        private void Simulate()
+        {
+            for (int seasonNumber = 1; seasonNumber <= Configuration.SeasonsCount; seasonNumber++)
+            {
+                for (int dayNumber = 1; dayNumber <= Configuration.DaysInSeasonCount; dayNumber++)
+                {
+                    
+                }
+            }
+        }
     }
 }

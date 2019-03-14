@@ -14,7 +14,11 @@ namespace ConsoleApp10
 {
     public static class DataAccess
     {
+        #region Static Fields and Constants
+
         private static int? _inputCropEvapTransColumnsCount;
+
+        #endregion
 
         #region Public Interface
 
@@ -22,7 +26,7 @@ namespace ConsoleApp10
         {
             get
             {
-                if(!_inputCropEvapTransColumnsCount.HasValue)
+                if (!_inputCropEvapTransColumnsCount.HasValue)
                     throw new NullReferenceException();
 
                 return _inputCropEvapTransColumnsCount.Value;
@@ -201,9 +205,28 @@ namespace ConsoleApp10
             spreadsheetDocument.Close();
         }
 
-        public static IEnumerable<InputClimate> GetClimate(Random random)
+        public static Configuration GetConfiguration()
         {
-            return GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputClimate.xlsx").Rows
+            var configuration = new Configuration();
+
+            FillParameters(configuration);
+            FillClimate(configuration);
+            FillCropEvapTrans(configuration);
+            FillFieldSizes(configuration);
+
+
+            return configuration;
+        }
+
+        #endregion
+
+        #region All other members
+
+        private static void FillClimate(Configuration configuration)
+        {
+            var table = GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputClimate.xlsx");
+
+            configuration.ClimateList.AddRange(table.Rows
                 .Cast<DataRow>().Select(e => new InputClimate
                 {
                     t = Convert.ToInt32(e[0].ToString()),
@@ -211,45 +234,38 @@ namespace ConsoleApp10
                     TempSD = ToDouble(e[2].ToString()),
                     PrecipMean = ToDouble(e[3].ToString()),
                     PrecipSD = ToDouble(e[4].ToString()),
-                    TempMeanRandom = Gaussian(random, ToDouble(e[1].ToString()), ToDouble(e[2].ToString())),
-                    PrecipMeanRandom = Gaussian(random, ToDouble(e[3].ToString()), ToDouble(e[4].ToString()))
-                });
+                    TempMeanRandom = Gaussian(ToDouble(e[1].ToString()), ToDouble(e[2].ToString())),
+                    PrecipMeanRandom = Gaussian(ToDouble(e[3].ToString()), ToDouble(e[4].ToString()))
+                }));
         }
 
-        public static IEnumerable<InputCropEvapTrans> GetCropEvapTrans()
+        private static void FillCropEvapTrans(Configuration configuration)
         {
-            var cropEvapTrans = new List<InputCropEvapTrans>();
-            var inputCropEvapTransTable =
-                GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputCropEvapTrans.xlsx");
-            foreach (DataRow row in inputCropEvapTransTable.Rows)
-                for (var i = 1; i < inputCropEvapTransTable.Columns.Count; i++)
-                    cropEvapTrans.Add(new InputCropEvapTrans
+            var table = GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputCropEvapTrans.xlsx");
+
+            foreach (DataRow row in table.Rows)
+                for (var i = 1; i < table.Columns.Count; i++)
+                    configuration.CropEvapTransList.Add(new InputCropEvapTrans
                     {
                         t = Convert.ToInt32(row[0].ToString()),
                         CropType = i,
-                        CropName = inputCropEvapTransTable.Columns[i].ColumnName,
+                        CropName = table.Columns[i].ColumnName,
                         Quantity = (decimal) ToDouble(row[i].ToString())
                     });
 
-            _inputCropEvapTransColumnsCount = inputCropEvapTransTable.Columns.Count;
-
-            return cropEvapTrans;
+            _inputCropEvapTransColumnsCount = table.Columns.Count;
         }
 
-        public static IEnumerable<InputFieldSize> GetFieldSizes()
+        private static void FillFieldSizes(Configuration configuration)
         {
-            return GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputFieldSize.xlsx").Rows
-                .Cast<DataRow>().Select(e => new InputFieldSize
-                {
-                    FieldNum = ToDecimal(e[0].ToString()),
-                    FieldSize = ToDecimal(e[1].ToString())
-                });
-        }
-        
-        public static Configuration GetConfiguration()
-        {
-            var configuration = new Configuration();
+            var table = GetTable(ConfigurationManager.AppSettings["inputfilepath"] + "/InputFieldSize.xlsx");
 
+            configuration.FieldSizeList.AddRange(table.Rows.Cast<DataRow>().Select(e => new InputFieldSize
+                {FieldNum = ToDecimal(e[0].ToString()), FieldSize = ToDecimal(e[1].ToString())}));
+        }
+
+        private static void FillParameters(Configuration configuration)
+        {
             configuration.Parameters.WaterInAquifer = ToDecimal(ConfigurationManager.AppSettings["WaterInAquifer"]);
             configuration.Parameters.WaterInAquiferMax =
                 ToDecimal(ConfigurationManager.AppSettings["WaterInAquiferMax"]);
@@ -258,13 +274,7 @@ namespace ConsoleApp10
             configuration.Parameters.PercFromFieldFrac =
                 ToDecimal(ConfigurationManager.AppSettings["PercFromFieldFrac"]);
             configuration.Parameters.WaterStorCap = ToDecimal(ConfigurationManager.AppSettings["WaterStorCap"]);
-
-            return configuration;
         }
-
-        #endregion
-
-        #region All other members
 
         private static string GetCellValue(SpreadsheetDocument document, Cell cell)
         {
@@ -329,8 +339,9 @@ namespace ConsoleApp10
             return Convert.ToDecimal(input.Replace(separator, newSeparator));
         }
 
-        private static decimal Gaussian(Random random, double mean, double stddev)
+        private static decimal Gaussian(double mean, double stddev)
         {
+            var random = new Random();
             var x1 = 1 - random.NextDouble();
             var x2 = 1 - random.NextDouble();
             var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);

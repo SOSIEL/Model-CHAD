@@ -17,9 +17,9 @@ namespace ConsoleApp10
             var hydrology = new List<Hydrology>();
 
             var configuration = DataAccess.GetConfiguration();
-            var inputClimate = DataAccess.GetClimate(random).ToList();
-            var inputCropEvapTrans = DataAccess.GetCropEvapTrans().ToList();
-            var inputFieldSize = DataAccess.GetFieldSizes().ToList();
+            var inputClimate = configuration.ClimateList;
+            var inputCropEvapTrans = configuration.CropEvapTransList;
+            var inputFieldSize = configuration.FieldSizeList;
 
             var DirectRunoff = new decimal[inputFieldSize.Count];
             var CropInField = new int[inputFieldSize.Count];
