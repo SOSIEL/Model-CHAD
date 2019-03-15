@@ -2,7 +2,20 @@
 {
     public class Parameters
     {
+        public Parameters()
+        {
+            Beta = 1;
+            LeakAquiferFrac = 0;
+            NumOfSeasons = 1;
+            PercFromFieldFrac = 1;
+            WaterInAquifer = 0;
+            WaterInAquiferMax = 10;
+            WaterStorCap = 1;
+        }
+
         #region Public Members
+
+        public int NumOfSeasons { get; set; }
 
         public decimal Beta { get; set; }
 

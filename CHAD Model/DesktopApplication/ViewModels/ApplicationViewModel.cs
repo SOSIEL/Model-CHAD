@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using DesktopApplication.Services;
 using DesktopApplication.Tools;
 using Model;
 
@@ -22,7 +21,7 @@ namespace DesktopApplication.ViewModels
         public ApplicationViewModel(IStorageService storageService)
         {
             _storageService = storageService;
-            _simulator = new Simulator();
+            _simulator = new Simulator(new SimpleLogger());
             _simulator.StatusChanged += SimulatorOnStatusChanged;
 
             ConfigurationsViewModels = new ObservableCollection<ConfigurationViewModel>();

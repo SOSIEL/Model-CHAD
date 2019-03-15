@@ -9,9 +9,9 @@ namespace Model
         public Configuration()
         {
             Parameters = new Parameters();
-            ClimateList = new List<InputClimate>();
+            ClimateList = new List<Climate>();
             CropEvapTransList = new List<InputCropEvapTrans>();
-            FieldSizeList = new List<InputFieldSize>();
+            Fields = new List<Field>();
         }
 
         public Configuration(string name)
@@ -30,13 +30,13 @@ namespace Model
 
         public int DaysInSeasonCount { get; set; }
 
-        public Parameters Parameters { get; }
+        public Parameters Parameters { get; set; }
 
-        public List<InputClimate> ClimateList { get; }
+        public List<Climate> ClimateList { get; }
 
         public List<InputCropEvapTrans> CropEvapTransList { get; }
 
-        public List<InputFieldSize> FieldSizeList { get; }
+        public List<Field> Fields { get; }
 
         #endregion
     }

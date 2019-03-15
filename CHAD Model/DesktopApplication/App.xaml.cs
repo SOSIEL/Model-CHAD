@@ -1,8 +1,9 @@
 ﻿using System.Windows;
-using DesktopApplication.Services;
+using DataAccess;
 using DesktopApplication.ViewModels;
 using DesktopApplication.Views;
 using DesktopApplication.ViewServices;
+using Model;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -40,7 +41,7 @@ namespace DesktopApplication
             _unityContainer = new UnityContainer();
 
             // Services
-            _unityContainer.RegisterType<IStorageService, StorageService>(new ContainerControlledLifetimeManager());
+            _unityContainer.RegisterType<IStorageService, FileStorageService>(new ContainerControlledLifetimeManager());
 
             // View Models
             _unityContainer.RegisterType<ApplicationViewModel>(new ContainerControlledLifetimeManager());

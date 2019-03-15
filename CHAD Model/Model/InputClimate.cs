@@ -1,10 +1,10 @@
 ﻿namespace Model
 {
-    public class InputClimate
+    public class Climate
     {
         #region Public Interface
 
-        public int t { get; set; }
+        public int Day { get; set; }
         public double TempMean { get; set; }
         public double TempSD { get; set; }
         public double PrecipMean { get; set; }

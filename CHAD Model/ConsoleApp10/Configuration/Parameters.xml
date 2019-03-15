@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NumOfSeasons>1</NumOfSeasons>
+  <Beta>1</Beta>
+  <MeanBushelsAlfalfaPerAcre>0</MeanBushelsAlfalfaPerAcre>
+  <MeanBushelsBarleyPerAcre>0</MeanBushelsBarleyPerAcre>
+  <MeanBushelsWheatPerAcre>0</MeanBushelsWheatPerAcre>
+  <CostAlfalfa>0</CostAlfalfa>
+  <CostBarley>0</CostBarley>
+  <CostWheat>0</CostWheat>
+  <WaterCurtailmentBase>0</WaterCurtailmentBase>
+  <WaterCurtailmentRate>0</WaterCurtailmentRate>
+  <WaterUsageMax>0</WaterUsageMax>
+  <LeakAquiferFrac>0</LeakAquiferFrac>
+  <PercFromFieldFrac>1</PercFromFieldFrac>
+  <WaterInAquifer>0</WaterInAquifer>
+  <WaterInAquiferMax>10</WaterInAquiferMax>
+  <WaterStorCap>1</WaterStorCap>
+</Parameters>
