@@ -11,7 +11,7 @@ namespace DesktopApplication.Views
     {
         #region Fields
 
-        private readonly ApplicationViewModel _simulatorViewModel;
+        private readonly ApplicationViewModel _applicationViewModel;
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace DesktopApplication.Views
             InitializeComponent();
         }
 
-        public ConfigurationNameView(INavigationService navigationService, ApplicationViewModel simulatorViewModel,
+        public ConfigurationNameView(INavigationService navigationService, ApplicationViewModel applicationViewModel,
             ConfigurationEditorViewModel configurationEditorViewModel)
         {
-            _simulatorViewModel = simulatorViewModel;
+            _applicationViewModel = applicationViewModel;
             NavigationService = navigationService;
             DataContext = ConfigurationEditorViewModel = configurationEditorViewModel;
 
@@ -53,10 +53,10 @@ namespace DesktopApplication.Views
         {
             ConfigurationEditorViewModel.Save();
 
-            if (!_simulatorViewModel.ConfigurationsViewModels.Contains(ConfigurationEditorViewModel.OriginalValue))
-                _simulatorViewModel.AddConfigurationViewModel(ConfigurationEditorViewModel.OriginalValue);
+            if (!_applicationViewModel.ConfigurationsViewModels.Contains(ConfigurationEditorViewModel.OriginalValue))
+                _applicationViewModel.AddConfigurationViewModel(ConfigurationEditorViewModel.OriginalValue);
 
-            _simulatorViewModel.Configure();
+            _applicationViewModel.SaveConfiguration(ConfigurationEditorViewModel.OriginalValue);
 
             NavigationService.NavigateToMainView();
         }

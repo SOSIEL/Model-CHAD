@@ -55,17 +55,10 @@ namespace DesktopApplication.ViewModels
             _simulator.Pause();
         }
 
-        public void Configure()
-        {
-            ConfigurationViewModel?.Configure();
-            RaiseStatusChanged();
-        }
-
 
         public bool CanStart =>
             (_simulator.Status == SimulatorStatus.Stopped || _simulator.Status == SimulatorStatus.OnPaused)
-            && ConfigurationViewModel != null
-            && ConfigurationViewModel.IsConfigured;
+            && ConfigurationViewModel != null;
 
         public bool CanPause => _simulator.Status == SimulatorStatus.Run;
 
@@ -77,8 +70,9 @@ namespace DesktopApplication.ViewModels
             get => _configurationViewModel;
             set
             {
-                _simulator.SetConfiguration(_configurationViewModel.Configuration);
                 _configurationViewModel = value;
+                _storageService.GetConfiguration(_configurationViewModel.Configuration);
+                _simulator.SetConfiguration(_configurationViewModel.Configuration);
 
                 OnPropertyChanged(nameof(ConfigurationViewModel));
                 RaiseStatusChanged();
@@ -91,6 +85,11 @@ namespace DesktopApplication.ViewModels
         {
             ConfigurationsViewModels.Add(configurationViewModel);
             ConfigurationViewModel = configurationViewModel;
+        }
+
+        public void SaveConfiguration(ConfigurationViewModel configurationViewModel)
+        {
+            _storageService.SaveConfiguration(configurationViewModel.Configuration, true);
         }
 
         #endregion

@@ -5,12 +5,6 @@ namespace DesktopApplication.ViewModels
 {
     public class ConfigurationViewModel : ViewModelBase
     {
-        #region Fields
-
-        private bool _isConfigured;
-
-        #endregion
-
         #region Constructors
 
         public ConfigurationViewModel(Configuration configuration)
@@ -22,24 +16,13 @@ namespace DesktopApplication.ViewModels
         {
             Configuration = new Configuration();
             Name = simulationViewModel.Name;
-            IsConfigured = _isConfigured;
         }
 
         #endregion
 
         #region Public Interface
 
-        public Configuration Configuration { get; private set; }
-
-        public bool IsConfigured
-        {
-            get => _isConfigured;
-            private set
-            {
-                _isConfigured = value;
-                OnPropertyChanged(nameof(IsConfigured));
-            }
-        }
+        public Configuration Configuration { get; }
 
         public string Name
         {
@@ -215,11 +198,6 @@ namespace DesktopApplication.ViewModels
                 Configuration.Parameters.WaterStorCap = value;
                 OnPropertyChanged();
             }
-        }
-
-        public void Configure()
-        {
-            IsConfigured = true;
         }
 
         public override string ToString()
