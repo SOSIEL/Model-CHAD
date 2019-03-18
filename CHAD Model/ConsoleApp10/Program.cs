@@ -25,8 +25,7 @@ namespace ConsoleApp10
 
             var logger = new SimpleLogger();
 
-            configuration.SeasonsCount = 1;
-            configuration.DaysInSeasonCount = configuration.ClimateList.Count;
+            configuration.Parameters.NumOfSeasons = 1;
 
             var simulator = new Simulator(logger);
             simulator.SetConfiguration(configuration);

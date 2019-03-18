@@ -31,7 +31,31 @@ namespace DesktopApplication.ViewModels
             {
                 if (value == Configuration.Name) return;
                 Configuration.Name = value;
-                OnPropertyChanged(nameof(Name));
+                RaisePropertyChanged(nameof(Name));
+            }
+        }
+
+        public int SimulationsCount
+        {
+            get => Configuration.Parameters.NumOfSimulations;
+            set
+            {
+                if(value == Configuration.Parameters.NumOfSimulations)
+                    return;
+                Configuration.Parameters.NumOfSimulations = value;
+                RaisePropertyChanged(nameof(SimulationsCount));
+            }
+        }
+
+        public int SeasonsCount
+        {
+            get => Configuration.Parameters.NumOfSeasons;
+            set
+            {
+                if (value == Configuration.Parameters.NumOfSeasons)
+                    return;
+                Configuration.Parameters.NumOfSeasons = value;
+                RaisePropertyChanged(nameof(SeasonsCount));
             }
         }
 
@@ -43,7 +67,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.MeanBushelsAlfalfaPerAcre)
                     return;
                 Configuration.Parameters.MeanBushelsAlfalfaPerAcre = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -55,7 +79,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.MeanBushelsBarleyPerAcre)
                     return;
                 Configuration.Parameters.MeanBushelsBarleyPerAcre = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -67,7 +91,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.MeanBushelsWheatPerAcre)
                     return;
                 Configuration.Parameters.MeanBushelsWheatPerAcre = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -79,7 +103,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.CostAlfalfa)
                     return;
                 Configuration.Parameters.CostAlfalfa = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -91,7 +115,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.CostBarley)
                     return;
                 Configuration.Parameters.CostBarley = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -103,7 +127,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.CostWheat)
                     return;
                 Configuration.Parameters.CostWheat = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -115,7 +139,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.WaterCurtailmentBase)
                     return;
                 Configuration.Parameters.WaterCurtailmentBase = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -127,7 +151,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.WaterCurtailmentRate)
                     return;
                 Configuration.Parameters.WaterCurtailmentRate = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -139,7 +163,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.WaterUsageMax)
                     return;
                 Configuration.Parameters.WaterUsageMax = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -151,7 +175,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.LeakAquiferFrac)
                     return;
                 Configuration.Parameters.LeakAquiferFrac = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -163,7 +187,7 @@ namespace DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.PercFromFieldFrac)
                     return;
                 Configuration.Parameters.PercFromFieldFrac = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -174,7 +198,7 @@ namespace DesktopApplication.ViewModels
             {
                 if (value == Configuration.Parameters.WaterInAquifer) return;
                 Configuration.Parameters.WaterInAquifer = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -185,7 +209,7 @@ namespace DesktopApplication.ViewModels
             {
                 if (value == Configuration.Parameters.WaterInAquiferMax) return;
                 Configuration.Parameters.WaterInAquiferMax = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -196,7 +220,7 @@ namespace DesktopApplication.ViewModels
             {
                 if (value == Configuration.Parameters.WaterStorCap) return;
                 Configuration.Parameters.WaterStorCap = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -208,6 +232,9 @@ namespace DesktopApplication.ViewModels
         public void CopyTo(ConfigurationViewModel configurationViewModel)
         {
             configurationViewModel.Name = Name;
+
+            configurationViewModel.Configuration.Parameters.Beta = Configuration.Parameters.Beta;
+            configurationViewModel.Configuration.Parameters.NumOfSeasons = Configuration.Parameters.NumOfSeasons;
 
             configurationViewModel.MeanBushelsAlfalfaPerAcre = MeanBushelsAlfalfaPerAcre;
             configurationViewModel.MeanBushelsBarleyPerAcre = MeanBushelsBarleyPerAcre;

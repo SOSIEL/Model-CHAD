@@ -15,6 +15,8 @@
 
         #region Public Members
 
+        public int NumOfSimulations { get; set; }
+
         public int NumOfSeasons { get; set; }
 
         public decimal Beta { get; set; }

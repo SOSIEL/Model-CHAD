@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 using DesktopApplication.Tools;
 using Model;
 
@@ -9,10 +11,12 @@ namespace DesktopApplication.ViewModels
     {
         #region Fields
 
-        private readonly Simulator _simulator;
+        private readonly Timer _checkStatusTimer;
 
         private readonly IStorageService _storageService;
         private ConfigurationViewModel _configurationViewModel;
+        private int _currentDay;
+        private int _currentSeason;
 
         #endregion
 
@@ -21,8 +25,10 @@ namespace DesktopApplication.ViewModels
         public ApplicationViewModel(IStorageService storageService)
         {
             _storageService = storageService;
-            _simulator = new Simulator(new SimpleLogger());
-            _simulator.StatusChanged += SimulatorOnStatusChanged;
+            Simulator = new Simulator(new SimpleLogger());
+            Simulator.StatusChanged += SimulatorOnStatusChanged;
+
+            _checkStatusTimer = new Timer(CheckStatus, null, -1, 500);
 
             ConfigurationsViewModels = new ObservableCollection<ConfigurationViewModel>();
             foreach (var configuration in storageService.GetConfigurations())
@@ -33,6 +39,8 @@ namespace DesktopApplication.ViewModels
 
         #region Public Interface
 
+        public Simulator Simulator { get; }
+
         public event Action SimulatorStatusChanged;
 
         public ConfigurationViewModel MakeConfigurationViewModel()
@@ -42,39 +50,69 @@ namespace DesktopApplication.ViewModels
 
         public void Start()
         {
-            _simulator.Start();
+            Task.Run(() => { Simulator.Start(); });
+            _checkStatusTimer.Change(0, 500);
         }
 
         public void Stop()
         {
-            _simulator.Stop();
+            Simulator.Stop();
         }
 
         public void Pause()
         {
-            _simulator.Pause();
+            Simulator.Pause();
         }
 
+        public bool IsConfigurationChangingEnabled => Simulator.Status == SimulatorStatus.Stopped;
+
+        public bool IsConfigurationAddingEnabled => Simulator.Status == SimulatorStatus.Stopped;
+
+        public bool IsConfigurationEditingEnabled =>
+            ConfigurationViewModel != null && Simulator.Status == SimulatorStatus.Stopped;
+
+        public int CurrentSeason
+        {
+            get => _currentSeason;
+            set
+            {
+                _currentSeason = value;
+                RaisePropertyChangedForDispatchers(nameof(CurrentSeason));
+            }
+        }
+
+        public int CurrentDay
+        {
+            get => _currentDay;
+            set
+            {
+                _currentDay = value;
+                RaisePropertyChangedForDispatchers(nameof(CurrentDay));
+            }
+        }
 
         public bool CanStart =>
-            (_simulator.Status == SimulatorStatus.Stopped || _simulator.Status == SimulatorStatus.OnPaused)
+            (Simulator.Status == SimulatorStatus.Stopped || Simulator.Status == SimulatorStatus.OnPaused)
             && ConfigurationViewModel != null;
 
-        public bool CanPause => _simulator.Status == SimulatorStatus.Run;
+        public bool CanPause => Simulator.Status == SimulatorStatus.Run;
 
         public bool CanStop =>
-            _simulator.Status == SimulatorStatus.Run || _simulator.Status == SimulatorStatus.OnPaused;
+            Simulator.Status == SimulatorStatus.Run || Simulator.Status == SimulatorStatus.OnPaused;
 
         public ConfigurationViewModel ConfigurationViewModel
         {
             get => _configurationViewModel;
             set
             {
+                if (_configurationViewModel != null)
+                    _storageService.SaveConfiguration(_configurationViewModel.Configuration, true);
+
                 _configurationViewModel = value;
                 _storageService.GetConfiguration(_configurationViewModel.Configuration);
-                _simulator.SetConfiguration(_configurationViewModel.Configuration);
+                Simulator.SetConfiguration(_configurationViewModel.Configuration);
 
-                OnPropertyChanged(nameof(ConfigurationViewModel));
+                RaisePropertyChanged(nameof(ConfigurationViewModel));
                 RaiseStatusChanged();
             }
         }
@@ -96,6 +134,12 @@ namespace DesktopApplication.ViewModels
 
         #region All other members
 
+        private void CheckStatus(object state)
+        {
+            CurrentSeason = Simulator.CurrentSeason;
+            CurrentDay = Simulator.CurrentDay;
+        }
+
         private void SimulatorOnStatusChanged()
         {
             RaiseStatusChanged();
@@ -103,9 +147,12 @@ namespace DesktopApplication.ViewModels
 
         private void RaiseStatusChanged()
         {
-            OnPropertyChanged(nameof(CanStart));
-            OnPropertyChanged(nameof(CanPause));
-            OnPropertyChanged(nameof(CanStop));
+            RaisePropertyChanged(nameof(CanStart));
+            RaisePropertyChanged(nameof(CanPause));
+            RaisePropertyChanged(nameof(CanStop));
+            RaisePropertyChanged(nameof(IsConfigurationChangingEnabled));
+            RaisePropertyChanged(nameof(IsConfigurationAddingEnabled));
+            RaisePropertyChanged(nameof(IsConfigurationEditingEnabled));
             SimulatorStatusChanged?.Invoke();
         }
 

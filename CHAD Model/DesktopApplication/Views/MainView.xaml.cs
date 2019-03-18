@@ -11,9 +11,9 @@ namespace DesktopApplication.Views
     {
         #region Fields
 
-        private readonly INavigationService _navigationService;
+        private readonly ApplicationViewModel _applicationViewModel;
 
-        private readonly ApplicationViewModel _simulatorViewModel;
+        private readonly INavigationService _navigationService;
 
         #endregion
 
@@ -24,10 +24,12 @@ namespace DesktopApplication.Views
             InitializeComponent();
         }
 
-        public MainView(INavigationService navigationService, ApplicationViewModel simulatorViewModel)
+        public MainView(INavigationService navigationService, ApplicationViewModel applicationViewModel)
         {
             _navigationService = navigationService;
-            DataContext = _simulatorViewModel = simulatorViewModel;
+            DataContext = _applicationViewModel = applicationViewModel;
+
+            _applicationViewModel.AddDispatcher(Dispatcher);
 
             InitializeComponent();
         }
@@ -38,29 +40,31 @@ namespace DesktopApplication.Views
 
         private void Start_OnClick(object sender, RoutedEventArgs e)
         {
-            _simulatorViewModel.Start();
+            _applicationViewModel.Start();
         }
 
         private void Stop_OnClick(object sender, RoutedEventArgs e)
         {
-            _simulatorViewModel.Stop();
+            _applicationViewModel.Stop();
         }
 
         private void Pause_OnClick(object sender, RoutedEventArgs e)
         {
-            _simulatorViewModel.Pause();
+            _applicationViewModel.Pause();
         }
 
         private void AddNewSimulation_OnClick(object sender, RoutedEventArgs e)
         {
-            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.MakeConfigurationViewModel());
+            var configurationEditorViewModel =
+                new ConfigurationEditorViewModel(_applicationViewModel.MakeConfigurationViewModel());
 
             _navigationService.NavigateToParametersView(configurationEditorViewModel);
         }
 
         private void Edit_OnClick(object sender, RoutedEventArgs e)
         {
-            var configurationEditorViewModel = new ConfigurationEditorViewModel(_simulatorViewModel.ConfigurationViewModel);
+            var configurationEditorViewModel =
+                new ConfigurationEditorViewModel(_applicationViewModel.ConfigurationViewModel);
 
             _navigationService.NavigateToParametersView(configurationEditorViewModel);
         }

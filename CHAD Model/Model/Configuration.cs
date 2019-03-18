@@ -26,9 +26,7 @@ namespace Model
 
         public string Name { get; set; }
 
-        public int SeasonsCount { get; set; }
-
-        public int DaysInSeasonCount { get; set; }
+        public int DaysCount => ClimateList.Count;
 
         public Parameters Parameters { get; set; }
 
