@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using DesktopApplication.ViewModels;
 using DesktopApplication.ViewServices;
+using Model;
 
 namespace DesktopApplication.Views
 {
@@ -40,7 +41,11 @@ namespace DesktopApplication.Views
 
         private void Start_OnClick(object sender, RoutedEventArgs e)
         {
-            _applicationViewModel.Start();
+            if (_applicationViewModel.Simulator.Status == SimulatorStatus.Stopped)
+                _applicationViewModel.Start();
+
+            if (_applicationViewModel.Simulator.Status == SimulatorStatus.OnPaused)
+                _applicationViewModel.Continue();
         }
 
         private void Stop_OnClick(object sender, RoutedEventArgs e)
@@ -67,6 +72,12 @@ namespace DesktopApplication.Views
                 new ConfigurationEditorViewModel(_applicationViewModel.ConfigurationViewModel);
 
             _navigationService.NavigateToParametersView(configurationEditorViewModel);
+        }
+
+        private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (_applicationViewModel.ConfigurationViewModel != null)
+                _applicationViewModel.SaveConfiguration(_applicationViewModel.ConfigurationViewModel);
         }
 
         #endregion

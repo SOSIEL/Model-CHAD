@@ -35,7 +35,7 @@ namespace Model
         public SimulatorStatus Status
         {
             get => _status;
-            set
+            private set
             {
                 _status = value;
                 StatusChanged?.Invoke();
@@ -44,15 +44,10 @@ namespace Model
 
         public void Start()
         {
-            var previousStatus = Status;
+            if(Status != SimulatorStatus.Stopped)
+                throw new InvalidOperationException("Simulator is already running");
 
             Status = SimulatorStatus.Run;
-
-            if (previousStatus == SimulatorStatus.Run)
-                return;
-
-            if (previousStatus == SimulatorStatus.OnPaused)
-                return;
 
             Simulate();
 
@@ -62,7 +57,7 @@ namespace Model
         public void Stop()
         {
             if (Status == SimulatorStatus.Stopped)
-                return;
+                throw new InvalidOperationException("Simulator is already stopped");
 
             CurrentSimulation = 0;
             CurrentSeason = 0;
@@ -73,10 +68,18 @@ namespace Model
 
         public void Pause()
         {
-            if (Status == SimulatorStatus.Stopped || Status == SimulatorStatus.OnPaused)
-                return;
+            if (Status == SimulatorStatus.OnPaused)
+                throw new InvalidOperationException("Simulator is already on pause");
 
             Status = SimulatorStatus.OnPaused;
+        }
+
+        public void Continue()
+        {
+            if(Status != SimulatorStatus.OnPaused)
+                throw new InvalidOperationException("Simulator is not on pause");
+
+            Status = SimulatorStatus.Run;
         }
 
         public int CurrentSimulation { get; private set; }

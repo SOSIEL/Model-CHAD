@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using DataAccess;
@@ -19,6 +20,8 @@ namespace DesktopApplication.ViewModels
         private int _currentDay;
         private int _currentSeason;
         private int _currentSimulation;
+        private Stopwatch _stopwatch;
+        private string _currentTime;
 
         #endregion
 
@@ -32,6 +35,7 @@ namespace DesktopApplication.ViewModels
             Simulator.SimulationResultObtained += SimulatorOnSimulationResultObtained;
 
             _checkStatusTimer = new Timer(CheckStatus, null, -1, 100);
+            _stopwatch = new Stopwatch();
 
             ConfigurationsViewModels = new ObservableCollection<ConfigurationViewModel>();
             foreach (var configuration in storageService.GetConfigurations())
@@ -55,16 +59,25 @@ namespace DesktopApplication.ViewModels
         {
             Task.Run(() => { Simulator.Start(); });
             _checkStatusTimer.Change(0, 100);
+            _stopwatch.Restart();
         }
 
         public void Stop()
         {
+            _stopwatch.Reset();
             Simulator.Stop();
         }
 
         public void Pause()
         {
+            _stopwatch.Stop();
             Simulator.Pause();
+        }
+
+        public void Continue()
+        {
+            _stopwatch.Start();
+            Simulator.Continue();
         }
 
         public bool IsConfigurationChangingEnabled => Simulator.Status == SimulatorStatus.Stopped;
@@ -104,6 +117,16 @@ namespace DesktopApplication.ViewModels
             }
         }
 
+        public string CurrentTime
+        {
+            get => _currentTime;
+            set
+            {
+                _currentTime = value;
+                RaisePropertyChanged(nameof(CurrentTime));
+            }
+        }
+
         public bool CanStart =>
             (Simulator.Status == SimulatorStatus.Stopped || Simulator.Status == SimulatorStatus.OnPaused)
             && ConfigurationViewModel != null;
@@ -118,9 +141,6 @@ namespace DesktopApplication.ViewModels
             get => _configurationViewModel;
             set
             {
-                if (_configurationViewModel != null)
-                    _storageService.SaveConfiguration(_configurationViewModel.Configuration, true);
-
                 _configurationViewModel = value;
                 _storageService.GetConfiguration(_configurationViewModel.Configuration);
                 Simulator.SetConfiguration(_configurationViewModel.Configuration);
@@ -154,6 +174,8 @@ namespace DesktopApplication.ViewModels
 
         private void CheckStatus(object state)
         {
+            var timeSpan = _stopwatch.Elapsed;
+            CurrentTime = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}"; 
             CurrentSimulation = Simulator.CurrentSimulation;
             CurrentSeason = Simulator.CurrentSeason;
             CurrentDay = Simulator.CurrentDay;

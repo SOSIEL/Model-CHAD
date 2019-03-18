@@ -100,7 +100,8 @@
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                    Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay}" />
+                    LostFocus="TextBox_OnLostFocus"
+                    Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock
                     Grid.Row="2"
@@ -117,7 +118,8 @@
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                    Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay}" />
+                    LostFocus="TextBox_OnLostFocus"
+                    Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             </Grid>
 
@@ -207,7 +209,7 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="8,8,0,0"
-                    Text="00:00" />
+                    Text="{Binding Path=CurrentTime}" />
             </Grid>
 
         </Grid>
