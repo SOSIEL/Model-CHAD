@@ -6,6 +6,7 @@
         {
             Beta = 1;
             LeakAquiferFrac = 0;
+            NumOfSimulations = 1;
             NumOfSeasons = 1;
             PercFromFieldFrac = 1;
             WaterInAquifer = 0;

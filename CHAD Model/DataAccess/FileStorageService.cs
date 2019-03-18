@@ -23,11 +23,22 @@ namespace DataAccess
         private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
         private const string Fields = "InputFieldSize.xlsx";
         private const string Parameters = "Parameters.xml";
+
         private const string OutputFolderName = "Output";
+        private const string ClimateSimulationName = "Climate.xlsx";
+        private const string HydrologySimulationName = "Hydrology.xlsx";
 
         #endregion
 
         #region Public Interface
+
+        public static string MakeSimulationPath(string configurationName, string simulationSession,
+            int simulationNumber)
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), OutputFolderName,
+                $"{simulationSession} - {configurationName}",
+                $"Simulation {simulationNumber:0000}");
+        }
 
         public IEnumerable<Configuration> GetConfigurations()
         {
@@ -60,10 +71,7 @@ namespace DataAccess
 
         public void SaveClimate(string path, IEnumerable<Climate> climate)
         {
-            Directory.CreateDirectory(path);
-            var spreadsheetDocument =
-                SpreadsheetDocument.Create(path + "/Climate.xlsx", SpreadsheetDocumentType.Workbook);
-
+            var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
             var workbookpart = spreadsheetDocument.AddWorkbookPart();
             workbookpart.Workbook = new Workbook();
@@ -137,12 +145,9 @@ namespace DataAccess
             spreadsheetDocument.Close();
         }
 
-        public void SaveHydrology(string path, List<Hydrology> hydrology, IEnumerable<Field> inputFieldSize)
+        public void SaveHydrology(string path, List<Hydrology> hydrology, IEnumerable<Field> fields)
         {
-            Directory.CreateDirectory(path);
-            var spreadsheetDocument =
-                SpreadsheetDocument.Create(path + "/Hydrology.xlsx", SpreadsheetDocumentType.Workbook);
-
+            var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
             var workbookpart = spreadsheetDocument.AddWorkbookPart();
             workbookpart.Workbook = new Workbook();
@@ -183,11 +188,11 @@ namespace DataAccess
                     CellValue = new CellValue("Aquifer"),
                     DataType = new EnumValue<CellValues>(CellValues.String)
                 }, lastcell);
-            for (var i = 0; i < inputFieldSize.Count(); i++)
+            for (var i = 0; i < fields.Count(); i++)
                 lastcell = row.InsertAfter(
                     new Cell
                     {
-                        CellValue = new CellValue("Field" + inputFieldSize.ElementAt(i).FieldNum),
+                        CellValue = new CellValue("Field" + fields.ElementAt(i).FieldNum),
                         DataType = new EnumValue<CellValues>(CellValues.String)
                     }, lastcell);
 
@@ -292,6 +297,23 @@ namespace DataAccess
             SaveInputFieldConfiguration(Path.Combine(configurationPath, Fields), configuration);
         }
 
+        public void SaveSimulationResult(SimulationResult simulationResult, SimulationResultPart simulationResultPart)
+        {
+            var simulationResultPath = MakeSimulationPath(simulationResult.Configuration.Name,
+                simulationResult.SimulationSession, simulationResult.SimulationNumber);
+
+            var directoryInfo = new DirectoryInfo(simulationResultPath);
+            if (!directoryInfo.Exists)
+                directoryInfo.Create();
+
+            if (simulationResultPart.HasFlag(SimulationResultPart.Climate))
+                SaveClimate(Path.Combine(simulationResultPath, ClimateSimulationName),
+                    simulationResult.AgroHydrology.ClimateList);
+            if (simulationResultPart.HasFlag(SimulationResultPart.Hydrology))
+                SaveHydrology(Path.Combine(simulationResultPath, HydrologySimulationName),
+                    simulationResult.AgroHydrology.Hydrology, simulationResult.Configuration.Fields);
+        }
+
         #endregion
 
         #region All other members
@@ -301,7 +323,7 @@ namespace DataAccess
             using (var fileStream = new FileStream(path, FileMode.Open))
             {
                 var xmlSerializer = new XmlSerializer(typeof(Parameters));
-                var parameters = (Parameters)xmlSerializer.Deserialize(fileStream);
+                var parameters = (Parameters) xmlSerializer.Deserialize(fileStream);
                 configuration.Parameters = parameters;
             }
         }
@@ -531,6 +553,8 @@ namespace DataAccess
         {
             var table = GetTable(path);
 
+            configuration.ClimateList.Clear();
+
             configuration.ClimateList.AddRange(table.Rows
                 .Cast<DataRow>().Select(e => new Climate
                 {
@@ -548,6 +572,8 @@ namespace DataAccess
         {
             var table = GetTable(path);
 
+            configuration.CropEvapTransList.Clear();
+
             foreach (DataRow row in table.Rows)
                 for (var i = 1; i < table.Columns.Count; i++)
                     configuration.CropEvapTransList.Add(new InputCropEvapTrans
@@ -562,6 +588,8 @@ namespace DataAccess
         private static void FillFieldsConfiguration(string path, Configuration configuration)
         {
             var table = GetTable(path);
+
+            configuration.Fields.Clear();
 
             configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Field
                 {FieldNum = int.Parse(e[0].ToString()), FieldSize = ToDecimal(e[1].ToString())}));

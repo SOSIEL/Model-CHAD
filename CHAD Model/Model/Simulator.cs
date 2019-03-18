@@ -5,9 +5,9 @@ namespace Model
 {
     public class Simulator
     {
-        #region Fields
+        private readonly ILoggerFactory _loggerFactory;
 
-        private readonly ILogger _logger;
+        #region Fields
 
         private SimulatorStatus _status;
 
@@ -15,14 +15,16 @@ namespace Model
 
         #region Constructors
 
-        public Simulator(ILogger logger)
+        public Simulator(ILoggerFactory loggerFactory)
         {
-            _logger = logger;
+            _loggerFactory = loggerFactory;
         }
 
         #endregion
 
         #region Public Interface
+
+        public event Action<SimulationResult> SimulationResultObtained;
 
         public AgroHydrology AgroHydrology { get; private set; }
 
@@ -52,9 +54,6 @@ namespace Model
             if (previousStatus == SimulatorStatus.OnPaused)
                 return;
 
-            AgroHydrology = new AgroHydrology(_logger, Configuration.Parameters, Configuration.ClimateList,
-                Configuration.Fields, Configuration.CropEvapTransList);
-
             Simulate();
 
             Stop();
@@ -65,6 +64,7 @@ namespace Model
             if (Status == SimulatorStatus.Stopped)
                 return;
 
+            CurrentSimulation = 0;
             CurrentSeason = 0;
             CurrentDay = 0;
 
@@ -78,6 +78,8 @@ namespace Model
 
             Status = SimulatorStatus.OnPaused;
         }
+
+        public int CurrentSimulation { get; private set; }
 
         public int CurrentSeason { get; private set; }
 
@@ -112,30 +114,56 @@ namespace Model
 
         private void Simulate()
         {
-            for (var seasonNumber = 1; seasonNumber < Configuration.Parameters.NumOfSeasons; seasonNumber++)
+            var simulationSession = MakeSimulationSession();
+
+            for (var simulationNumber = 1;
+                simulationNumber <= Configuration.Parameters.NumOfSimulations;
+                simulationNumber++)
             {
                 CheckStatus();
-                CurrentSeason = seasonNumber;
+                CurrentSimulation = simulationNumber;
 
+                var logger = _loggerFactory.MakeLogger(Configuration.Name, simulationSession, simulationNumber);
 
-                for (var dayNumber = 1; dayNumber <= Configuration.DaysCount; dayNumber++)
+                for (var seasonNumber = 1; seasonNumber <= Configuration.Parameters.NumOfSeasons; seasonNumber++)
                 {
                     CheckStatus();
-                    CurrentDay = dayNumber;
+                    CurrentSeason = seasonNumber;
 
+                    AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, Configuration.ClimateList,
+                        Configuration.Fields, Configuration.CropEvapTransList);
 
-                    AgroHydrology.ProcessDay(dayNumber);
+                    for (var dayNumber = 1; dayNumber < Configuration.DaysCount; dayNumber++)
+                    {
+                        CheckStatus();
+                        CurrentDay = dayNumber;
+
+                        AgroHydrology.ProcessDay(dayNumber);
+                    }
                 }
+
+                var simulationResults = new SimulationResult(simulationSession, Configuration, simulationNumber, AgroHydrology);
+                RaiseSimulationResultObtained(simulationResults);
             }
+        }
+
+        private string MakeSimulationSession()
+        {
+            return DateTimeOffset.Now.ToString("yyyy.MM.dd -- HH-mm-ss");
         }
 
         private void CheckStatus()
         {
             while (Status == SimulatorStatus.OnPaused)
-                Thread.Sleep(500);
+                Thread.Sleep(250);
 
             if (Status == SimulatorStatus.Stopped)
                 Thread.CurrentThread.Abort();
+        }
+
+        private void RaiseSimulationResultObtained(SimulationResult simulationResult)
+        {
+            SimulationResultObtained?.Invoke(simulationResult);
         }
 
         #endregion

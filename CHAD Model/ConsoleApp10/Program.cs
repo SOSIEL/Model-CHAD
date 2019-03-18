@@ -23,11 +23,11 @@ namespace ConsoleApp10
             var configuration = storageService.GetConfiguration("ConsoleApplicationConfiguration",
                 Path.Combine(Directory.GetCurrentDirectory(), ConfigurationPath));
 
-            var logger = new SimpleLogger();
-
             configuration.Parameters.NumOfSeasons = 1;
 
-            var simulator = new Simulator(logger);
+            var loggerFactory = new SimpleLoggerFactory();
+
+            var simulator = new Simulator(loggerFactory);
             simulator.SetConfiguration(configuration);
             simulator.Start();
 
@@ -35,7 +35,7 @@ namespace ConsoleApp10
             var path = ConfigurationManager.AppSettings["filepath"];
             path = path + "/" + date.ToString("dd_MM_yyyy_HH_mm_ss_fff");
 
-            storageService.SaveLogs(path, logger);
+            storageService.SaveLogs(path, loggerFactory.Logger);
             storageService.SaveHydrology(path, simulator.AgroHydrology.Hydrology, configuration.Fields);
             storageService.SaveClimate(path, simulator.AgroHydrology.ClimateList);
         }

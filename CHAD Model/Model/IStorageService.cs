@@ -18,6 +18,10 @@ namespace Model
 
         void SaveConfiguration(Configuration configuration, bool rewrite);
 
+        void SaveSimulationResult(SimulationResult simulationResult,
+            SimulationResultPart simulationResultPart = SimulationResultPart.Parameters | SimulationResultPart.Climate |
+                                                        SimulationResultPart.Hydrology);
+
         #endregion
     }
 }

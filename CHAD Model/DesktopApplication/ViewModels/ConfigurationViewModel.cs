@@ -232,9 +232,11 @@ namespace DesktopApplication.ViewModels
         public void CopyTo(ConfigurationViewModel configurationViewModel)
         {
             configurationViewModel.Name = Name;
+            
+            configurationViewModel.Configuration.Parameters.NumOfSimulations = Configuration.Parameters.NumOfSimulations;
+            configurationViewModel.Configuration.Parameters.NumOfSeasons = Configuration.Parameters.NumOfSeasons;
 
             configurationViewModel.Configuration.Parameters.Beta = Configuration.Parameters.Beta;
-            configurationViewModel.Configuration.Parameters.NumOfSeasons = Configuration.Parameters.NumOfSeasons;
 
             configurationViewModel.MeanBushelsAlfalfaPerAcre = MeanBushelsAlfalfaPerAcre;
             configurationViewModel.MeanBushelsBarleyPerAcre = MeanBushelsBarleyPerAcre;

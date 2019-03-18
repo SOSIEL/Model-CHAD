@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using DataAccess;
 using DesktopApplication.Tools;
 using Model;
 
@@ -17,6 +18,7 @@ namespace DesktopApplication.ViewModels
         private ConfigurationViewModel _configurationViewModel;
         private int _currentDay;
         private int _currentSeason;
+        private int _currentSimulation;
 
         #endregion
 
@@ -25,10 +27,11 @@ namespace DesktopApplication.ViewModels
         public ApplicationViewModel(IStorageService storageService)
         {
             _storageService = storageService;
-            Simulator = new Simulator(new SimpleLogger());
+            Simulator = new Simulator(new FileLoggerFactory());
             Simulator.StatusChanged += SimulatorOnStatusChanged;
+            Simulator.SimulationResultObtained += SimulatorOnSimulationResultObtained;
 
-            _checkStatusTimer = new Timer(CheckStatus, null, -1, 500);
+            _checkStatusTimer = new Timer(CheckStatus, null, -1, 100);
 
             ConfigurationsViewModels = new ObservableCollection<ConfigurationViewModel>();
             foreach (var configuration in storageService.GetConfigurations())
@@ -51,7 +54,7 @@ namespace DesktopApplication.ViewModels
         public void Start()
         {
             Task.Run(() => { Simulator.Start(); });
-            _checkStatusTimer.Change(0, 500);
+            _checkStatusTimer.Change(0, 100);
         }
 
         public void Stop()
@@ -70,6 +73,16 @@ namespace DesktopApplication.ViewModels
 
         public bool IsConfigurationEditingEnabled =>
             ConfigurationViewModel != null && Simulator.Status == SimulatorStatus.Stopped;
+
+        public int CurrentSimulation
+        {
+            get => _currentSimulation;
+            set
+            {
+                _currentSimulation = value;
+                RaisePropertyChangedForDispatchers(nameof(CurrentSimulation));
+            }
+        }
 
         public int CurrentSeason
         {
@@ -134,8 +147,14 @@ namespace DesktopApplication.ViewModels
 
         #region All other members
 
+        private void SimulatorOnSimulationResultObtained(SimulationResult simulationResult)
+        {
+            _storageService.SaveSimulationResult(simulationResult);
+        }
+
         private void CheckStatus(object state)
         {
+            CurrentSimulation = Simulator.CurrentSimulation;
             CurrentSeason = Simulator.CurrentSeason;
             CurrentDay = Simulator.CurrentDay;
         }
