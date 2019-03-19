@@ -4,13 +4,17 @@
     {
         public Parameters()
         {
-            Beta = 1;
-            LeakAquiferFrac = 0;
             NumOfSimulations = 1;
             NumOfSeasons = 1;
+
+            Beta = 1;
+            LeakAquiferFrac = 0;
             PercFromFieldFrac = 1;
+            ProfitDoNothing = 0;
             WaterInAquifer = 0;
             WaterInAquiferMax = 10;
+            WaterCurtailmentRate = 12.6m;
+            WaterUsageMax = WaterCurtailmentBase * (1 - WaterCurtailmentRate / 100);
             WaterStorCap = 1;
         }
 
@@ -43,6 +47,10 @@
         public decimal LeakAquiferFrac { get; set; }
 
         public decimal PercFromFieldFrac { get; set; }
+
+        public decimal ProfitDoNothing { get; set; }
+
+        public decimal SustainableLevelAquifer { get; set; }
 
         public decimal WaterInAquifer { get; set; }
 

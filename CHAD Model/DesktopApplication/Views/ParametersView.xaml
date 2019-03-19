@@ -49,7 +49,7 @@
                         <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                     <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
-                        <Setter Property="Width" Value="48" />
+                        <Setter Property="Width" Value="64" />
                         <Setter Property="HorizontalAlignment" Value="Left" />
                     </Style>
                     <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="controls:ChadTextBox">
@@ -79,9 +79,9 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -104,7 +104,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.MeanBushelsAlfalfaPerAcre, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.MeanBushelsAlfalfaPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="2"
@@ -115,7 +115,7 @@
                         Grid.Row="2"
                         Grid.Column="3"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.MeanBushelsBarleyPerAcre, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.MeanBushelsBarleyPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
@@ -127,7 +127,7 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.MeanBushelsWheatPerAcre, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.MeanBushelsWheatPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
 
                 </Grid>
@@ -144,9 +144,9 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -166,7 +166,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.CostAlfalfa, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.CostAlfalfa, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="2"
@@ -177,7 +177,7 @@
                         Grid.Row="2"
                         Grid.Column="3"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.WaterCurtailmentBase, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterCurtailmentBase, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
@@ -189,7 +189,7 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.CostBarley, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.CostBarley, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
@@ -201,7 +201,7 @@
                         Grid.Row="3"
                         Grid.Column="3"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterCurtailmentRate, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterCurtailmentRate, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="4"
@@ -213,7 +213,7 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.CostWheat, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.CostWheat, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="4"
@@ -225,7 +225,7 @@
                         Grid.Row="4"
                         Grid.Column="3"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterUsageMax, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterUsageMax, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
 
                 </Grid>
@@ -243,9 +243,9 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="192" />
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -265,7 +265,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.LeakAquiferFrac, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.LeakAquiferFrac, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="2"
@@ -276,7 +276,7 @@
                         Grid.Row="2"
                         Grid.Column="3"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.PercFromFieldFrac, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.PercFromFieldFrac, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
@@ -288,7 +288,7 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterInAquifer, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterInAquifer, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
@@ -300,7 +300,7 @@
                         Grid.Row="3"
                         Grid.Column="3"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterInAquiferMax, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterInAquiferMax, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="4"
@@ -312,7 +312,7 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterStorCap, Mode=TwoWay}" />
+                        Text="{Binding Path=Value.WaterStorCap, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                 </Grid>
 

@@ -20,7 +20,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -95,13 +95,13 @@
                 <controls:ChadTextBox
                     Grid.Row="1"
                     Grid.Column="1"
-                    Width="48"
+                    Width="64"
                     Margin="0,8,0,0"
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
                     LostFocus="TextBox_OnLostFocus"
-                    Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
                 <TextBlock
                     Grid.Row="2"
@@ -113,13 +113,13 @@
                 <controls:ChadTextBox
                     Grid.Row="2"
                     Grid.Column="1"
-                    Width="48"
+                    Width="64"
                     Margin="0,8,0,0"
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
                     LostFocus="TextBox_OnLostFocus"
-                    Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
             </Grid>
 
