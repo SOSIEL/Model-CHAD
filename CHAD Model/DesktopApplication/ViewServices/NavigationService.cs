@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using DesktopApplication.Annotations;
-using DesktopApplication.ViewModels;
-using DesktopApplication.Views;
+using CHAD.DesktopApplication.Properties;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.Views;
 using Unity;
 using Unity.Resolution;
 
-namespace DesktopApplication.ViewServices
+namespace CHAD.DesktopApplication.ViewServices
 {
     public interface INavigationService : INotifyPropertyChanged
     {

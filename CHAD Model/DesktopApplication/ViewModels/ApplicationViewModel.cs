@@ -3,11 +3,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using DataAccess;
-using DesktopApplication.Tools;
-using Model;
+using CHAD.DataAccess;
+using CHAD.DesktopApplication.Tools;
+using CHAD.Model;
+using CHAD.Model.Infrastructure;
 
-namespace DesktopApplication.ViewModels
+namespace CHAD.DesktopApplication.ViewModels
 {
     public class ApplicationViewModel : ViewModelBase
     {

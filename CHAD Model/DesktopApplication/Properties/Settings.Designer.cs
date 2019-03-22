@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DesktopApplication.Properties {
+namespace CHAD.DesktopApplication.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

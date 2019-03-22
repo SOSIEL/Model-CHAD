@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DesktopApplication.Tools
+namespace CHAD.DesktopApplication.Tools
 {
     public class RelayCommand<T> : ICommand
     {

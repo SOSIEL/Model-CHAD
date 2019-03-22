@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using DesktopApplication.ViewModels;
-using DesktopApplication.ViewServices;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.ViewServices;
 
-namespace DesktopApplication.Views
+namespace CHAD.DesktopApplication.Views
 {
     /// <summary>
     ///     Interaction logic for AgentsView.xaml

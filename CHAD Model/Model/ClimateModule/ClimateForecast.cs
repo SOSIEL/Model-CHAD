@@ -1,4 +1,4 @@
-﻿namespace Model.ClimateModule
+﻿namespace CHAD.Model.ClimateModule
 {
     public class ClimateForecast
     {

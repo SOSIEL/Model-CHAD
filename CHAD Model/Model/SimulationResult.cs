@@ -1,7 +1,7 @@
-﻿using Model.AgroHydrologyModule;
-using Model.ClimateModule;
+﻿using CHAD.Model.AgroHydrologyModule;
+using CHAD.Model.ClimateModule;
 
-namespace Model
+namespace CHAD.Model
 {
     public class SimulationResult
     {

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using DesktopApplication.ViewModels;
-using DesktopApplication.ViewServices;
-using Model;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.ViewServices;
+using CHAD.Model;
 
-namespace DesktopApplication.Views
+namespace CHAD.DesktopApplication.Views
 {
     /// <summary>
     ///     Interaction logic for MainView.xaml

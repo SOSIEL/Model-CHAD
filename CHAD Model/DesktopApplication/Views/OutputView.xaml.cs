@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows;
-using DesktopApplication.ViewModels;
-using DesktopApplication.ViewServices;
+﻿using System.Windows;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.ViewServices;
 
-namespace DesktopApplication.Views
+namespace CHAD.DesktopApplication.Views
 {
     /// <summary>
     ///     Interaction logic for OutputView.xaml

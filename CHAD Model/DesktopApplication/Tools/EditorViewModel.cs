@@ -1,4 +1,4 @@
-﻿namespace DesktopApplication.Tools
+﻿namespace CHAD.DesktopApplication.Tools
 {
     public abstract class EditorViewModel<T> : ViewModelBase
     {

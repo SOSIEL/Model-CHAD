@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace DesktopApplication.Tools
+namespace CHAD.DesktopApplication.Tools
 {
     public static class WindowExtensions
     {

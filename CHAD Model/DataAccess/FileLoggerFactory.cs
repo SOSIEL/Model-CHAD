@@ -1,6 +1,6 @@
-﻿using Model;
+﻿using CHAD.Model.Infrastructure;
 
-namespace DataAccess
+namespace CHAD.DataAccess
 {
     public class FileLoggerFactory : ILoggerFactory
     {

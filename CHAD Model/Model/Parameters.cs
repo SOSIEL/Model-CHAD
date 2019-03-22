@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace CHAD.Model
 {
     public class Parameters
     {

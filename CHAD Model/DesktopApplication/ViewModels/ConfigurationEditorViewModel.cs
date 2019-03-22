@@ -1,6 +1,6 @@
-﻿using DesktopApplication.Tools;
+﻿using CHAD.DesktopApplication.Tools;
 
-namespace DesktopApplication.ViewModels
+namespace CHAD.DesktopApplication.ViewModels
 {
     public class ConfigurationEditorViewModel : EditorViewModel<ConfigurationViewModel>
     {

@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace CHAD.Model.AgroHydrologyModule
 {
     public class Field
     {

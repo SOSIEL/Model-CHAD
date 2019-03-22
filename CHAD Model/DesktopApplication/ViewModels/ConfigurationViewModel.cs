@@ -1,7 +1,7 @@
-﻿using DesktopApplication.Tools;
-using Model;
+﻿using CHAD.DesktopApplication.Tools;
+using CHAD.Model;
 
-namespace DesktopApplication.ViewModels
+namespace CHAD.DesktopApplication.ViewModels
 {
     public class ConfigurationViewModel : ViewModelBase
     {

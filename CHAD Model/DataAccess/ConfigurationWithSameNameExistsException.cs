@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataAccess
+namespace CHAD.DataAccess
 {
     public class ConfigurationWithSameNameExistsException : Exception
     {

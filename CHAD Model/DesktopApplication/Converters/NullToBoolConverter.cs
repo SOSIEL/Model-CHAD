@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace DesktopApplication.Converters
+namespace CHAD.DesktopApplication.Converters
 {
     public class NullToBoolConverter : IValueConverter
     {

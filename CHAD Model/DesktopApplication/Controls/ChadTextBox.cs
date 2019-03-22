@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace DesktopApplication.Controls
+namespace CHAD.DesktopApplication.Controls
 {
     public enum InputType
     {

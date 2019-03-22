@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp10", "ConsoleApp10\ConsoleApp10.csproj", "{2CD1A92F-1722-4118-9152-0B031665782C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHAD.ConsoleApp10", "ConsoleApp10\CHAD.ConsoleApp10.csproj", "{2CD1A92F-1722-4118-9152-0B031665782C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApplication", "DesktopApplication\DesktopApplication.csproj", "{B95DA703-31C1-4869-9CE7-FC36C3CC376F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHAD.DesktopApplication", "DesktopApplication\CHAD.DesktopApplication.csproj", "{B95DA703-31C1-4869-9CE7-FC36C3CC376F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOSIEL", "SOSIEL\SOSIEL.csproj", "{62635466-DA2E-4270-82D4-58D09A1164F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{1BA05C24-DF51-4DAF-B7F7-B6607ADE7B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHAD.Model", "Model\CHAD.Model.csproj", "{1BA05C24-DF51-4DAF-B7F7-B6607ADE7B8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{BEF0D056-469B-4A3C-A4F0-665A987D6E7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CHAD.DataAccess", "DataAccess\CHAD.DataAccess.csproj", "{BEF0D056-469B-4A3C-A4F0-665A987D6E7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHADSOSIEL", "CHADSOSIEL\CHADSOSIEL.csproj", "{A278EBB7-5F64-43FD-861D-A7881839B696}"
 EndProject

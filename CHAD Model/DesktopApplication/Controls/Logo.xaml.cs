@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DesktopApplication.Controls
+namespace CHAD.DesktopApplication.Controls
 {
     /// <summary>
     ///     Interaction logic for Logo.xaml

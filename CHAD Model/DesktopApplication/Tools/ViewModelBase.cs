@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-using DesktopApplication.Annotations;
+using CHAD.DesktopApplication.Properties;
 
-namespace DesktopApplication.Tools
+namespace CHAD.DesktopApplication.Tools
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

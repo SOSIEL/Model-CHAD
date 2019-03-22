@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
-using DesktopApplication.Tools;
-using DesktopApplication.ViewModels;
-using DesktopApplication.ViewServices;
+using CHAD.DesktopApplication.Tools;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.ViewServices;
 
-namespace DesktopApplication
+namespace CHAD.DesktopApplication
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

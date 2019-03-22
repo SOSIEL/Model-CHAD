@@ -1,6 +1,6 @@
-﻿using Model;
+﻿using CHAD.Model.Infrastructure;
 
-namespace ConsoleApp10
+namespace CHAD.ConsoleApp10
 {
     public class SimpleLoggerFactory : ILoggerFactory
     {

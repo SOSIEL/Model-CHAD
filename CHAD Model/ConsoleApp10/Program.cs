@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using DataAccess;
-using Model;
+using CHAD.DataAccess;
+using CHAD.Model;
 
-namespace ConsoleApp10
+namespace CHAD.ConsoleApp10
 {
     public static class Program
     {

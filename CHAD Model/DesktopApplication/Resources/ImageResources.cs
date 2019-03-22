@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace DesktopApplication.Resources
+namespace CHAD.DesktopApplication.Resources
 {
     public static class ImageResources
     {

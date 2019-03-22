@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="DesktopApplication.Controls.Logo"
+    x:Class="CHAD.DesktopApplication.Controls.Logo"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:properties="clr-namespace:DesktopApplication.Properties"
-    xmlns:resources="clr-namespace:DesktopApplication.Resources"
+    xmlns:properties="clr-namespace:CHAD.DesktopApplication.Properties"
+    xmlns:resources="clr-namespace:CHAD.DesktopApplication.Resources"
     d:DesignHeight="60"
     d:DesignWidth="128"
     mc:Ignorable="d">

@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace CHAD.Model.Infrastructure
 {
     public interface ILoggerFactory
     {

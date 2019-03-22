@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Model;
+using CHAD.Model.Infrastructure;
 
-namespace DataAccess
+namespace CHAD.DataAccess
 {
     public sealed class FileLogger : ILogger, IDisposable
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Model
+namespace CHAD.Model.AgroHydrologyModule
 {
     public class InputCropEvapTrans
     {

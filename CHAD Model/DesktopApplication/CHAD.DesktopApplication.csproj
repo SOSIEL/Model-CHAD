@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B95DA703-31C1-4869-9CE7-FC36C3CC376F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DesktopApplication</RootNamespace>
-    <AssemblyName>DesktopApplication</AssemblyName>
+    <RootNamespace>CHAD.DesktopApplication</RootNamespace>
+    <AssemblyName>CHAD</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -187,13 +187,13 @@
     <Resource Include="Resources\SOSIEL.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\CHAD.DataAccess.csproj">
       <Project>{bef0d056-469b-4a3c-a4f0-665a987d6e7d}</Project>
-      <Name>DataAccess</Name>
+      <Name>CHAD.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\CHAD.Model.csproj">
       <Project>{1ba05c24-df51-4daf-b7f7-b6607ade7b8d}</Project>
-      <Name>Model</Name>
+      <Name>CHAD.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\SOSIEL\SOSIEL.csproj">
       <Project>{62635466-da2e-4270-82d4-58d09a1164f6}</Project>

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2CD1A92F-1722-4118-9152-0B031665782C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleApp10</RootNamespace>
+    <RootNamespace>CHAD.ConsoleApp10</RootNamespace>
     <AssemblyName>ConsoleApp10</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -76,13 +76,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\CHAD.DataAccess.csproj">
       <Project>{bef0d056-469b-4a3c-a4f0-665a987d6e7d}</Project>
-      <Name>DataAccess</Name>
+      <Name>CHAD.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\CHAD.Model.csproj">
       <Project>{1ba05c24-df51-4daf-b7f7-b6607ade7b8d}</Project>
-      <Name>Model</Name>
+      <Name>CHAD.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

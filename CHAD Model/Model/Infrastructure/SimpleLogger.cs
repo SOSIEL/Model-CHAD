@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Model
+namespace CHAD.Model.Infrastructure
 {
     public class SimpleLogger : ILogger
     {

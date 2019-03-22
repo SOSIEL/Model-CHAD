@@ -1,14 +1,14 @@
 ﻿using System.Windows;
-using DataAccess;
-using DesktopApplication.ViewModels;
-using DesktopApplication.Views;
-using DesktopApplication.ViewServices;
-using Model;
+using CHAD.DataAccess;
+using CHAD.DesktopApplication.ViewModels;
+using CHAD.DesktopApplication.Views;
+using CHAD.DesktopApplication.ViewServices;
+using CHAD.Model.Infrastructure;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
 
-namespace DesktopApplication
+namespace CHAD.DesktopApplication
 {
     /// <summary>
     ///     Interaction logic for App.xaml

@@ -1,9 +1,12 @@
 ﻿using System;
 
-[Flags]
-public enum SimulationResultPart
+namespace CHAD.Model
 {
-    Parameters,
-    Climate,
-    Hydrology
+    [Flags]
+    public enum SimulationResultPart
+    {
+        Parameters,
+        Climate,
+        Hydrology
+    }
 }

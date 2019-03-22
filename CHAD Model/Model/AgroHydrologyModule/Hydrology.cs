@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace Model
+﻿namespace CHAD.Model.AgroHydrologyModule
 {
     public class Hydrology
     {

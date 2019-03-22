@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.ClimateModule;
+using CHAD.Model.ClimateModule;
+using CHAD.Model.Infrastructure;
 
-namespace Model.AgroHydrologyModule
+namespace CHAD.Model.AgroHydrologyModule
 {
     public class AgroHydrology
     {
