@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Model.Modules;
 
 namespace Model
 {
@@ -99,21 +100,6 @@ namespace Model
         #endregion
 
         #region All other members
-
-        private void Simulate2()
-        {
-            for (var seasonNumber = 1; seasonNumber < int.MaxValue; seasonNumber++)
-            {
-                CheckStatus();
-                CurrentSeason = seasonNumber;
-
-                for (var dayNumber = 1; dayNumber < int.MaxValue; dayNumber++)
-                {
-                    CheckStatus();
-                    CurrentDay = dayNumber;
-                }
-            }
-        }
 
         private void Simulate()
         {

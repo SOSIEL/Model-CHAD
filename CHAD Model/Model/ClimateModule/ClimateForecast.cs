@@ -1,6 +1,6 @@
-﻿namespace Model
+﻿namespace Model.ClimateModule
 {
-    public class Climate
+    public class ClimateForecast
     {
         #region Public Interface
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Model.ClimateModule;
 
 namespace Model
 {
@@ -10,7 +11,7 @@ namespace Model
 
         void SaveLogs(string path, SimpleLogger logger);
 
-        void SaveClimate(string path, IEnumerable<Climate> climate);
+        void SaveClimate(string path, IEnumerable<ClimateForecast> climate);
 
         void SaveHydrology(string path, List<Hydrology> hydrology, IEnumerable<Field> inputFieldSize);
 

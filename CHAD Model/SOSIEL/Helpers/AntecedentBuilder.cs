@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Microsoft.CSharp.RuntimeBinder;
 using SOSIEL.Algorithm;
+using SOSIEL.Configuration;
 
 namespace SOSIEL.Helpers
 {
@@ -37,7 +38,7 @@ namespace SOSIEL.Helpers
             ParameterExpression x = Expression.Parameter(typeof(object), "x");
             ParameterExpression y = Expression.Parameter(typeof(object), "y");
             var binder = Binder.BinaryOperation(
-                CSharpBinderFlags.None, GetExpressionType(inequalitySign), typeof(IAlgorithm),
+                CSharpBinderFlags.None, GetExpressionType(inequalitySign), typeof(IAlgorithm<>),
                 new CSharpArgumentInfo[] {
                     CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null),
                     CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)

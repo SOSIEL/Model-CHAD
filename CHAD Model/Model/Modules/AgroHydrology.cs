@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.ClimateModule;
 
-namespace Model
+namespace Model.Modules
 {
     public class AgroHydrology
     {
@@ -31,7 +32,7 @@ namespace Model
 
         #region Constructors
 
-        public AgroHydrology(ILogger logger, Parameters parameters, List<Climate> climateList, List<Field> fields,
+        public AgroHydrology(ILogger logger, Parameters parameters, List<ClimateForecast> climateList, List<Field> fields,
             List<InputCropEvapTrans> cropEvapTranses)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -67,7 +68,7 @@ namespace Model
 
         #region Public Interface
 
-        public IEnumerable<Climate> ClimateList { get; }
+        public IEnumerable<ClimateForecast> ClimateList { get; }
 
         public List<Hydrology> Hydrology { get; }
 

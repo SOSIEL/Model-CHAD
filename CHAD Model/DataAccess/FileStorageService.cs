@@ -9,6 +9,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Model;
+using Model.ClimateModule;
 using Field = Model.Field;
 using Parameters = Model.Parameters;
 
@@ -69,7 +70,7 @@ namespace DataAccess
             sw.Close();
         }
 
-        public void SaveClimate(string path, IEnumerable<Climate> climate)
+        public void SaveClimate(string path, IEnumerable<ClimateForecast> climate)
         {
             var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
@@ -556,15 +557,15 @@ namespace DataAccess
             configuration.ClimateList.Clear();
 
             configuration.ClimateList.AddRange(table.Rows
-                .Cast<DataRow>().Select(e => new Climate
+                .Cast<DataRow>().Select(e => new ClimateForecast
                 {
                     Day = Convert.ToInt32(e[0].ToString()),
                     TempMean = ToDouble(e[1].ToString()),
                     TempSD = ToDouble(e[2].ToString()),
                     PrecipMean = ToDouble(e[3].ToString()),
                     PrecipSD = ToDouble(e[4].ToString()),
-                    TempMeanRandom = Gaussian(ToDouble(e[1].ToString()), ToDouble(e[2].ToString())),
-                    PrecipMeanRandom = Gaussian(ToDouble(e[3].ToString()), ToDouble(e[4].ToString()))
+                    //TempMeanRandom = Gaussian(ToDouble(e[1].ToString()), ToDouble(e[2].ToString())),
+                    //PrecipMeanRandom = Gaussian(ToDouble(e[3].ToString()), ToDouble(e[4].ToString()))
                 }));
         }
 
@@ -656,14 +657,7 @@ namespace DataAccess
             return Convert.ToDecimal(input.Replace(separator, newSeparator));
         }
 
-        private static decimal Gaussian(double mean, double stddev)
-        {
-            var random = new Random();
-            var x1 = 1 - random.NextDouble();
-            var x2 = 1 - random.NextDouble();
-            var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return (decimal) Math.Round(y1 * stddev + mean, 2);
-        }
+        
 
         #endregion
     }

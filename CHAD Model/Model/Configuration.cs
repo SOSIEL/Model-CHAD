@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Model.ClimateModule;
 
 namespace Model
 {
@@ -9,7 +10,7 @@ namespace Model
         public Configuration()
         {
             Parameters = new Parameters();
-            ClimateList = new List<Climate>();
+            ClimateList = new List<ClimateForecast>();
             CropEvapTransList = new List<InputCropEvapTrans>();
             Fields = new List<Field>();
         }
@@ -30,7 +31,7 @@ namespace Model
 
         public Parameters Parameters { get; set; }
 
-        public List<Climate> ClimateList { get; }
+        public List<ClimateForecast> ClimateList { get; }
 
         public List<InputCropEvapTrans> CropEvapTransList { get; }
 
