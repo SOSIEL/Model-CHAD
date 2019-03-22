@@ -16,6 +16,10 @@ namespace SOSIEL_EX1
         //public const string HouseholdSavings = "HouseholdSavings";
 
         public const string Profit = "Profit";
+        public const string FieldHistoryCrop = "FieldHistoryCrop";
+        public const string FieldHistoryNonCrop = "FieldHistoryNonCrop";
+
+        public const string WaterInAquifire = "WaterInAquifire";
 
 
 
