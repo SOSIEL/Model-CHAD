@@ -559,7 +559,7 @@ namespace DataAccess
                 .Cast<DataRow>().Select(e => new Climate
                 {
                     Day = Convert.ToInt32(e[0].ToString()),
-                    TempMean = ToDouble(e[1].ToString()), // e[1] as double?,
+                    TempMean = ToDouble(e[1].ToString()),
                     TempSD = ToDouble(e[2].ToString()),
                     PrecipMean = ToDouble(e[3].ToString()),
                     PrecipSD = ToDouble(e[4].ToString()),

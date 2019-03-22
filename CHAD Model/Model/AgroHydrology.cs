@@ -16,7 +16,9 @@ namespace Model
         private readonly int[] CropInField;
         private readonly decimal[] DirectRunoff;
         private readonly decimal[] EvapTransFromField;
+        private readonly decimal[] EvapTransFromFieldToDate;
         private readonly decimal[] IrrigOfField;
+        private readonly decimal[] IrrigOfFieldSeason;
         private readonly decimal[] PercFromField;
         private readonly decimal[] PrecipOnField;
         private readonly decimal[] WaterInField;
@@ -40,7 +42,9 @@ namespace Model
 
             DirectRunoff = new decimal[_fields.Count];
             EvapTransFromField = new decimal[_fields.Count];
+            EvapTransFromFieldToDate = new decimal[_fields.Count];
             IrrigOfField = new decimal[_fields.Count];
+            IrrigOfFieldSeason = new decimal[_fields.Count];
             PercFromField = new decimal[_fields.Count];
             PrecipOnField = new decimal[_fields.Count];
             WaterInField = new decimal[_fields.Count];
@@ -51,6 +55,9 @@ namespace Model
             CropInField = new int[_fields.Count];
             for (var i = 0; i < CropInField.Length; i++)
                 CropInField[i] = random.Next(1, cropEvapTranses.GroupBy(crop => crop.CropType).Count());
+
+            for (var i = 0; i < _fields.Count; i++)
+                WaterInFieldMax[i] = Math.Round(_parameters.WaterStorCap * _fields.ElementAt(i).FieldSize, 2);
 
             WaterInAquifer = _parameters.WaterInAquifer;
             Hydrology = new List<Hydrology>(_fields.Count);
@@ -78,10 +85,6 @@ namespace Model
                 string.Format(
                     "Precip(Day[{0}])=Random.Normal(InputClimate.PrecipMean,InputClimate.PrecipSD,Day)={1}\n", i,
                     Precip));
-
-            for (var fld = 0; fld < _fields.Count; fld++)
-                WaterInFieldMax[fld] =
-                    Math.Round(_parameters.WaterStorCap * _fields.ElementAt(fld).FieldSize, 2);
 
             _logger.Write(Environment.NewLine);
 
