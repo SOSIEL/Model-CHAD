@@ -369,9 +369,9 @@ namespace CHAD.DesktopApplication.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SOSIEL.
         /// </summary>
-        public static string Sosiel {
+        public static string SOSIEL {
             get {
-                return ResourceManager.GetString("Sosiel", resourceCulture);
+                return ResourceManager.GetString("SOSIEL", resourceCulture);
             }
         }
         
@@ -448,11 +448,11 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WaterStorCap.
+        ///   Looks up a localized string similar to WaterStoreCap.
         /// </summary>
-        public static string WaterStorCap {
+        public static string WaterStoreCap {
             get {
-                return ResourceManager.GetString("WaterStorCap", resourceCulture);
+                return ResourceManager.GetString("WaterStoreCap", resourceCulture);
             }
         }
         

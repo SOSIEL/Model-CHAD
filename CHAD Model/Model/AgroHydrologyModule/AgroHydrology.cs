@@ -34,12 +34,12 @@ namespace CHAD.Model.AgroHydrologyModule
         #region Constructors
 
         public AgroHydrology(ILogger logger, Parameters parameters, List<Field> fields,
-            List<InputCropEvapTrans> cropEvapTranses)
+            List<InputCropEvapTrans> cropEvapTrans)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
             _fields = fields ?? throw new ArgumentNullException(nameof(fields));
-            _cropEvapTrans = cropEvapTranses ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
+            _cropEvapTrans = cropEvapTrans ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
 
             DirectRunoff = new decimal[_fields.Count];
             EvapTransFromField = new decimal[_fields.Count];
@@ -55,10 +55,10 @@ namespace CHAD.Model.AgroHydrologyModule
             var random = new Random();
             CropInField = new int[_fields.Count];
             for (var i = 0; i < CropInField.Length; i++)
-                CropInField[i] = random.Next(1, cropEvapTranses.GroupBy(crop => crop.CropType).Count());
+                CropInField[i] = random.Next(1, cropEvapTrans.GroupBy(crop => crop.CropType).Count());
 
             for (var i = 0; i < _fields.Count; i++)
-                WaterInFieldMax[i] = Math.Round(_parameters.WaterStorCap * _fields.ElementAt(i).FieldSize, 2);
+                WaterInFieldMax[i] = Math.Round(_parameters.WaterStoreCap * _fields.ElementAt(i).FieldSize, 2);
 
             WaterInAquifer = _parameters.WaterInAquifer;
             Hydrology = new List<Hydrology>(_fields.Count);

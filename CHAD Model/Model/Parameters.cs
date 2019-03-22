@@ -15,7 +15,7 @@
             WaterInAquiferMax = 10;
             WaterCurtailmentRate = 12.6m;
             WaterUsageMax = WaterCurtailmentBase * (1 - WaterCurtailmentRate / 100);
-            WaterStorCap = 1;
+            WaterStoreCap = 1;
         }
 
         #region Public Members
@@ -56,7 +56,7 @@
 
         public decimal WaterInAquiferMax { get; set; }
 
-        public decimal WaterStorCap { get; set; }
+        public decimal WaterStoreCap { get; set; }
 
         #endregion
     }

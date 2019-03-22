@@ -34,7 +34,7 @@
                 FontFamily="Calibri"
                 FontSize="24"
                 FontWeight="Bold"
-                Text="{x:Static properties:Resources.Sosiel}" />
+                Text="{x:Static properties:Resources.SOSIEL}" />
         </StackPanel>
 
     </Grid>

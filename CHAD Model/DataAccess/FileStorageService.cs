@@ -76,11 +76,11 @@ namespace CHAD.DataAccess
         {
             var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
-            var workbookpart = spreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
+            var workbookPart = spreadsheetDocument.AddWorkbookPart();
+            workbookPart.Workbook = new Workbook();
 
             // Add a WorksheetPart to the WorkbookPart.
-            var worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
             worksheetPart.Worksheet = new Worksheet(new SheetData());
 
             // Add Sheets to the Workbook.
@@ -95,53 +95,53 @@ namespace CHAD.DataAccess
             };
             sheets.Append(sheet);
 
-            UInt32Value rowindex = 1;
+            UInt32Value rowIndex = 1;
             var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
             Row row;
-            row = new Row {RowIndex = rowindex++};
+            row = new Row {RowIndex = rowIndex++};
 
             sheetData.Append(row);
 
-            var lastcell =
+            var lastCell =
                 row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue("Day"),
                         DataType = new EnumValue<CellValues>(CellValues.String)
                     }, null);
-            lastcell = row.InsertAfter(
+            lastCell = row.InsertAfter(
                 new Cell {CellValue = new CellValue("Temp"), DataType = new EnumValue<CellValues>(CellValues.String)},
-                lastcell);
-            lastcell = row.InsertAfter(
+                lastCell);
+            lastCell = row.InsertAfter(
                 new Cell {CellValue = new CellValue("Precip"), DataType = new EnumValue<CellValues>(CellValues.String)},
-                lastcell);
+                lastCell);
             
             foreach (var dailyClimate in climate.OrderBy(dc => dc.Day))
             {
-                row = new Row {RowIndex = rowindex++};
+                row = new Row {RowIndex = rowIndex++};
                 sheetData.Append(row);
-                lastcell = null;
-                lastcell = row.InsertAfter(
+                lastCell = null;
+                lastCell = row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue(dailyClimate.Day.ToString()),
                         DataType = new EnumValue<CellValues>(CellValues.Number)
-                    }, lastcell);
-                lastcell = row.InsertAfter(
+                    }, lastCell);
+                lastCell = row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture)),
                         DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastcell);
-                lastcell = row.InsertAfter(
+                    }, lastCell);
+                lastCell = row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture)),
                         DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastcell);
+                    }, lastCell);
             }
 
-            workbookpart.Workbook.Save();
+            workbookPart.Workbook.Save();
 
             // Close the document.
             spreadsheetDocument.Close();
@@ -151,11 +151,11 @@ namespace CHAD.DataAccess
         {
             var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
-            var workbookpart = spreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
+            var workbookPart = spreadsheetDocument.AddWorkbookPart();
+            workbookPart.Workbook = new Workbook();
 
             // Add a WorksheetPart to the WorkbookPart.
-            var worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
             worksheetPart.Worksheet = new Worksheet(new SheetData());
 
             // Add Sheets to the Workbook.
@@ -170,33 +170,33 @@ namespace CHAD.DataAccess
             };
             sheets.Append(sheet);
 
-            UInt32Value rowindex = 1;
+            UInt32Value rowIndex = 1;
             var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
             Row row;
-            row = new Row {RowIndex = rowindex++};
+            row = new Row {RowIndex = rowIndex++};
 
             sheetData.Append(row);
 
-            var lastcell =
+            var lastCell =
                 row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue("Day"),
                         DataType = new EnumValue<CellValues>(CellValues.String)
                     }, null);
-            lastcell = row.InsertAfter(
+            lastCell = row.InsertAfter(
                 new Cell
                 {
                     CellValue = new CellValue("Aquifer"),
                     DataType = new EnumValue<CellValues>(CellValues.String)
-                }, lastcell);
+                }, lastCell);
             for (var i = 0; i < fields.Count(); i++)
-                lastcell = row.InsertAfter(
+                lastCell = row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue("Field" + fields.ElementAt(i).FieldNum),
                         DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastcell);
+                    }, lastCell);
 
             IEnumerable<Hydrology> hydrologyOrder = hydrology.OrderBy(e => e.Field).OrderBy(e => e.Day);
             var day = 0;
@@ -204,33 +204,33 @@ namespace CHAD.DataAccess
             {
                 if (day != h.Day)
                 {
-                    row = new Row {RowIndex = rowindex++};
+                    row = new Row {RowIndex = rowIndex++};
                     sheetData.Append(row);
                     day = h.Day;
-                    lastcell = null;
-                    lastcell = row.InsertAfter(
+                    lastCell = null;
+                    lastCell = row.InsertAfter(
                         new Cell
                         {
                             CellValue = new CellValue(h.Day.ToString()),
                             DataType = new EnumValue<CellValues>(CellValues.Number)
-                        }, lastcell);
-                    lastcell = row.InsertAfter(
+                        }, lastCell);
+                    lastCell = row.InsertAfter(
                         new Cell
                         {
                             CellValue = new CellValue(h.WaterInAquifer.ToString()),
                             DataType = new EnumValue<CellValues>(CellValues.String)
-                        }, lastcell);
+                        }, lastCell);
                 }
 
-                lastcell = row.InsertAfter(
+                lastCell = row.InsertAfter(
                     new Cell
                     {
                         CellValue = new CellValue(h.WaterInField.ToString()),
                         DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastcell);
+                    }, lastCell);
             }
 
-            workbookpart.Workbook.Save();
+            workbookPart.Workbook.Save();
 
             // Close the document.
             spreadsheetDocument.Close();

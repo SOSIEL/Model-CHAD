@@ -213,13 +213,13 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public decimal WaterStorCap
+        public decimal WaterStoreCap
         {
-            get => Configuration.Parameters.WaterStorCap;
+            get => Configuration.Parameters.WaterStoreCap;
             set
             {
-                if (value == Configuration.Parameters.WaterStorCap) return;
-                Configuration.Parameters.WaterStorCap = value;
+                if (value == Configuration.Parameters.WaterStoreCap) return;
+                Configuration.Parameters.WaterStoreCap = value;
                 RaisePropertyChanged();
             }
         }
@@ -253,7 +253,7 @@ namespace CHAD.DesktopApplication.ViewModels
             configurationViewModel.PercFromFieldFrac = PercFromFieldFrac;
             configurationViewModel.WaterInAquifer = WaterInAquifer;
             configurationViewModel.WaterInAquiferMax = WaterInAquiferMax;
-            configurationViewModel.WaterStorCap = WaterStorCap;
+            configurationViewModel.WaterStoreCap = WaterStoreCap;
         }
 
         #endregion

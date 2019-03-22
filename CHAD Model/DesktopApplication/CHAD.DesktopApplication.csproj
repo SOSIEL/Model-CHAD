@@ -86,7 +86,6 @@
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NullToBoolConverter.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources\ImageResources.cs" />
     <Compile Include="Tools\EditorViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
