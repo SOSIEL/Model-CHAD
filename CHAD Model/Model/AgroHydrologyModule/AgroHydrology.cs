@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.ClimateModule;
 
-namespace Model.Modules
+namespace Model.AgroHydrologyModule
 {
     public class AgroHydrology
     {
@@ -32,12 +32,11 @@ namespace Model.Modules
 
         #region Constructors
 
-        public AgroHydrology(ILogger logger, Parameters parameters, List<ClimateForecast> climateList, List<Field> fields,
+        public AgroHydrology(ILogger logger, Parameters parameters, List<Field> fields,
             List<InputCropEvapTrans> cropEvapTranses)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
-            ClimateList = climateList ?? throw new ArgumentNullException(nameof(climateList));
             _fields = fields ?? throw new ArgumentNullException(nameof(fields));
             _cropEvapTrans = cropEvapTranses ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
 
@@ -68,24 +67,19 @@ namespace Model.Modules
 
         #region Public Interface
 
-        public IEnumerable<ClimateForecast> ClimateList { get; }
-
         public List<Hydrology> Hydrology { get; }
 
-        public void ProcessDay(int i)
+        public void ProcessDay(int i, DailyClimate dailyClimate)
         {
             _logger.Write(string.Format(
                 "\nDay[{0}]\n__________________________________________________________________________\n", i));
 
-            var Temp = ClimateList.FirstOrDefault(e => e.Day == i).TempMeanRandom;
-            var Precip = ClimateList.FirstOrDefault(e => e.Day == i).PrecipMeanRandom;
-
             _logger.Write(string.Format(
-                "Temp(Day[{0}])=Random.Normal(InputClimate.TempMean,InputClimate.TempSD,Day)={1}", i, Temp));
+                "Temp(Day[{0}])=Random.Normal(InputClimate.TempMean,InputClimate.TempSD,Day)={1}", i, dailyClimate.Temperature));
             _logger.Write(
                 string.Format(
                     "Precip(Day[{0}])=Random.Normal(InputClimate.PrecipMean,InputClimate.PrecipSD,Day)={1}\n", i,
-                    Precip));
+                    dailyClimate.Precipitation));
 
             _logger.Write(Environment.NewLine);
 
@@ -93,12 +87,12 @@ namespace Model.Modules
             {
                 PrecipOnField[fld] =
                     Math.Round(
-                        Precip * (_fields.ElementAt(fld).FieldSize / _fields.Sum(e => e.FieldSize)),
+                        dailyClimate.Precipitation * (_fields.ElementAt(fld).FieldSize / _fields.Sum(e => e.FieldSize)),
                         2);
                 _logger.Write(
                     string.Format(
                         "PrecipOnField(FieldNum[{0}])=Precip*(InputFieldSize.FieldSize(FieldNum[{0}])/sum(InputFieldSize.FieldSize)={1}/({2}/{3})={4}",
-                        fld + 1, Precip, _fields.ElementAt(fld).FieldSize,
+                        fld + 1, dailyClimate.Precipitation, _fields.ElementAt(fld).FieldSize,
                         _fields.Sum(e => e.FieldSize), PrecipOnField[fld]));
             }
 

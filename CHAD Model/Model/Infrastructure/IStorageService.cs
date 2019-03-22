@@ -11,7 +11,7 @@ namespace Model
 
         void SaveLogs(string path, SimpleLogger logger);
 
-        void SaveClimate(string path, IEnumerable<ClimateForecast> climate);
+        void SaveClimate(string path, Climate climate);
 
         void SaveHydrology(string path, List<Hydrology> hydrology, IEnumerable<Field> inputFieldSize);
 

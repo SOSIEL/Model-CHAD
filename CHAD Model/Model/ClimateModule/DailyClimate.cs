@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Model.ClimateModule
+﻿namespace Model.ClimateModule
 {
     public class DailyClimate
     {

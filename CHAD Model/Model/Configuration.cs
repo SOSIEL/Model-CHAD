@@ -10,7 +10,7 @@ namespace Model
         public Configuration()
         {
             Parameters = new Parameters();
-            ClimateList = new List<ClimateForecast>();
+            ClimateForecast = new List<ClimateForecast>();
             CropEvapTransList = new List<InputCropEvapTrans>();
             Fields = new List<Field>();
         }
@@ -27,11 +27,11 @@ namespace Model
 
         public string Name { get; set; }
 
-        public int DaysCount => ClimateList.Count;
+        public int DaysCount => ClimateForecast.Count;
 
         public Parameters Parameters { get; set; }
 
-        public List<ClimateForecast> ClimateList { get; }
+        public List<ClimateForecast> ClimateForecast { get; }
 
         public List<InputCropEvapTrans> CropEvapTransList { get; }
 

@@ -9,8 +9,6 @@
         public double TempSD { get; set; }
         public double PrecipMean { get; set; }
         public double PrecipSD { get; set; }
-        public decimal TempMeanRandom { get; set; }
-        public decimal PrecipMeanRandom { get; set; }
 
         #endregion
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Model
 {
-    public class LoggerDummy : ILogger
+    public class DummyLogger : ILogger
     {
         #region Public Interface
 

@@ -70,7 +70,7 @@ namespace DataAccess
             sw.Close();
         }
 
-        public void SaveClimate(string path, IEnumerable<ClimateForecast> climate)
+        public void SaveClimate(string path, Climate climate)
         {
             var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
 
@@ -113,9 +113,8 @@ namespace DataAccess
             lastcell = row.InsertAfter(
                 new Cell {CellValue = new CellValue("Precip"), DataType = new EnumValue<CellValues>(CellValues.String)},
                 lastcell);
-
-            climate = climate.OrderBy(e => e.Day);
-            foreach (var c in climate)
+            
+            foreach (var dailyClimate in climate.OrderBy(dc => dc.Day))
             {
                 row = new Row {RowIndex = rowindex++};
                 sheetData.Append(row);
@@ -123,19 +122,19 @@ namespace DataAccess
                 lastcell = row.InsertAfter(
                     new Cell
                     {
-                        CellValue = new CellValue(c.Day.ToString()),
+                        CellValue = new CellValue(dailyClimate.Day.ToString()),
                         DataType = new EnumValue<CellValues>(CellValues.Number)
                     }, lastcell);
                 lastcell = row.InsertAfter(
                     new Cell
                     {
-                        CellValue = new CellValue(c.TempMeanRandom.ToString()),
+                        CellValue = new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture)),
                         DataType = new EnumValue<CellValues>(CellValues.String)
                     }, lastcell);
                 lastcell = row.InsertAfter(
                     new Cell
                     {
-                        CellValue = new CellValue(c.PrecipMeanRandom.ToString()),
+                        CellValue = new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture)),
                         DataType = new EnumValue<CellValues>(CellValues.String)
                     }, lastcell);
             }
@@ -309,7 +308,7 @@ namespace DataAccess
 
             if (simulationResultPart.HasFlag(SimulationResultPart.Climate))
                 SaveClimate(Path.Combine(simulationResultPath, ClimateSimulationName),
-                    simulationResult.AgroHydrology.ClimateList);
+                    simulationResult.Climate);
             if (simulationResultPart.HasFlag(SimulationResultPart.Hydrology))
                 SaveHydrology(Path.Combine(simulationResultPath, HydrologySimulationName),
                     simulationResult.AgroHydrology.Hydrology, simulationResult.Configuration.Fields);
@@ -387,7 +386,7 @@ namespace DataAccess
 
                 var rowIndex = 2u;
 
-                foreach (var climate in configuration.ClimateList)
+                foreach (var climate in configuration.ClimateForecast)
                 {
                     // Add a row to the cell table.
                     row = new Row {RowIndex = rowIndex};
@@ -554,9 +553,9 @@ namespace DataAccess
         {
             var table = GetTable(path);
 
-            configuration.ClimateList.Clear();
+            configuration.ClimateForecast.Clear();
 
-            configuration.ClimateList.AddRange(table.Rows
+            configuration.ClimateForecast.AddRange(table.Rows
                 .Cast<DataRow>().Select(e => new ClimateForecast
                 {
                     Day = Convert.ToInt32(e[0].ToString()),

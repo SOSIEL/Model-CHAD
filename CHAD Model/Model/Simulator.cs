@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Threading;
-using Model.Modules;
+using Model.AgroHydrologyModule;
+using Model.ClimateModule;
 
 namespace Model
 {
     public class Simulator
     {
-        private readonly ILoggerFactory _loggerFactory;
-
         #region Fields
+
+        private readonly ILoggerFactory _loggerFactory;
 
         private SimulatorStatus _status;
 
@@ -26,6 +27,8 @@ namespace Model
         #region Public Interface
 
         public event Action<SimulationResult> SimulationResultObtained;
+
+        public Climate Climate { get; private set; }
 
         public AgroHydrology AgroHydrology { get; private set; }
 
@@ -45,7 +48,7 @@ namespace Model
 
         public void Start()
         {
-            if(Status != SimulatorStatus.Stopped)
+            if (Status != SimulatorStatus.Stopped)
                 throw new InvalidOperationException("Simulator is already running");
 
             Status = SimulatorStatus.Run;
@@ -77,7 +80,7 @@ namespace Model
 
         public void Continue()
         {
-            if(Status != SimulatorStatus.OnPaused)
+            if (Status != SimulatorStatus.OnPaused)
                 throw new InvalidOperationException("Simulator is not on pause");
 
             Status = SimulatorStatus.Run;
@@ -119,7 +122,8 @@ namespace Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
-                    AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, Configuration.ClimateList,
+                    Climate = new Climate(Configuration.ClimateForecast);
+                    AgroHydrology = new AgroHydrology(logger, Configuration.Parameters,
                         Configuration.Fields, Configuration.CropEvapTransList);
 
                     for (var dayNumber = 1; dayNumber < Configuration.DaysCount; dayNumber++)
@@ -127,11 +131,13 @@ namespace Model
                         CheckStatus();
                         CurrentDay = dayNumber;
 
-                        AgroHydrology.ProcessDay(dayNumber);
+                        var dailyClimate = Climate.GetDailyClimate(dayNumber);
+                        AgroHydrology.ProcessDay(dayNumber, dailyClimate);
                     }
                 }
 
-                var simulationResults = new SimulationResult(simulationSession, Configuration, simulationNumber, AgroHydrology);
+                var simulationResults = new SimulationResult(simulationSession, Configuration, simulationNumber,
+                    Climate, AgroHydrology);
                 RaiseSimulationResultObtained(simulationResults);
             }
         }

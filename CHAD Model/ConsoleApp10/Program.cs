@@ -37,7 +37,7 @@ namespace ConsoleApp10
 
             storageService.SaveLogs(path, loggerFactory.Logger);
             storageService.SaveHydrology(path, simulator.AgroHydrology.Hydrology, configuration.Fields);
-            storageService.SaveClimate(path, simulator.AgroHydrology.ClimateList);
+            storageService.SaveClimate(path, simulator.Climate);
         }
 
         #endregion
