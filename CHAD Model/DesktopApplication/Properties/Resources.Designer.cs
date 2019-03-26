@@ -349,6 +349,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ProfitCRP.
+        /// </summary>
+        public static string ProfitCRP {
+            get {
+                return ResourceManager.GetString("ProfitCRP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -390,6 +399,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SustainableLevelAquifer.
+        /// </summary>
+        public static string SustainableLevelAquifer {
+            get {
+                return ResourceManager.GetString("SustainableLevelAquifer", resourceCulture);
             }
         }
         

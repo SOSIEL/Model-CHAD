@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using CHAD.DataAccess;
 using CHAD.DesktopApplication.Tools;
 using CHAD.Model;
@@ -143,7 +144,14 @@ namespace CHAD.DesktopApplication.ViewModels
             set
             {
                 _configurationViewModel = value;
-                _storageService.GetConfiguration(_configurationViewModel.Configuration);
+                try
+                {
+                    _storageService.GetConfiguration(_configurationViewModel.Configuration);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Configuration is corrupted", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 Simulator.SetConfiguration(_configurationViewModel.Configuration);
 
                 RaisePropertyChanged(nameof(ConfigurationViewModel));

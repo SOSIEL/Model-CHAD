@@ -40,6 +40,9 @@
                 IsEnabled="{Binding ElementName=UserControl, Path=NavigationService.CanNavigateNext}" />
         </StackPanel>
 
-        <controls:Logo Grid.Row="1" HorizontalAlignment="Right" />
+        <controls:Logo
+            Grid.Row="1"
+            Margin="0,8,0,0"
+            HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

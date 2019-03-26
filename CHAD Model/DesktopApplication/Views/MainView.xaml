@@ -2,10 +2,10 @@
     x:Class="CHAD.DesktopApplication.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:CHAD.DesktopApplication.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:CHAD.DesktopApplication.Properties"
-    xmlns:controls="clr-namespace:CHAD.DesktopApplication.Controls"
     xmlns:viewModels="clr-namespace:CHAD.DesktopApplication.ViewModels"
     d:DataContext="{d:DesignInstance viewModels:ApplicationViewModel}"
     d:DesignHeight="500"
@@ -214,7 +214,10 @@
 
         </Grid>
 
-        <controls:Logo Grid.Row="4" HorizontalAlignment="Right" />
+        <controls:Logo
+            Grid.Row="4"
+            Margin="0,8,0,0"
+            HorizontalAlignment="Right" />
 
     </Grid>
 </UserControl>

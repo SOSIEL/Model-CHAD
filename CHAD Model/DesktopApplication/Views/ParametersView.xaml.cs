@@ -43,7 +43,7 @@ namespace CHAD.DesktopApplication.Views
 
         private void NextButton_OnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.NavigateToAgentsView(_configurationEditorViewModel);
+            NavigationService.NavigateToConfigurationNameView(_configurationEditorViewModel);
         }
 
         #endregion

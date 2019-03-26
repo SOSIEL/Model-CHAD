@@ -213,6 +213,9 @@
   <data name="PreviousButtonText" xml:space="preserve">
     <value> &lt; Previous</value>
   </data>
+  <data name="ProfitCRP" xml:space="preserve">
+    <value>ProfitCRP</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -251,5 +254,8 @@
   </data>
   <data name="WaterUsageMax" xml:space="preserve">
     <value>WaterUsageMax</value>
+  </data>
+  <data name="SustainableLevelAquifer" xml:space="preserve">
+    <value>SustainableLevelAquifer</value>
   </data>
 </root>
