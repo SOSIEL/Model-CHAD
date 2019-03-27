@@ -20,7 +20,7 @@ namespace SOSIEL_EX1
         public const string FieldHistoryNonCrop = "FieldHistoryNonCrop";
 
         public const string WaterInAquifire = "WaterInAquifire";
-
+        public const string SustainableLevelAquifer = "SustainableLevelAquifer";
 
 
 

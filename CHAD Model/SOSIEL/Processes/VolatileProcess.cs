@@ -8,17 +8,18 @@ namespace SOSIEL.Processes
         protected abstract void Maximize();
         protected abstract void Minimize();
 
+        protected abstract void MaintainAtValue();
 
         protected void SpecificLogic(string tendency)
         {
-            switch(tendency)
+            switch (tendency)
             {
                 case "EqualToOrAboveFocalValue":
                     {
                         EqualToOrAboveFocalValue();
                         break;
                     }
-               case "Maximize":
+                case "Maximize":
                     {
                         Maximize();
                         break;
@@ -26,6 +27,11 @@ namespace SOSIEL.Processes
                 case "Minimize":
                     {
                         Minimize();
+                        break;
+                    }
+                case "MaintainAtValue":
+                    {
+                        MaintainAtValue();
                         break;
                     }
                 default:
