@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-using CHAD.DesktopApplication.Properties;
 
 namespace CHAD.DesktopApplication.Tools
 {
@@ -36,7 +35,7 @@ namespace CHAD.DesktopApplication.Tools
 
         #region All other members
 
-        [NotifyPropertyChangedInvocator]
+        
         protected void RaisePropertyChangedForDispatchers([CallerMemberName] string propertyName = null)
         {
             foreach (var dispatcher in _dispatchers)
@@ -46,7 +45,7 @@ namespace CHAD.DesktopApplication.Tools
                 });
         }
 
-        [NotifyPropertyChangedInvocator]
+        
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

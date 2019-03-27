@@ -46,7 +46,7 @@ namespace CHAD.DesktopApplication.Views
 
         private void PreviousButton_OnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.NavigateToOutputView(ConfigurationEditorViewModel);
+            NavigationService.NavigateToParametersView(ConfigurationEditorViewModel);
         }
 
         private void NextButton_OnClick(object sender, RoutedEventArgs e)

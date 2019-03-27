@@ -213,13 +213,16 @@
   <data name="PreviousButtonText" xml:space="preserve">
     <value> &lt; Previous</value>
   </data>
+  <data name="ProfitCRP" xml:space="preserve">
+    <value>ProfitCRP</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SelectConfiguration" xml:space="preserve">
     <value>Select configuration:</value>
   </data>
-  <data name="Sosiel" xml:space="preserve">
+  <data name="SOSIEL" xml:space="preserve">
     <value>SOSIEL</value>
   </data>
   <data name="Start" xml:space="preserve">
@@ -246,10 +249,13 @@
   <data name="WaterInAquiferMax" xml:space="preserve">
     <value>WaterInAquiferMax</value>
   </data>
-  <data name="WaterStorCap" xml:space="preserve">
-    <value>WaterStorCap</value>
+  <data name="WaterStoreCap" xml:space="preserve">
+    <value>WaterStoreCap</value>
   </data>
   <data name="WaterUsageMax" xml:space="preserve">
     <value>WaterUsageMax</value>
+  </data>
+  <data name="SustainableLevelAquifer" xml:space="preserve">
+    <value>SustainableLevelAquifer</value>
   </data>
 </root>

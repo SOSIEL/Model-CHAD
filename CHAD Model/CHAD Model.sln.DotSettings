@@ -45,7 +45,7 @@
       &lt;/Entry.SortBy&gt;&#xD;
     &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="All other members" /&gt;&#xD;
-    &lt;Entry Priority="100" DisplayName="Test Methods"&gt;&#xD;
+    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Kind Is="Method" /&gt;&#xD;
@@ -78,7 +78,7 @@
       &lt;/Entry.Match&gt;&#xD;
     &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="All other members" /&gt;&#xD;
-    &lt;Entry Priority="100" DisplayName="Test Methods"&gt;&#xD;
+    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Kind Is="Method" /&gt;&#xD;
@@ -92,7 +92,7 @@
   &lt;/TypePattern&gt;&#xD;
   &lt;TypePattern DisplayName="Default Pattern" RemoveRegions="AllExceptGenerated"&gt;&#xD;
     &lt;Region Name="Public Delegates"&gt;&#xD;
-      &lt;Entry Priority="100" DisplayName="Public Delegates"&gt;&#xD;
+      &lt;Entry DisplayName="Public Delegates" Priority="100"&gt;&#xD;
         &lt;Entry.Match&gt;&#xD;
           &lt;And&gt;&#xD;
             &lt;Access Is="Public" /&gt;&#xD;
@@ -105,7 +105,7 @@
       &lt;/Entry&gt;&#xD;
     &lt;/Region&gt;&#xD;
     &lt;Region Name=" Public Enums"&gt;&#xD;
-      &lt;Entry Priority="100" DisplayName="Public Enums"&gt;&#xD;
+      &lt;Entry DisplayName="Public Enums" Priority="100"&gt;&#xD;
         &lt;Entry.Match&gt;&#xD;
           &lt;And&gt;&#xD;
             &lt;Access Is="Public" /&gt;&#xD;
@@ -129,7 +129,8 @@
           &lt;/Or&gt;&#xD;
         &lt;/Entry.Match&gt;&#xD;
         &lt;Entry.SortBy&gt;&#xD;
-          &lt;Kind Order="Constant Field" /&gt;&#xD;
+          &lt;Kind Is="Member" /&gt;&#xD;
+          &lt;Name /&gt;&#xD;
         &lt;/Entry.SortBy&gt;&#xD;
       &lt;/Entry&gt;&#xD;
     &lt;/Region&gt;&#xD;
@@ -167,10 +168,13 @@
             &lt;Kind Is="Member" /&gt;&#xD;
           &lt;/And&gt;&#xD;
         &lt;/Entry.Match&gt;&#xD;
+        &lt;Entry.SortBy&gt;&#xD;
+          &lt;Name /&gt;&#xD;
+        &lt;/Entry.SortBy&gt;&#xD;
       &lt;/Entry&gt;&#xD;
     &lt;/Region&gt;&#xD;
     &lt;Region Name="Interface Implementations"&gt;&#xD;
-      &lt;Entry Priority="100" DisplayName="Interface Implementations"&gt;&#xD;
+      &lt;Entry DisplayName="Interface Implementations" Priority="100"&gt;&#xD;
         &lt;Entry.Match&gt;&#xD;
           &lt;And&gt;&#xD;
             &lt;Kind Is="Member" /&gt;&#xD;
@@ -183,7 +187,12 @@
       &lt;/Entry&gt;&#xD;
     &lt;/Region&gt;&#xD;
     &lt;Region Name="All other members"&gt;&#xD;
-      &lt;Entry DisplayName="All other members" /&gt;&#xD;
+      &lt;Entry DisplayName="All other members"&gt;&#xD;
+        &lt;Entry.SortBy&gt;&#xD;
+          &lt;Kind Is="Member" /&gt;&#xD;
+          &lt;Name /&gt;&#xD;
+        &lt;/Entry.SortBy&gt;&#xD;
+      &lt;/Entry&gt;&#xD;
     &lt;/Region&gt;&#xD;
     &lt;Region Name="Nested Types"&gt;&#xD;
       &lt;Entry DisplayName="Nested Types"&gt;&#xD;
@@ -194,4 +203,13 @@
     &lt;/Region&gt;&#xD;
   &lt;/TypePattern&gt;&#xD;
 &lt;/Patterns&gt;</s:String>
-	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EAlwaysTreatStructAsNotReorderableMigration/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RVAC/@EntryIndexedValue">RVAC</s:String>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EAlwaysTreatStructAsNotReorderableMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Agro/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Calibri/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Evap/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Frac/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Irrig/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Perc/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Precip/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=SOSIEL/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

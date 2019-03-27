@@ -119,6 +119,18 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
+        public decimal ProfitCRP
+        {
+            get => Configuration.Parameters.ProfitCRP;
+            set
+            {
+                if (value == Configuration.Parameters.ProfitCRP)
+                    return;
+                Configuration.Parameters.ProfitCRP = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public decimal CostWheat
         {
             get => Configuration.Parameters.CostWheat;
@@ -151,18 +163,6 @@ namespace CHAD.DesktopApplication.ViewModels
                 if (value == Configuration.Parameters.WaterCurtailmentRate)
                     return;
                 Configuration.Parameters.WaterCurtailmentRate = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public decimal WaterUsageMax
-        {
-            get => Configuration.Parameters.WaterUsageMax;
-            set
-            {
-                if (value == Configuration.Parameters.WaterUsageMax)
-                    return;
-                Configuration.Parameters.WaterUsageMax = value;
                 RaisePropertyChanged();
             }
         }
@@ -213,13 +213,24 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public decimal WaterStorCap
+        public decimal WaterStoreCap
         {
-            get => Configuration.Parameters.WaterStorCap;
+            get => Configuration.Parameters.WaterStoreCap;
             set
             {
-                if (value == Configuration.Parameters.WaterStorCap) return;
-                Configuration.Parameters.WaterStorCap = value;
+                if (value == Configuration.Parameters.WaterStoreCap) return;
+                Configuration.Parameters.WaterStoreCap = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal SustainableLevelAquifer
+        {
+            get => Configuration.Parameters.SustainableLevelAquifer;
+            set
+            {
+                if (value == Configuration.Parameters.SustainableLevelAquifer) return;
+                Configuration.Parameters.SustainableLevelAquifer = value;
                 RaisePropertyChanged();
             }
         }
@@ -232,28 +243,8 @@ namespace CHAD.DesktopApplication.ViewModels
         public void CopyTo(ConfigurationViewModel configurationViewModel)
         {
             configurationViewModel.Name = Name;
-            
-            configurationViewModel.Configuration.Parameters.NumOfSimulations = Configuration.Parameters.NumOfSimulations;
-            configurationViewModel.Configuration.Parameters.NumOfSeasons = Configuration.Parameters.NumOfSeasons;
 
-            configurationViewModel.Configuration.Parameters.Beta = Configuration.Parameters.Beta;
-
-            configurationViewModel.MeanBushelsAlfalfaPerAcre = MeanBushelsAlfalfaPerAcre;
-            configurationViewModel.MeanBushelsBarleyPerAcre = MeanBushelsBarleyPerAcre;
-            configurationViewModel.MeanBushelsWheatPerAcre = MeanBushelsWheatPerAcre;
-
-            configurationViewModel.CostAlfalfa = CostAlfalfa;
-            configurationViewModel.CostBarley = CostBarley;
-            configurationViewModel.CostWheat = CostWheat;
-            configurationViewModel.WaterCurtailmentBase = WaterCurtailmentBase;
-            configurationViewModel.WaterCurtailmentRate = WaterCurtailmentRate;
-            configurationViewModel.WaterUsageMax = WaterUsageMax;
-
-            configurationViewModel.LeakAquiferFrac = LeakAquiferFrac;
-            configurationViewModel.PercFromFieldFrac = PercFromFieldFrac;
-            configurationViewModel.WaterInAquifer = WaterInAquifer;
-            configurationViewModel.WaterInAquiferMax = WaterInAquiferMax;
-            configurationViewModel.WaterStorCap = WaterStorCap;
+            configurationViewModel.Configuration.Parameters = Configuration.Parameters.Clone();
         }
 
         #endregion

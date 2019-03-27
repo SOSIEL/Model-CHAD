@@ -1,12 +1,13 @@
-﻿using System;
-
-namespace CHAD.Model.AgroHydrologyModule
+﻿namespace CHAD.Model.AgroHydrologyModule
 {
     public class InputCropEvapTrans
     {
+        #region Public Interface
+
         public int Day { get; set; }
-        public int CropType { get; set; }
-        public String CropName { get; set; }
+        public Plant Plant { get; set; }
         public decimal Quantity { get; set; }
+
+        #endregion
     }
 }

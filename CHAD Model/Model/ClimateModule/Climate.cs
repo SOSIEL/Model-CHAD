@@ -9,6 +9,8 @@ namespace CHAD.Model.ClimateModule
     {
         #region Fields
 
+        private readonly IEnumerable<ClimateForecast> _climateForecasts;
+
         private readonly List<DailyClimate> _dailyClimates;
 
         #endregion
@@ -17,9 +19,19 @@ namespace CHAD.Model.ClimateModule
 
         public Climate(IEnumerable<ClimateForecast> climateForecasts)
         {
+            _climateForecasts = climateForecasts;
             _dailyClimates = new List<DailyClimate>();
+        }
 
-            foreach (var climateForecast in climateForecasts)
+        #endregion
+
+        #region Public Interface
+
+        public void ProcessSeason()
+        {
+            _dailyClimates.Clear();
+
+            foreach (var climateForecast in _climateForecasts)
             {
                 var temperature = Gaussian(climateForecast.TempMean, climateForecast.TempSD);
                 var precipitation = Gaussian(climateForecast.PrecipMean, climateForecast.PrecipSD);
@@ -27,10 +39,6 @@ namespace CHAD.Model.ClimateModule
                 _dailyClimates.Add(new DailyClimate(climateForecast.Day, temperature, precipitation));
             }
         }
-
-        #endregion
-
-        #region Public Interface
 
         public DailyClimate GetDailyClimate(int day)
         {
