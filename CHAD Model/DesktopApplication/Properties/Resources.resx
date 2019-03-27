@@ -249,13 +249,37 @@
   <data name="WaterInAquiferMax" xml:space="preserve">
     <value>WaterInAquiferMax</value>
   </data>
-  <data name="WaterStoreCap" xml:space="preserve">
-    <value>WaterStoreCap</value>
+  <data name="WaterStorFieldCap" xml:space="preserve">
+    <value>WaterStorFieldCap</value>
   </data>
   <data name="WaterUsageMax" xml:space="preserve">
     <value>WaterUsageMax</value>
   </data>
   <data name="SustainableLevelAquifer" xml:space="preserve">
     <value>SustainableLevelAquifer</value>
+  </data>
+  <data name="Climate" xml:space="preserve">
+    <value>Climate</value>
+  </data>
+  <data name="ClimateChangePrecipMean" xml:space="preserve">
+    <value>ClimateChangePrecipMean</value>
+  </data>
+  <data name="ClimateChangePrecipSD" xml:space="preserve">
+    <value>ClimateChangePrecipSD</value>
+  </data>
+  <data name="ClimateChangeTempMean" xml:space="preserve">
+    <value>ClimateChangeTempMean</value>
+  </data>
+  <data name="ClimateChangeTempSD" xml:space="preserve">
+    <value>ClimateChangeTempSD</value>
+  </data>
+  <data name="MeltingPoint" xml:space="preserve">
+    <value>MeltingPoint</value>
+  </data>
+  <data name="MeltingRate" xml:space="preserve">
+    <value>MeltingRate</value>
+  </data>
+  <data name="WaterInSnowpack" xml:space="preserve">
+    <value>WaterInSnowpack</value>
   </data>
 </root>

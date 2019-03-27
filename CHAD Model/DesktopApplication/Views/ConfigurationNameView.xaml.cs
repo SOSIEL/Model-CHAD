@@ -58,6 +58,8 @@ namespace CHAD.DesktopApplication.Views
 
             _applicationViewModel.SaveConfiguration(ConfigurationEditorViewModel.OriginalValue);
 
+            _applicationViewModel.ConfigurationViewModel = ConfigurationEditorViewModel.OriginalValue;
+
             NavigationService.NavigateToMainView();
         }
 

@@ -164,7 +164,6 @@ namespace CHAD.DesktopApplication.ViewModels
         public void AddConfigurationViewModel(ConfigurationViewModel configurationViewModel)
         {
             ConfigurationsViewModels.Add(configurationViewModel);
-            ConfigurationViewModel = configurationViewModel;
         }
 
         public void SaveConfiguration(ConfigurationViewModel configurationViewModel)
@@ -175,6 +174,8 @@ namespace CHAD.DesktopApplication.ViewModels
         #endregion
 
         #region All other members
+
+
 
         private void SimulatorOnSimulationResultObtained(SimulationResult simulationResult)
         {

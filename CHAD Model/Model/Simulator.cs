@@ -6,6 +6,7 @@ using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.Infrastructure;
 using CHAD.Model.RVACModule;
+using CHADSOSIEL;
 
 namespace CHAD.Model
 {
@@ -110,6 +111,26 @@ namespace CHAD.Model
 
         #region All other members
 
+        private SosielModel CreateSosielModel(double waterInAquifer, List<Field> plantInFields)
+        {
+            var model = new SosielModel
+            {
+                WaterInAquifire = waterInAquifer
+            };
+
+            foreach (var plantInField in plantInFields)
+            {
+                model.Fields.Add(new ChadField
+                {
+                    FieldHistoryCrop = plantInField.GetCropNumberSeasons(),
+                    FieldHistoryNonCrop = plantInField.GetNonCropNumberSeasons(),
+                    ProfitCRP = (double)Configuration.Parameters.ProfitCRP
+                });
+            }
+
+            return model;
+        }
+
         private void CheckStatus()
         {
             while (Status == SimulatorStatus.OnPaused)
@@ -117,22 +138,6 @@ namespace CHAD.Model
 
             if (Status == SimulatorStatus.Stopped)
                 Thread.CurrentThread.Abort();
-        }
-
-        private List<PlantInField> GetPlantInFields(List<Field> fields, List<Plant> plants)
-        {
-            var result = new List<PlantInField>();
-            var random = new Random();
-
-
-            foreach (var field in fields)
-            {
-                var plantNumber = random.Next(0, plants.Count - 1);
-
-                result.Add(new PlantInField(field, plants[plantNumber]));
-            }
-
-            return result;
         }
 
         private string MakeSimulationSession()
@@ -158,9 +163,10 @@ namespace CHAD.Model
 
                 var logger = _loggerFactory.MakeLogger(Configuration.Name, simulationSession, simulationNumber);
 
-                Climate = new Climate(Configuration.ClimateForecast);
+                Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
                 AgroHydrology = new AgroHydrology(logger, Configuration.Parameters,
                     Configuration.Fields, Configuration.CropEvapTransList);
+                var sosielModel = CreateSosielModel((double)Configuration.Parameters.WaterInAquifer, Configuration.Fields);
                 RVAC = new RVAC(Configuration.Parameters);
 
                 for (var seasonNumber = 1; seasonNumber <= Configuration.Parameters.NumOfSeasons; seasonNumber++)
@@ -168,11 +174,8 @@ namespace CHAD.Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
-                    var plantInFields = GetPlantInFields(Configuration.Fields,
-                        Configuration.CropEvapTransList.Select(ce => ce.Plant).ToList());
-
-                    Climate.ProcessSeason();
-                    AgroHydrology.ProcessSeasonStart(plantInFields);
+                    Climate.ProcessSeason(seasonNumber);
+                    AgroHydrology.ProcessSeasonStart();
 
                     for (var dayNumber = 1; dayNumber < Configuration.DaysCount; dayNumber++)
                     {

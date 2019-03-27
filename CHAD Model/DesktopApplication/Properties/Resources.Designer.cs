@@ -115,6 +115,51 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Climate.
+        /// </summary>
+        public static string Climate {
+            get {
+                return ResourceManager.GetString("Climate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClimateChangePrecipMean.
+        /// </summary>
+        public static string ClimateChangePrecipMean {
+            get {
+                return ResourceManager.GetString("ClimateChangePrecipMean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClimateChangePrecipSD.
+        /// </summary>
+        public static string ClimateChangePrecipSD {
+            get {
+                return ResourceManager.GetString("ClimateChangePrecipSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClimateChangeTempMean.
+        /// </summary>
+        public static string ClimateChangeTempMean {
+            get {
+                return ResourceManager.GetString("ClimateChangeTempMean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClimateChangeTempSD.
+        /// </summary>
+        public static string ClimateChangeTempSD {
+            get {
+                return ResourceManager.GetString("ClimateChangeTempSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration name.
         /// </summary>
         public static string ConfigurationName {
@@ -264,6 +309,24 @@ namespace CHAD.DesktopApplication.Properties {
         public static string MeanBushelsWheatPerAcre {
             get {
                 return ResourceManager.GetString("MeanBushelsWheatPerAcre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MeltingPoint.
+        /// </summary>
+        public static string MeltingPoint {
+            get {
+                return ResourceManager.GetString("MeltingPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MeltingRate.
+        /// </summary>
+        public static string MeltingRate {
+            get {
+                return ResourceManager.GetString("MeltingRate", resourceCulture);
             }
         }
         
@@ -466,11 +529,20 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WaterStoreCap.
+        ///   Looks up a localized string similar to WaterInSnowpack.
         /// </summary>
-        public static string WaterStoreCap {
+        public static string WaterInSnowpack {
             get {
-                return ResourceManager.GetString("WaterStoreCap", resourceCulture);
+                return ResourceManager.GetString("WaterInSnowpack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WaterStorFieldCap.
+        /// </summary>
+        public static string WaterStorFieldCap {
+            get {
+                return ResourceManager.GetString("WaterStorFieldCap", resourceCulture);
             }
         }
         

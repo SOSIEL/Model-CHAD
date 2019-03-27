@@ -65,6 +65,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
@@ -133,6 +134,79 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="0,32,0,0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="192" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="192" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        FontWeight="Bold"
+                        Text="{x:Static properties:Resources.Climate}" />
+
+                    <Border Grid.Row="1" Grid.Column="0" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.ClimateChangePrecipMean}" />
+                    <controls:ChadTextBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Text="{Binding Path=Value.ClimateChangePrecipMean, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.ClimateChangePrecipSD}" />
+                    <controls:ChadTextBox
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        Margin="8,0,0,0"
+                        Text="{Binding Path=Value.ClimateChangePrecipSD, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="8,16,0,0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.ClimateChangeTempMean}" />
+                    <controls:ChadTextBox
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="8,16,0,0"
+                        Text="{Binding Path=Value.ClimateChangeTempMean, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Margin="8,16,0,0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.ClimateChangeTempSD}" />
+                    <controls:ChadTextBox
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Margin="8,16,0,0"
+                        Text="{Binding Path=Value.ClimateChangeTempSD, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+
+                </Grid>
+
+                <Grid Grid.Row="2" Margin="0,32,0,0">
 
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -230,9 +304,10 @@
 
                 </Grid>
 
-                <Grid Grid.Row="2" Margin="0,32,0,0">
+                <Grid Grid.Row="3" Margin="0,32,0,0">
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -307,7 +382,7 @@
                         Grid.Column="0"
                         Margin="0,16,0,0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.WaterStoreCap}" />
+                        Text="{x:Static properties:Resources.WaterStorFieldCap}" />
                     <controls:ChadTextBox
                         Grid.Row="4"
                         Grid.Column="1"
@@ -325,6 +400,42 @@
                         Grid.Column="3"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.SustainableLevelAquifer, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Margin="0,16,0,0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.MeltingPoint}" />
+                    <controls:ChadTextBox
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Margin="8,16,0,0"
+                        Text="{Binding Path=Value.MeltingPoint, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Margin="0,16,0,0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.MeltingRate}" />
+                    <controls:ChadTextBox
+                        Grid.Row="5"
+                        Grid.Column="3"
+                        Margin="8,16,0,0"
+                        Text="{Binding Path=Value.MeltingRate, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Margin="0,16,0,0"
+                        VerticalAlignment="Center"
+                        Text="{x:Static properties:Resources.WaterInSnowpack}" />
+                    <controls:ChadTextBox
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Margin="8,16,0,0"
+                        Text="{Binding Path=Value.WaterInSnowpack, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                 </Grid>
 

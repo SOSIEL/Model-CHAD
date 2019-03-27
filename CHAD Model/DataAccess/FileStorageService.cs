@@ -349,11 +349,11 @@ namespace CHAD.DataAccess
             configuration.CropEvapTransList.Clear();
 
             foreach (DataRow row in table.Rows)
-                for (var i = 1; i < table.Columns.Count; i++)
+                for (var i = 1; i <= 3; i++)
                     configuration.CropEvapTransList.Add(new InputCropEvapTrans
                     {
                         Day = Convert.ToInt32(row[0].ToString()),
-                        Plant = new Plant(table.Columns[i].ColumnName),
+                        Plant = i == 1 ? Plant.Alfalfa : i == 2 ? Plant.Barley : Plant.Wheat,
                         Quantity = (decimal) ToDouble(row[i].ToString())
                     });
         }
@@ -551,7 +551,7 @@ namespace CHAD.DataAccess
                     ? configuration.CropEvapTransList.Max(item => item.Day)
                     : 0;
 
-                var plantGroups = configuration.CropEvapTransList.GroupBy(plant => plant.Plant.Name)
+                var plantGroups = configuration.CropEvapTransList.GroupBy(plant => plant.Plant)
                     .OrderByDescending(plantGroup => plantGroup.Key).ToList();
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -563,7 +563,7 @@ namespace CHAD.DataAccess
                 foreach (var plantGroup in plantGroups)
                 {
                     newCell = row.InsertAt(new Cell(), columnIndex);
-                    newCell.CellValue = new CellValue(plantGroup.First().Plant.Name);
+                    newCell.CellValue = new CellValue(plantGroup.First().Plant.ToString());
                     newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                 }
 
@@ -581,7 +581,7 @@ namespace CHAD.DataAccess
                     {
                         newCell = row.InsertAt(new Cell(), columnIndex);
                         newCell.CellValue = new CellValue(configuration.CropEvapTransList
-                            .First(item => item.Day == day && item.Plant.Name == plantGroup.Key).Quantity
+                            .First(item => item.Day == day && item.Plant == plantGroup.Key).Quantity
                             .ToString(CultureInfo.InvariantCulture));
                         newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                     }

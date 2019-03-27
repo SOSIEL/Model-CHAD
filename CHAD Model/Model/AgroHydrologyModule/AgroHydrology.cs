@@ -19,7 +19,6 @@ namespace CHAD.Model.AgroHydrologyModule
         private decimal WaterInAquiferChange;
         private decimal WaterInAquiferGap;
         private decimal WaterInAquifer;
-        private List<PlantInField> PlantInFields;
         private decimal LeakAquifer;
         private decimal IrrigSeason;
 
@@ -38,6 +37,7 @@ namespace CHAD.Model.AgroHydrologyModule
         private readonly Dictionary<Field, decimal> WaterInput;
         private readonly decimal WaterUsageMax;
         private decimal WaterUsageRemain;
+        private decimal WaterInSnowpack;
 
         public decimal HarvestableAlfalfa { get; private set; }
         public decimal HarvestableBarley { get; private set; }
@@ -59,6 +59,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
             WaterInAquifer = _parameters.WaterInAquifer;
             WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - _parameters.WaterCurtailmentRate / 100);
+            WaterInSnowpack = _parameters.WaterInSnowpack;
 
             var fieldsCount = _fields.Count;
 
@@ -98,29 +99,31 @@ namespace CHAD.Model.AgroHydrologyModule
 
         public List<Hydrology> Hydrology { get; private set; }
 
-        public void ProcessSeasonStart(List<PlantInField> plantInFields)
+        public void ProcessSeasonStart()
         {
-            PlantInFields = plantInFields;
-
             WaterInAquiferPrior = WaterInAquifer;
 
             foreach (var field in _fields)
-            {
-                var plantInField = plantInFields.First(fc => fc.Field == field);
-                EvapTransFromFieldSeasonMax[field] = _cropEvapTrans.Where(c => c.Plant == plantInField.Plant).Sum(c => c.Quantity);
-            }
+                EvapTransFromFieldSeasonMax[field] = _cropEvapTrans.Where(c => c.Plant == field.Plant).Sum(c => c.Quantity);
         }
 
         public void ProcessDay(int dayNumber, DailyClimate dailyClimate)
         {
             foreach (var field in _fields)
             {
-                var plantInField = PlantInFields.First(fieldCrop => Equals(fieldCrop.Field, field));
+                var plantInField = field.Plant;
 
-                PrecipOnField[field] = dailyClimate.Precipitation * (field.FieldSize / _fields.Sum(f => f.FieldSize));
+                var precipitation = dailyClimate.Precipitation + (_parameters.MeltingRate * _parameters.WaterInSnowpack);
+
+                if (dailyClimate.Temperature > _parameters.MeltingPoint)
+                    precipitation = dailyClimate.Precipitation + _parameters.MeltingRate * WaterInSnowpack;
+                else
+                    WaterInSnowpack = WaterInSnowpack + precipitation;
+
+                PrecipOnField[field] = precipitation * (field.FieldSize / _fields.Sum(f => f.FieldSize));
 
                 IrrigNeed[field] =
-                    _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == plantInField.Plant).Quantity *
+                    _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == field.Plant).Quantity *
                     field.FieldSize;
 
                 WaterUsageRemain = Math.Max(0, WaterUsageMax - IrrigSeason);
@@ -141,7 +144,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
                 EvapTransFromField[field] =
                     Math.Min(
-                        _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == plantInField.Plant).Quantity *
+                        _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == field.Plant).Quantity *
                         field.FieldSize, WaterInField[field]);
 
                 WaterInField[field] = WaterInField[field] - EvapTransFromField[field];
@@ -170,19 +173,19 @@ namespace CHAD.Model.AgroHydrologyModule
 
         public void ProcessSeasonEnd()
         {
-            foreach (var plantInField in PlantInFields)
+            foreach (var field in _fields)
             {
-                if (plantInField.Plant.Name == "1")
-                    HarvestableAlfalfa = HarvestableAlfalfa + EvapTransFromFieldToDate[plantInField.Field] /
-                                         EvapTransFromFieldSeasonMax[plantInField.Field];
+                if (field.Plant == Plant.Alfalfa)
+                    HarvestableAlfalfa = HarvestableAlfalfa + EvapTransFromFieldToDate[field] /
+                                         EvapTransFromFieldSeasonMax[field];
 
-                if (plantInField.Plant.Name == "2")
-                    HarvestableBarley = HarvestableBarley + EvapTransFromFieldToDate[plantInField.Field] /
-                                         EvapTransFromFieldSeasonMax[plantInField.Field];
+                if (field.Plant == Plant.Barley)
+                    HarvestableBarley = HarvestableBarley + EvapTransFromFieldToDate[field] /
+                                         EvapTransFromFieldSeasonMax[field];
 
-                if (plantInField.Plant.Name == "3")
-                    HarvestableWheat = HarvestableWheat + EvapTransFromFieldToDate[plantInField.Field] /
-                                         EvapTransFromFieldSeasonMax[plantInField.Field];
+                if (field.Plant == Plant.Wheat)
+                    HarvestableWheat = HarvestableWheat + EvapTransFromFieldToDate[field] /
+                                         EvapTransFromFieldSeasonMax[field];
             }
         }
 

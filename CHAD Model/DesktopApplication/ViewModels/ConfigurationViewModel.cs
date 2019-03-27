@@ -95,6 +95,55 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
+        public decimal ClimateChangePrecipMean
+        {
+            get => Configuration.Parameters.ClimateChangePrecipMean;
+            set
+            {
+                if(value == Configuration.Parameters.ClimateChangePrecipMean)
+                    return;
+                Configuration.Parameters.ClimateChangePrecipMean = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal ClimateChangePrecipSD 
+        {
+            get => Configuration.Parameters.ClimateChangePrecipSD;
+            set
+            {
+                if(value == Configuration.Parameters.ClimateChangePrecipSD )
+                    return;
+                Configuration.Parameters.ClimateChangePrecipSD  = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal ClimateChangeTempMean 
+        {
+            get => Configuration.Parameters.ClimateChangeTempMean ;
+            set
+            {
+                if(value == Configuration.Parameters.ClimateChangeTempMean )
+                    return;
+                Configuration.Parameters.ClimateChangeTempMean  = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal ClimateChangeTempSD
+        {
+            get => Configuration.Parameters.ClimateChangeTempSD;
+            set
+            {
+                if(value == Configuration.Parameters.ClimateChangeTempSD)
+                    return;
+                Configuration.Parameters.ClimateChangeTempSD = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public decimal CostAlfalfa
         {
             get => Configuration.Parameters.CostAlfalfa;
@@ -231,6 +280,39 @@ namespace CHAD.DesktopApplication.ViewModels
             {
                 if (value == Configuration.Parameters.SustainableLevelAquifer) return;
                 Configuration.Parameters.SustainableLevelAquifer = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal MeltingPoint
+        {
+            get => Configuration.Parameters.MeltingPoint;
+            set
+            {
+                if (value == Configuration.Parameters.MeltingPoint) return;
+                Configuration.Parameters.MeltingPoint = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal MeltingRate
+        {
+            get => Configuration.Parameters.MeltingRate;
+            set
+            {
+                if (value == Configuration.Parameters.MeltingRate) return;
+                Configuration.Parameters.MeltingRate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public decimal WaterInSnowpack
+        {
+            get => Configuration.Parameters.WaterInSnowpack;
+            set
+            {
+                if (value == Configuration.Parameters.WaterInSnowpack) return;
+                Configuration.Parameters.WaterInSnowpack = value;
                 RaisePropertyChanged();
             }
         }

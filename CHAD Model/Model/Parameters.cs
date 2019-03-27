@@ -16,6 +16,11 @@ namespace CHAD.Model
             MeanBushelsBarleyPerAcre = 0;
             MeanBushelsWheatPerAcre = 0;
 
+            ClimateChangePrecipMean = 1;
+            ClimateChangePrecipSD = 1;
+            ClimateChangeTempMean = 1;
+            ClimateChangeTempSD = 1;
+
             CostAlfalfa = 0;
             CostBarley = 0;
             CostWheat = 0;
@@ -30,6 +35,9 @@ namespace CHAD.Model
             WaterInAquifer = 5;
             WaterInAquiferMax = 10;
             WaterStoreCap = 1;
+            MeltingPoint = 32;
+            MeltingRate = 0;
+            WaterInSnowpack = 10;
         }
 
         #endregion
@@ -53,6 +61,15 @@ namespace CHAD.Model
         public decimal MeanBushelsBarleyPerAcre { get; set; }
 
         public decimal MeanBushelsWheatPerAcre { get; set; }
+
+
+        public decimal ClimateChangePrecipMean { get; set; }
+
+        public decimal ClimateChangePrecipSD { get; set; }
+
+        public decimal ClimateChangeTempMean { get; set; }
+
+        public decimal ClimateChangeTempSD { get; set; }
 
 
         public decimal CostAlfalfa { get; set; }
@@ -81,6 +98,12 @@ namespace CHAD.Model
         public decimal WaterInAquiferMax { get; set; }
 
         public decimal WaterStoreCap { get; set; }
+
+        public decimal MeltingPoint { get; set; }
+
+        public decimal MeltingRate { get; set; }
+
+        public decimal WaterInSnowpack { get; set; }
 
         #endregion
 

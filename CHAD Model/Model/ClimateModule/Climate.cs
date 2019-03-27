@@ -9,6 +9,7 @@ namespace CHAD.Model.ClimateModule
     {
         #region Fields
 
+        private readonly Parameters _parameters;
         private readonly IEnumerable<ClimateForecast> _climateForecasts;
 
         private readonly List<DailyClimate> _dailyClimates;
@@ -17,8 +18,9 @@ namespace CHAD.Model.ClimateModule
 
         #region Constructors
 
-        public Climate(IEnumerable<ClimateForecast> climateForecasts)
+        public Climate(Parameters parameters, IEnumerable<ClimateForecast> climateForecasts)
         {
+            _parameters = parameters;
             _climateForecasts = climateForecasts;
             _dailyClimates = new List<DailyClimate>();
         }
@@ -27,14 +29,23 @@ namespace CHAD.Model.ClimateModule
 
         #region Public Interface
 
-        public void ProcessSeason()
+        public void ProcessSeason(int seasonNumber)
         {
             _dailyClimates.Clear();
 
             foreach (var climateForecast in _climateForecasts)
             {
-                var temperature = Gaussian(climateForecast.TempMean, climateForecast.TempSD);
-                var precipitation = Gaussian(climateForecast.PrecipMean, climateForecast.PrecipSD);
+                var temperature = Gaussian(seasonNumber,
+                    climateForecast.TempMean,
+                    climateForecast.TempSD,
+                    (double)_parameters.ClimateChangeTempMean,
+                    (double)_parameters.ClimateChangeTempSD);
+
+                var precipitation = Gaussian(seasonNumber,
+                    climateForecast.PrecipMean,
+                    climateForecast.PrecipSD,
+                    (double)_parameters.ClimateChangePrecipMean,
+                    (double)_parameters.ClimateChangePrecipSD);
 
                 _dailyClimates.Add(new DailyClimate(climateForecast.Day, temperature, precipitation));
             }
@@ -63,13 +74,13 @@ namespace CHAD.Model.ClimateModule
 
         #region All other members
 
-        private static decimal Gaussian(double mean, double standardDeviation)
+        private decimal Gaussian(int seasonNumber, double mean, double standardDeviation, double changeMean, double changeDeviation)
         {
             var random = new Random();
             var x1 = 1 - random.NextDouble();
             var x2 = 1 - random.NextDouble();
             var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return (decimal) Math.Round(y1 * standardDeviation + mean, 2);
+            return (decimal) Math.Round(y1 * standardDeviation * Math.Pow(changeDeviation, seasonNumber) + mean * Math.Pow(changeMean, seasonNumber), 2);
         }
 
         #endregion
