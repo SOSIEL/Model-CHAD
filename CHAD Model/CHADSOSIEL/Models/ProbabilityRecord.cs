@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration;
 
-namespace SOSIEL_EX1.Models
+namespace CHADSOSIEL.Models
 {
     /// <summary>
     /// Model for parsing probability table file.

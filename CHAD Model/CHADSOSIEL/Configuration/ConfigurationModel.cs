@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using SOSIEL.Entities;
 
-namespace SOSIEL_EX1.Configuration
+namespace CHADSOSIEL.Configuration
 {
     /// <summary>
     /// Main configuration model.

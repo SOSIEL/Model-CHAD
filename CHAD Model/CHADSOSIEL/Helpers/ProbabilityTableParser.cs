@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using CHADSOSIEL.Models;
 using SOSIEL.Entities;
 using SOSIEL.Helpers;
-using SOSIEL_EX1.Models;
 
-namespace SOSIEL_EX1.Helpers
+namespace CHADSOSIEL.Helpers
 {
     public static class ProbabilityTableParser
     {

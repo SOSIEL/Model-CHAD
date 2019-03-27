@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SOSIEL_EX1.Configuration
+namespace CHADSOSIEL.Configuration
 {
     /// <summary>
     /// Agent state configuration model. Used to parse section "InitialState.AgentsState".

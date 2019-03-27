@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SOSIEL_EX1.Helpers
+namespace CHADSOSIEL.Helpers
 {
     public static class VariableTypeHelper
     {

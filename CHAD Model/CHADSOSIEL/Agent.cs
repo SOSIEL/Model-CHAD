@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CHADSOSIEL.Configuration;
 using SOSIEL.Entities;
 using SOSIEL.Helpers;
 using SOSIEL.Randoms;
-using SOSIEL_EX1.Configuration;
 
-namespace SOSIEL_EX1
+namespace CHADSOSIEL
 {
     public sealed class Agent : SOSIEL.Entities.Agent
     {
@@ -22,10 +22,6 @@ namespace SOSIEL_EX1
         public override SOSIEL.Entities.Agent CreateChild(string gender)
         {
             Agent child = (Agent)base.CreateChild(gender);
-
-            //child[AlgorithmVariables.AgentIncome] = 0;
-            //child[AlgorithmVariables.AgentExpenses] = 0;
-            //child[AlgorithmVariables.AgentSavings] = 0;
 
             return child;
         }

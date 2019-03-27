@@ -98,134 +98,134 @@
 
       "IsSiteOriented": false,
       "UseImportanceAdjusting": false
-    }
-  },
-  
-  "FarmerArchetype": {
-    "NamePrefix": "F",
-
-    "CommonVariables": {
-      "AgentType": "Type2",
-      "NonCropAgeThreshold": 5,
-      "CropAgeThreshold": 5
     },
 
-    "Goals": [
-      {
-        "Name": "G2",
-        "Tendency": "Maximize",
-        "ReferenceVariable": "Profit",
-        "FocalValue": 0,
-        "ChangeFocalValueOnPrevious": true,
-        "FocalValueReference": "",
-        "IsCumulative": false
-      }
-    ],
+    "FarmerArchetype": {
+      "NamePrefix": "F",
 
-    "MentalModel": {
-      "1": {
-        "AssociatedWith": [ "G3" ],
-        "Layer": {
-          "1": {
-            "Modifiable": false,
-            "MaxNumberOfDecisionOptions": 7
+      "CommonVariables": {
+        "AgentType": "Type2",
+        "NonCropAgeThreshold": 5,
+        "CropAgeThreshold": 5
+      },
+
+      "Goals": [
+        {
+          "Name": "G2",
+          "Tendency": "Maximize",
+          "ReferenceVariable": "Profit",
+          "FocalValue": 0,
+          "ChangeFocalValueOnPrevious": true,
+          "FocalValueReference": "",
+          "IsCumulative": false
+        }
+      ],
+
+      "MentalModel": {
+        "1": {
+          "AssociatedWith": [ "G3" ],
+          "Layer": {
+            "1": {
+              "Modifiable": false,
+              "MaxNumberOfDecisionOptions": 7
+            }
           }
         }
-      }
-    },
+      },
 
-    "DecisionOptions": [
-      {
-        "MentalModel": 1,
-        "DecisionOptionsLayer": 1,
-        "PositionNumber": 1,
-        "Id": "MM1_L1_DO1",
-        "Antecedent": [
-          {
-            "Param": "MarketPriceAlfalfa",
-            "Sign": ">=",
-            "ReferenceVariable": "BreakEvenPriceAlfalfa"
+      "DecisionOptions": [
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 1,
+          "Id": "MM1_L1_DO1",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceAlfalfa"
+            },
+            {
+              "Param": "FieldHistoryNonCrop",
+              "Sign": "<",
+              "ReferenceVariable": "NonCropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Alfalfa"
           },
-          {
-            "Param": "AmountOfNonCrop",
-            "Sign": "<",
-            "ReferenceVariable": "NonCropAgeThreshold"
-          }
-        ],
-        "Consequent": {
-          "Param": "PlantInField",
-          "Value": "Alfalfa"
+          "RequiredParticipants": 1
         },
-        "RequiredParticipants": 1
-      },
-      {
-        "MentalModel": 1,
-        "DecisionOptionsLayer": 1,
-        "PositionNumber": 2,
-        "Id": "MM1_L1_DO2",
-        "Antecedent": [
-          {
-            "Param": "MarketPriceBarley",
-            "Sign": ">=",
-            "ReferenceVariable": "BreakEvenPriceBarley"
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 2,
+          "Id": "MM1_L1_DO2",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceBarley"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": "<",
+              "ReferenceVariable": "CropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Barley"
           },
-          {
-            "Param": "AmountOfCrop",
-            "Sign": "<",
-            "ReferenceVariable": "CropAgeThreshold"
-          }
-        ],
-        "Consequent": {
-          "Param": "PlantInField",
-          "Value": "Barley"
+          "RequiredParticipants": 1
         },
-        "RequiredParticipants": 1
-      },
-      {
-        "MentalModel": 1,
-        "DecisionOptionsLayer": 1,
-        "PositionNumber": 3,
-        "Id": "MM1_L1_DO3",
-        "Antecedent": [
-          {
-            "Param": "MarketPriceWheat",
-            "Sign": ">=",
-            "ReferenceVariable": "BreakEvenPriceWheat"
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 3,
+          "Id": "MM1_L1_DO3",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceWheat"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": "<",
+              "ReferenceVariable": "CropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Wheat"
           },
-          {
-            "Param": "AmountOfCrop",
-            "Sign": "<",
-            "ReferenceVariable": "CropAgeThreshold"
-          }
-        ],
-        "Consequent": {
-          "Param": "PlantInField",
-          "Value": "Wheat"
+          "RequiredParticipants": 1
         },
-        "RequiredParticipants": 1
-      },
-      {
-        "MentalModel": 1,
-        "DecisionOptionsLayer": 1,
-        "PositionNumber": 4,
-        "Id": "MM1_L1_DO4",
-        "Antecedent": [
-          {
-            "Param": "AgentType",
-            "Sign": "=",
-            "Value": "Type2"
-          }
-        ],
-        "Consequent": {
-          "Param": "PlantInField",
-          "Value": "Nothing"
-        },
-        "RequiredParticipants": 1
-      }
-    ],
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 4,
+          "Id": "MM1_L1_DO4",
+          "Antecedent": [
+            {
+              "Param": "AgentType",
+              "Sign": "=",
+              "Value": "Type2"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Nothing"
+          },
+          "RequiredParticipants": 1
+        }
+      ],
 
-    "IsSiteOriented": true,
-    "UseImportanceAdjusting": false
+      "IsSiteOriented": true,
+      "UseImportanceAdjusting": false
+    }
   },
 
   "InitialState": {

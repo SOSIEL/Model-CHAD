@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SOSIEL.Configuration;
 
-namespace SOSIEL_EX1.Configuration
+namespace CHADSOSIEL.Configuration
 {
     /// <summary>
     /// Algorithm configuration model. Used to parse section "AlgorithmConfiguration".

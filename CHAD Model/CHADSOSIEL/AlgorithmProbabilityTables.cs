@@ -1,6 +1,6 @@
 ﻿using SOSIEL.Helpers;
 
-namespace SOSIEL_EX1
+namespace CHADSOSIEL
 {
     public class AlgorithmProbabilityTables: SosielProbabilityTables
     {
