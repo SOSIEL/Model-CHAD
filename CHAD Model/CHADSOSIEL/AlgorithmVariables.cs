@@ -10,6 +10,7 @@ namespace CHADSOSIEL
         public const string WaterInAquifire = "WaterInAquifire";
         public const string SustainableLevelAquifer = "SustainableLevelAquifer";
         public const string WaterCurtailmentRate = "WaterCurtailmentRate";
+        public const string WaterInAquiferMax = "WaterInAquiferMax";
 
         public const string Profit = "Profit";
         public const string FieldHistoryCrop = "FieldHistoryCrop";

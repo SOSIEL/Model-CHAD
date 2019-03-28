@@ -124,7 +124,7 @@ namespace CHAD.Model
                 {
                     FieldHistoryCrop = plantInField.GetCropNumberSeasons(),
                     FieldHistoryNonCrop = plantInField.GetNonCropNumberSeasons(),
-                    ProfitCRP = (double)Configuration.Parameters.ProfitCRP
+                    //ProfitCRP = (double)Configuration.Parameters.ProfitCRP
                 });
             }
 
