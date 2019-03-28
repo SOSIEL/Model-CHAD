@@ -192,6 +192,8 @@ namespace CHAD.DesktopApplication.ViewModels
 
         private void SimulatorOnStatusChanged()
         {
+            if(Simulator.Status == SimulatorStatus.Stopped)
+                _stopwatch.Reset();
             RaiseStatusChanged();
         }
 

@@ -114,6 +114,8 @@ namespace CHAD.Model
                 SustainableLevelAquifer = (double)configuration.Parameters.SustainableLevelAquifer
             };
 
+            model.Fields = new List<ChadField>();
+
             foreach (var fieldHistory in fieldHistories)
             {
                 model.Fields.Add(new ChadField
@@ -207,7 +209,7 @@ namespace CHAD.Model
             }
         }
 
-        private void ProcessSossielResult(int seasonNumber, SosielModel sosielModel, List<FieldHistory> fieldHistories)
+        private void ProcessSosielResult(int seasonNumber, SosielModel sosielModel, List<FieldHistory> fieldHistories)
         {
             foreach (var fieldHistory in fieldHistories)
             {

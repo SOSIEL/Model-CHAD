@@ -27,7 +27,7 @@ namespace CHAD.DataAccess
         private const string ClimateOutput = "Climate.xlsx";
         private const string ConfigurationsFolder = "Configurations";
         private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
-        private const string DecisionMakingOutput = "Hydrology.xlsx";
+        private const string DecisionMakingOutput = "OutputDecisionMaking.xlsx";
         private const string FieldsInput = "InputFieldSize.xlsx";
         private const string HydrologyOutput = "Hydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
@@ -402,6 +402,8 @@ namespace CHAD.DataAccess
                     newCell.CellValue =
                         new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.
@@ -578,6 +580,8 @@ namespace CHAD.DataAccess
                     newCell.CellValue =
                         new CellValue(seasonResult.RVAC.ProfitWheat.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.
@@ -652,6 +656,8 @@ namespace CHAD.DataAccess
                     newCell = row.InsertAt(new Cell(), 3);
                     newCell.CellValue = new CellValue(hydrology.WaterInSnowpack.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.
