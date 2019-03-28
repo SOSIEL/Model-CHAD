@@ -179,7 +179,7 @@ namespace CHAD.Model
                     CurrentSeason = seasonNumber;
 
                     algorithm.Run(sosielModel);
-                    ProcessSossielResult(seasonNumber, sosielModel, fields);
+                    ProcessSosielResult(seasonNumber, sosielModel, fields);
                     Climate.ProcessSeason(seasonNumber);
                     AgroHydrology.ProcessSeasonStart((decimal)sosielModel.WaterCurtailmentRate);
 
