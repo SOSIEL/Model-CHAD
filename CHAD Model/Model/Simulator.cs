@@ -111,19 +111,19 @@ namespace CHAD.Model
 
         #region All other members
 
-        private SosielModel CreateSosielModel(double waterInAquifer, List<Field> plantInFields)
+        private SosielModel CreateSosielModel(double waterInAquifer, List<Field> fields)
         {
             var model = new SosielModel
             {
                 WaterInAquifire = waterInAquifer
             };
 
-            foreach (var plantInField in plantInFields)
+            foreach (var field in fields)
             {
                 model.Fields.Add(new ChadField
                 {
-                    FieldHistoryCrop = plantInField.GetCropNumberSeasons(),
-                    FieldHistoryNonCrop = plantInField.GetNonCropNumberSeasons(),
+                    FieldHistoryCrop = field.GetCropNumberSeasons(),
+                    FieldHistoryNonCrop = field.GetNonCropNumberSeasons(),
                     //ProfitCRP = (double)Configuration.Parameters.ProfitCRP
                 });
             }
@@ -158,6 +158,8 @@ namespace CHAD.Model
                 simulationNumber <= Configuration.Parameters.NumOfSimulations;
                 simulationNumber++)
             {
+                var simulationResult = new SimulationResult(simulationSession, Configuration, simulationNumber);
+
                 CheckStatus();
                 CurrentSimulation = simulationNumber;
 
@@ -195,11 +197,11 @@ namespace CHAD.Model
                         AgroHydrology.HarvestableAlfalfa, 
                         AgroHydrology.HarvestableBarley,
                         AgroHydrology.HarvestableWheat);
-                }
 
-                var simulationResults = new SimulationResult(simulationSession, Configuration, simulationNumber,
-                    Climate, AgroHydrology);
-                RaiseSimulationResultObtained(simulationResults);
+                    simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, Climate, AgroHydrology, RVAC));
+                }
+                
+                RaiseSimulationResultObtained(simulationResult);
             }
         }
 
