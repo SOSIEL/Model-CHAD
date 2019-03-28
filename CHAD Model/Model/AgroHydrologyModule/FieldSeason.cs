@@ -4,9 +4,10 @@
     {
         #region Constructors
 
-        public FieldSeason(int seasonNumber)
+        public FieldSeason(int seasonNumber, Plant plant)
         {
             SeasonNumber = seasonNumber;
+            Plant = plant;
         }
 
         #endregion
@@ -15,7 +16,7 @@
 
         public double Harvestable { get; set; }
 
-        public Plant Plant { get; set; }
+        public Plant Plant { get; }
 
         public int SeasonNumber { get; }
 

@@ -59,7 +59,7 @@ namespace CHAD.DesktopApplication.ViewModels
 
         public void Start()
         {
-            Task.Run(() => { Simulator.Start(); });
+            Task.Run(() => { Simulator.Start(ConfigurationViewModel.Configuration); });
             _checkStatusTimer.Change(0, 100);
             _stopwatch.Restart();
         }
@@ -152,7 +152,6 @@ namespace CHAD.DesktopApplication.ViewModels
                 {
                     MessageBox.Show("Configuration is corrupted", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                Simulator.SetConfiguration(_configurationViewModel.Configuration);
 
                 RaisePropertyChanged(nameof(ConfigurationViewModel));
                 RaiseStatusChanged();

@@ -15,7 +15,6 @@ using CHADSOSIEL.Configuration;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using Field = CHAD.Model.AgroHydrologyModule.Field;
 using Parameters = CHAD.Model.Parameters;
 
 namespace CHAD.DataAccess
@@ -157,8 +156,7 @@ namespace CHAD.DataAccess
 
             configuration.Fields.Clear();
 
-            configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Field
-                (int.Parse(e[0].ToString()), ToDecimal(e[1].ToString()))));
+            configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Model.AgroHydrologyModule.Field(int.Parse(e[0].ToString()), ToDecimal(e[1].ToString()))));
         }
 
         private void FillMarketPrices(string path, Configuration configuration)
@@ -705,7 +703,7 @@ namespace CHAD.DataAccess
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
-                    newCell.CellValue = new CellValue(field.FieldNum.ToString());
+                    newCell.CellValue = new CellValue(field.FieldNumber.ToString());
                     newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                     newCell = row.InsertAt(new Cell(), 1);

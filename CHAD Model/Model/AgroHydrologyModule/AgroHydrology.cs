@@ -11,49 +11,44 @@ namespace CHAD.Model.AgroHydrologyModule
         #region Fields
 
         private readonly List<InputCropEvapTrans> _cropEvapTrans;
-        private readonly List<Field> _fields;
+        private readonly List<FieldHistory> _fieldHistories;
         private readonly ILogger _logger;
         private readonly Parameters _parameters;
 
-        private decimal WaterInAquiferPrior;
+        private readonly Dictionary<FieldHistory, decimal> DirectRunoff;
+        private readonly Dictionary<FieldHistory, decimal> EvapTransFromField;
+
+        private readonly Dictionary<FieldHistory, decimal> EvapTransFromFieldSeasonMax;
+        private readonly Dictionary<FieldHistory, decimal> EvapTransFromFieldToDate;
+        private readonly Dictionary<FieldHistory, decimal> IrrigNeed;
+        private readonly Dictionary<FieldHistory, decimal> IrrigOfField;
+        private readonly Dictionary<FieldHistory, decimal> IrrigOfFieldSeason;
+        private readonly Dictionary<FieldHistory, decimal> PercFromField;
+        private readonly Dictionary<FieldHistory, decimal> PrecipOnField;
+        private readonly Dictionary<FieldHistory, decimal> WaterInField;
+        private readonly Dictionary<FieldHistory, decimal> WaterInFieldMax;
+        private readonly Dictionary<FieldHistory, decimal> WaterInput;
+        private decimal IrrigSeason;
+        private decimal LeakAquifer;
+        private decimal WaterInAquifer;
         private decimal WaterInAquiferChange;
         private decimal WaterInAquiferGap;
-        private decimal WaterInAquifer;
-        public decimal WaterCurtailmentRate { get; private set; }
-        private decimal LeakAquifer;
-        private decimal IrrigSeason;
 
-        private readonly Dictionary<Field, decimal> EvapTransFromFieldSeasonMax;
-        private readonly Dictionary<Field, decimal> EvapTransFromField;
-        private readonly Dictionary<Field, decimal> EvapTransFromFieldToDate;
-
-        private readonly Dictionary<Field, decimal> DirectRunoff;
-        private readonly Dictionary<Field, decimal> IrrigNeed;
-        private readonly Dictionary<Field, decimal> IrrigOfField;
-        private readonly Dictionary<Field, decimal> IrrigOfFieldSeason;
-        private readonly Dictionary<Field, decimal> PercFromField;
-        private readonly Dictionary<Field, decimal> PrecipOnField;
-        private readonly Dictionary<Field, decimal> WaterInField;
-        private readonly Dictionary<Field, decimal> WaterInFieldMax;
-        private readonly Dictionary<Field, decimal> WaterInput;
+        private decimal WaterInAquiferPrior;
+        private decimal WaterInSnowpack;
         private decimal WaterUsageMax;
         private decimal WaterUsageRemain;
-        private decimal WaterInSnowpack;
-
-        public decimal HarvestableAlfalfa { get; private set; }
-        public decimal HarvestableBarley { get; private set; }
-        public decimal HarvestableWheat { get; private set; }
 
         #endregion
 
         #region Constructors
 
-        public AgroHydrology(ILogger logger, Parameters parameters, List<Field> fields,
+        public AgroHydrology(ILogger logger, Parameters parameters, List<FieldHistory> fieldHistories,
             List<InputCropEvapTrans> cropEvapTrans)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
-            _fields = fields ?? throw new ArgumentNullException(nameof(fields));
+            _fieldHistories = fieldHistories ?? throw new ArgumentNullException(nameof(fieldHistories));
             _cropEvapTrans = cropEvapTrans ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
 
             DailyHydrology = new List<DailyHydrology>();
@@ -61,35 +56,35 @@ namespace CHAD.Model.AgroHydrologyModule
             WaterInAquifer = _parameters.WaterInAquifer;
             WaterInSnowpack = _parameters.WaterInSnowpack;
 
-            var fieldsCount = _fields.Count;
+            var fieldsCount = _fieldHistories.Count;
 
-            EvapTransFromField = new Dictionary<Field, decimal>(fieldsCount);
-            EvapTransFromFieldToDate = new Dictionary<Field, decimal>(fieldsCount);
-            EvapTransFromFieldSeasonMax = new Dictionary<Field, decimal>(fieldsCount);
-            DirectRunoff = new Dictionary<Field, decimal>(fieldsCount);
-            IrrigNeed = new Dictionary<Field, decimal>(fieldsCount);
-            IrrigOfField = new Dictionary<Field, decimal>(fieldsCount);
-            IrrigOfFieldSeason = new Dictionary<Field, decimal>(fieldsCount);
-            PercFromField = new Dictionary<Field, decimal>(fieldsCount);
-            PrecipOnField = new Dictionary<Field, decimal>(fieldsCount);
-            WaterInput = new Dictionary<Field, decimal>(fieldsCount);
-            WaterInField = new Dictionary<Field, decimal>(fieldsCount);
-            WaterInFieldMax = new Dictionary<Field, decimal>(fieldsCount);
+            EvapTransFromField = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            EvapTransFromFieldToDate = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            EvapTransFromFieldSeasonMax = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            DirectRunoff = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            IrrigNeed = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            IrrigOfField = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            IrrigOfFieldSeason = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            PercFromField = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            PrecipOnField = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            WaterInput = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            WaterInField = new Dictionary<FieldHistory, decimal>(fieldsCount);
+            WaterInFieldMax = new Dictionary<FieldHistory, decimal>(fieldsCount);
 
-            foreach (var field in _fields)
+            foreach (var fieldHistory in _fieldHistories)
             {
-                EvapTransFromField[field] = 0;
-                EvapTransFromFieldToDate[field] = 0;
-                EvapTransFromFieldSeasonMax[field] = 0;
-                DirectRunoff[field] = 0;
-                IrrigNeed[field] = 0;
-                IrrigOfField[field] = 0;
-                IrrigOfFieldSeason[field] = 0;
-                PercFromField[field] = 0;
-                PrecipOnField[field] = 0;
-                WaterInput[field] = 0;
-                WaterInField[field] = 0;
-                WaterInFieldMax[field] = Math.Round(_parameters.WaterStoreCap * field.FieldSize, 2);
+                EvapTransFromField[fieldHistory] = 0;
+                EvapTransFromFieldToDate[fieldHistory] = 0;
+                EvapTransFromFieldSeasonMax[fieldHistory] = 0;
+                DirectRunoff[fieldHistory] = 0;
+                IrrigNeed[fieldHistory] = 0;
+                IrrigOfField[fieldHistory] = 0;
+                IrrigOfFieldSeason[fieldHistory] = 0;
+                PercFromField[fieldHistory] = 0;
+                PrecipOnField[fieldHistory] = 0;
+                WaterInput[fieldHistory] = 0;
+                WaterInField[fieldHistory] = 0;
+                WaterInFieldMax[fieldHistory] = Math.Round(_parameters.WaterStoreCap * fieldHistory.Field.FieldSize, 2);
             }
         }
 
@@ -97,21 +92,15 @@ namespace CHAD.Model.AgroHydrologyModule
 
         #region Public Interface
 
-        public List<DailyHydrology> DailyHydrology { get; private set; }
+        public List<DailyHydrology> DailyHydrology { get; }
 
-        public void ProcessSeasonStart()
-        {
-            WaterInAquiferPrior = WaterInAquifer;
-
-            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - _parameters.WaterCurtailmentRate / 100);
-
-            foreach (var field in _fields)
-                EvapTransFromFieldSeasonMax[field] = _cropEvapTrans.Where(c => c.Plant == field.Plant).Sum(c => c.Quantity);
-        }
+        public decimal HarvestableAlfalfa { get; private set; }
+        public decimal HarvestableBarley { get; private set; }
+        public decimal HarvestableWheat { get; private set; }
 
         public void ProcessDay(int dayNumber, DailyClimate dailyClimate)
         {
-            foreach (var field in _fields)
+            foreach (var fieldHistory in _fieldHistories)
             {
                 var precipitation = dailyClimate.Precipitation + _parameters.MeltingRate * _parameters.WaterInSnowpack;
 
@@ -120,41 +109,47 @@ namespace CHAD.Model.AgroHydrologyModule
                 else
                     WaterInSnowpack = WaterInSnowpack + precipitation;
 
-                PrecipOnField[field] = precipitation * (field.FieldSize / _fields.Sum(f => f.FieldSize));
+                PrecipOnField[fieldHistory] = precipitation * (fieldHistory.Field.FieldSize / _fieldHistories.Sum(f => f.Field.FieldSize));
 
-                IrrigNeed[field] =
-                    _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == field.Plant).Quantity *
-                    field.FieldSize;
+                if (fieldHistory.Plant == Plant.Nothing)
+                    IrrigNeed[fieldHistory] = 0;
+                else
+                    IrrigNeed[fieldHistory] =
+                        _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == fieldHistory.Plant).Quantity *
+                        fieldHistory.Field.FieldSize;
 
                 WaterUsageRemain = Math.Max(0, WaterUsageMax - IrrigSeason);
 
-                IrrigOfField[field] = Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer);
+                IrrigOfField[fieldHistory] = Math.Min(Math.Min(IrrigNeed[fieldHistory], WaterUsageRemain), WaterInAquifer);
 
-                IrrigOfFieldSeason[field] = IrrigOfFieldSeason[field] + IrrigOfField[field];
+                IrrigOfFieldSeason[fieldHistory] = IrrigOfFieldSeason[fieldHistory] + IrrigOfField[fieldHistory];
 
                 IrrigSeason = IrrigOfFieldSeason.Sum(i => i.Value);
 
-                DirectRunoff[field] = (PrecipOnField[field] + IrrigOfField[field]) *
-                                      (decimal) Math.Pow((double) WaterInField[field] / (double) WaterInFieldMax[field],
+                DirectRunoff[fieldHistory] = (PrecipOnField[fieldHistory] + IrrigOfField[fieldHistory]) *
+                                      (decimal) Math.Pow((double) WaterInField[fieldHistory] / (double) WaterInFieldMax[fieldHistory],
                                           (double) _parameters.Beta);
 
-                WaterInput[field] = PrecipOnField[field] + IrrigOfField[field] - DirectRunoff[field];
+                WaterInput[fieldHistory] = PrecipOnField[fieldHistory] + IrrigOfField[fieldHistory] - DirectRunoff[fieldHistory];
 
-                WaterInField[field] = WaterInField[field] + WaterInput[field];
+                WaterInField[fieldHistory] = WaterInField[fieldHistory] + WaterInput[fieldHistory];
 
-                EvapTransFromField[field] =
-                    Math.Min(
-                        _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == field.Plant).Quantity *
-                        field.FieldSize, WaterInField[field]);
+                if (fieldHistory.Plant == Plant.Nothing)
+                    EvapTransFromField[fieldHistory] = 0;
+                else
+                    EvapTransFromField[fieldHistory] =
+                        Math.Min(
+                            _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == fieldHistory.Plant).Quantity *
+                            fieldHistory.Field.FieldSize, WaterInField[fieldHistory]);
 
-                WaterInField[field] = WaterInField[field] - EvapTransFromField[field];
+                WaterInField[fieldHistory] = WaterInField[fieldHistory] - EvapTransFromField[fieldHistory];
 
                 WaterInAquifer = WaterInAquifer - IrrigOfField.Sum(i => i.Value);
 
-                PercFromField[field] = Math.Min(_parameters.PercFromFieldFrac * WaterInField[field],
+                PercFromField[fieldHistory] = Math.Min(_parameters.PercFromFieldFrac * WaterInField[fieldHistory],
                     _parameters.WaterInAquiferMax - WaterInAquifer);
 
-                WaterInField[field] = WaterInField[field] - PercFromField[field];
+                WaterInField[fieldHistory] = WaterInField[fieldHistory] - PercFromField[fieldHistory];
             }
 
             WaterInAquifer = WaterInAquifer + PercFromField.Sum(i => i.Value);
@@ -167,7 +162,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
             WaterInAquiferGap = Math.Abs(WaterInAquifer - _parameters.SustainableLevelAquifer);
 
-            foreach (var field in _fields)
+            foreach (var field in _fieldHistories)
                 EvapTransFromFieldToDate[field] = EvapTransFromFieldToDate[field] + EvapTransFromField[field];
 
             DailyHydrology.Add(new DailyHydrology(dayNumber, WaterInAquifer, WaterInSnowpack));
@@ -175,7 +170,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
         public void ProcessSeasonEnd()
         {
-            foreach (var field in _fields)
+            foreach (var field in _fieldHistories)
             {
                 if (field.Plant == Plant.Alfalfa)
                     HarvestableAlfalfa = HarvestableAlfalfa + EvapTransFromFieldToDate[field] /
@@ -183,13 +178,27 @@ namespace CHAD.Model.AgroHydrologyModule
 
                 if (field.Plant == Plant.Barley)
                     HarvestableBarley = HarvestableBarley + EvapTransFromFieldToDate[field] /
-                                         EvapTransFromFieldSeasonMax[field];
+                                        EvapTransFromFieldSeasonMax[field];
 
                 if (field.Plant == Plant.Wheat)
                     HarvestableWheat = HarvestableWheat + EvapTransFromFieldToDate[field] /
-                                         EvapTransFromFieldSeasonMax[field];
+                                       EvapTransFromFieldSeasonMax[field];
             }
         }
+
+        public void ProcessSeasonStart(decimal waterCurtailmentRate)
+        {
+            WaterCurtailmentRate = waterCurtailmentRate;
+            WaterInAquiferPrior = WaterInAquifer;
+
+            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - _parameters.WaterCurtailmentRate / 100);
+
+            foreach (var field in _fieldHistories)
+                EvapTransFromFieldSeasonMax[field] =
+                    _cropEvapTrans.Where(c => c.Plant == field.Plant).Sum(c => c.Quantity);
+        }
+
+        public decimal WaterCurtailmentRate { get; private set; }
 
         #endregion
     }

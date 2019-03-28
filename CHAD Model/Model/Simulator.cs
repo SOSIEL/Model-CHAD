@@ -61,20 +61,14 @@ namespace CHAD.Model
 
         public RVAC RVAC { get; private set; }
 
-        public void SetConfiguration(Configuration configuration)
-        {
-            if (Status != SimulatorStatus.Stopped)
-                throw new InvalidOperationException("Unable to change configuration while simulator is working");
-
-            Configuration = configuration;
-        }
-
         public event Action<SimulationResult> SimulationResultObtained;
 
-        public void Start()
+        public void Start(Configuration configuration)
         {
             if (Status != SimulatorStatus.Stopped)
                 throw new InvalidOperationException("Simulator is already running");
+
+            Configuration = configuration;
 
             Status = SimulatorStatus.Run;
 
@@ -111,7 +105,7 @@ namespace CHAD.Model
 
         #region All other members
 
-        private SosielModel CreateSosielModel(Configuration configuration)
+        private SosielModel CreateSosielModel(Configuration configuration, List<FieldHistory> fieldHistories)
         {
             var model = new SosielModel
             {
@@ -120,12 +114,12 @@ namespace CHAD.Model
                 SustainableLevelAquifer = (double)configuration.Parameters.SustainableLevelAquifer
             };
 
-            foreach (var field in configuration.Fields)
+            foreach (var fieldHistory in fieldHistories)
             {
-                model.Fields.Add(new ChadField
+                model.Fields.Add(new ChadField(fieldHistory.Field.FieldNumber)
                 {
-                    FieldHistoryCrop = field.GetCropNumberSeasons(),
-                    FieldHistoryNonCrop = field.GetNonCropNumberSeasons()
+                    FieldHistoryCrop = fieldHistory.GetCropNumberSeasons(),
+                    FieldHistoryNonCrop = fieldHistory.GetNonCropNumberSeasons()
                 });
             }
 
@@ -166,11 +160,13 @@ namespace CHAD.Model
 
                 var logger = _loggerFactory.MakeLogger(Configuration.Name, simulationSession, simulationNumber);
 
-                //Algorithm algorithm = new Algorithm();
-                var sosielModel = CreateSosielModel(Configuration);
+                var fields = Configuration.Fields.Select(f => new FieldHistory(f)).ToList();
+                var sosielModel = CreateSosielModel(Configuration, fields);
+
+                Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
+                algorithm.Initialize();
                 Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
-                AgroHydrology = new AgroHydrology(logger, Configuration.Parameters,
-                    Configuration.Fields, Configuration.CropEvapTransList);
+                AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, fields, Configuration.CropEvapTransList);
                 
                 RVAC = new RVAC(Configuration.Parameters);
 
@@ -179,9 +175,10 @@ namespace CHAD.Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
-                    
+                    algorithm.Run(sosielModel);
+                    ProcessSossielResult(seasonNumber, sosielModel, fields);
                     Climate.ProcessSeason(seasonNumber);
-                    AgroHydrology.ProcessSeasonStart();
+                    AgroHydrology.ProcessSeasonStart((decimal)sosielModel.WaterCurtailmentRate);
 
                     for (var dayNumber = 1; dayNumber < Configuration.DaysCount; dayNumber++)
                     {
@@ -207,6 +204,30 @@ namespace CHAD.Model
                 
                 RaiseSimulationResultObtained(simulationResult);
             }
+        }
+
+        private void ProcessSossielResult(int seasonNumber, SosielModel sosielModel, List<FieldHistory> fieldHistories)
+        {
+            foreach (var fieldHistory in fieldHistories)
+            {
+                var chadField = sosielModel.Fields.First(cf => cf.Number == fieldHistory.Field.FieldNumber);
+
+                fieldHistory.AddNewSeason(new FieldSeason(seasonNumber, ConvertStringToPlant(chadField.Plant)));
+            }
+        }
+
+        private Plant ConvertStringToPlant(string plant)
+        {
+            if (plant.Equals("Alfalfa"))
+                return Plant.Alfalfa;
+            if (plant.Equals("Barley"))
+                return Plant.Barley;
+            if (plant.Equals("Wheat"))
+                return Plant.Wheat;
+            if (plant.Equals("Nothing"))
+                return Plant.Nothing;
+
+            throw new ArgumentOutOfRangeException(nameof(plant));
         }
 
         #endregion
