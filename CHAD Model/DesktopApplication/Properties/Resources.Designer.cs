@@ -160,6 +160,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InputClimate.xlsx is invalid..
+        /// </summary>
+        public static string ClimateFileInvalid {
+            get {
+                return ResourceManager.GetString("ClimateFileInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration name.
         /// </summary>
         public static string ConfigurationName {
@@ -201,6 +210,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string CostWheat {
             get {
                 return ResourceManager.GetString("CostWheat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InputCropEvapTrans.xlsx is invalid..
+        /// </summary>
+        public static string CropEvapTransFileInvalid {
+            get {
+                return ResourceManager.GetString("CropEvapTransFileInvalid", resourceCulture);
             }
         }
         
@@ -255,6 +273,24 @@ namespace CHAD.DesktopApplication.Properties {
         public static string EditSimulationInfoText {
             get {
                 return ResourceManager.GetString("EditSimulationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InputFieldSize.xlsx is invalid..
+        /// </summary>
+        public static string FieldsFileInvalid {
+            get {
+                return ResourceManager.GetString("FieldsFileInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InputFinancials.xlsx is invalid..
+        /// </summary>
+        public static string FinancialsFileInvalid {
+            get {
+                return ResourceManager.GetString("FinancialsFileInvalid", resourceCulture);
             }
         }
         
@@ -426,6 +462,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of season is greater than InputFinancials.xlsx contains..
+        /// </summary>
+        public static string SeasonNumberInvalid {
+            get {
+                return ResourceManager.GetString("SeasonNumberInvalid", resourceCulture);
             }
         }
         

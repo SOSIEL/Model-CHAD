@@ -282,4 +282,19 @@
   <data name="WaterInSnowpack" xml:space="preserve">
     <value>WaterInSnowpack</value>
   </data>
+  <data name="ClimateFileInvalid" xml:space="preserve">
+    <value>InputClimate.xlsx is invalid.</value>
+  </data>
+  <data name="CropEvapTransFileInvalid" xml:space="preserve">
+    <value>InputCropEvapTrans.xlsx is invalid.</value>
+  </data>
+  <data name="FieldsFileInvalid" xml:space="preserve">
+    <value>InputFieldSize.xlsx is invalid.</value>
+  </data>
+  <data name="FinancialsFileInvalid" xml:space="preserve">
+    <value>InputFinancials.xlsx is invalid.</value>
+  </data>
+  <data name="SeasonNumberInvalid" xml:space="preserve">
+    <value>Number of season is greater than InputFinancials.xlsx contains.</value>
+  </data>
 </root>

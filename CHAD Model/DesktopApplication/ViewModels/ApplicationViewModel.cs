@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -59,9 +61,39 @@ namespace CHAD.DesktopApplication.ViewModels
 
         public void Start()
         {
+            var message = VerifyConfiguration(ConfigurationViewModel.Configuration);
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             Task.Run(() => { Simulator.Start(ConfigurationViewModel.Configuration); });
             _checkStatusTimer.Change(0, 100);
             _stopwatch.Restart();
+        }
+
+        private string VerifyConfiguration(Configuration configuration)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            if (!configuration.Fields.Any())
+                builder.Append("\n" + Properties.Resources.FieldsFileInvalid);
+
+            if(!configuration.CropEvapTransList.Any())
+                builder.Append("\n" + Properties.Resources.CropEvapTransFileInvalid);
+
+            if(!configuration.ClimateForecast.Any())
+                builder.Append("\n" + Properties.Resources.ClimateFileInvalid);
+
+            if(!configuration.ClimateForecast.Any())
+                builder.Append("\n" + Properties.Resources.FinancialsFileInvalid);
+
+            if (configuration.Parameters.NumOfSeasons > configuration.MarketPrices.Count)
+                builder.Append("\n" + Properties.Resources.SeasonNumberInvalid);
+
+            return builder.ToString();
         }
 
         public void Stop()
