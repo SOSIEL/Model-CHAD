@@ -2,12 +2,7 @@
 {
     public class ChadField
     {
-        public ChadField(int number)
-        {
-            Number = number;
-        }
-
-        public int Number { get; }
+        public int Number { get; set; }
 
         public string Plant { get; internal set; }
 

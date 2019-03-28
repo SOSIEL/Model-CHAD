@@ -116,8 +116,9 @@ namespace CHAD.Model
 
             foreach (var fieldHistory in fieldHistories)
             {
-                model.Fields.Add(new ChadField(fieldHistory.Field.FieldNumber)
+                model.Fields.Add(new ChadField
                 {
+                    Number = fieldHistory.Field.FieldNumber,
                     FieldHistoryCrop = fieldHistory.GetCropNumberSeasons(),
                     FieldHistoryNonCrop = fieldHistory.GetNonCropNumberSeasons()
                 });
