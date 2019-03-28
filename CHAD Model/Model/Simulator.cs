@@ -122,9 +122,9 @@ namespace CHAD.Model
             {
                 model.Fields.Add(new ChadField
                 {
-                    FieldHistoryCrop = field.GetCropNumberSeasons(),
-                    FieldHistoryNonCrop = field.GetNonCropNumberSeasons(),
-                    ProfitCRP = (double)Configuration.Parameters.ProfitCRP
+                    FieldHistoryCrop = plantInField.GetCropNumberSeasons(),
+                    FieldHistoryNonCrop = plantInField.GetNonCropNumberSeasons(),
+                    //ProfitCRP = (double)Configuration.Parameters.ProfitCRP
                 });
             }
 

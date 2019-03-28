@@ -158,11 +158,19 @@ namespace CHADSOSIEL
         protected override void AfterInitialization()
         {
             base.AfterInitialization();
+
+            agentList.GetAgentsWithPrefix("PM").ForEach(agent =>
+            {
+                agent[AlgorithmVariables.WaterInAquiferMax] = _data.WaterInAquiferMax;
+                agent[AlgorithmVariables.SustainableLevelAquifer] = _data.SustainableLevelAquifer;
+            });
         }
 
         protected override void PreIterationCalculations(int iteration)
         {
             agentList.GetAgentsWithPrefix("PM").ForEach(agent => agent[AlgorithmVariables.WaterInAquifire] = _data.WaterInAquifire);
+
+
         }
 
         /// <inheritdoc />
