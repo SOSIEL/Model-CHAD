@@ -164,13 +164,30 @@ namespace CHADSOSIEL
                 agent[AlgorithmVariables.WaterInAquiferMax] = _data.WaterInAquiferMax;
                 agent[AlgorithmVariables.SustainableLevelAquifer] = _data.SustainableLevelAquifer;
             });
+
+            agentList.GetAgentsWithPrefix("F").ForEach(agent =>
+                {
+                    agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
+                    agent[AlgorithmVariables.MarketPriceBarley] = _data.MarketPriceBarley;
+                    agent[AlgorithmVariables.MarketPriceWheat] = _data.MarketPriceWheat;
+                    agent[AlgorithmVariables.BreakEvenPriceAlfalfa] = _data.BreakEvenPriceAlfalfa;
+                    agent[AlgorithmVariables.BreakEvenPriceBarley] = _data.BreakEvenPriceBarley;
+                    agent[AlgorithmVariables.BreakEvenPriceWheat] = _data.BreakEvenPriceWheat;
+                });
         }
 
         protected override void PreIterationCalculations(int iteration)
         {
             agentList.GetAgentsWithPrefix("PM").ForEach(agent => agent[AlgorithmVariables.WaterInAquifire] = _data.WaterInAquifire);
 
-
+            agentList.GetAgentsWithPrefix("F").ForEach(agent =>
+                {
+                    agent[AlgorithmVariables.ProfitAlfalfa] = _data.ProfitAlfalfa;
+                    agent[AlgorithmVariables.ProfitBarley] = _data.ProfitBarley;
+                    agent[AlgorithmVariables.ProfitWheat] = _data.ProfitWheat;
+                    agent[AlgorithmVariables.ProfitCRP] = _data.ProfitCRP;
+                    agent[AlgorithmVariables.Profit] = _data.ProfitTotal;
+                });
         }
 
         /// <inheritdoc />

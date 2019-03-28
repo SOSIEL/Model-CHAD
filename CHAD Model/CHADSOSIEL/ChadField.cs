@@ -2,9 +2,9 @@
 {
     public class ChadField
     {
-        public string Plant { get; set; }
+        public string Plant { get; internal set; }
 
-        public int NumberOfAcres { get; set; }
+        public double NumberOfAcres { get; set; }
 
         public int FieldHistoryCrop { get; set; }
 
