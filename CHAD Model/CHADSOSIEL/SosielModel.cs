@@ -39,6 +39,11 @@ namespace CHADSOSIEL
 
         public double HarvestableWheat { get; set; }
 
+        public double BreakEvenPriceAlfalfa { get; set; }
+
+        public double BreakEvenPriceBarley { get; set; }
+
+        public double BreakEvenPriceWheat { get; set; }
 
         public double SubsidyCRP { get; set; }
 
