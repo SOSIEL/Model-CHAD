@@ -2,6 +2,7 @@
 using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.RVACModule;
+using CHADSOSIEL.Configuration;
 
 namespace CHAD.Model
 {
@@ -36,11 +37,13 @@ namespace CHAD.Model
 
         public List<Field> Fields { get; }
 
-        public List<MarketPrice> MarketPrices { get; set; }
+        public List<MarketPrice> MarketPrices { get; }
 
         public string Name { get; set; }
 
         public Parameters Parameters { get; set; }
+
+        public ConfigurationModel SOSIELConfiguration { get; set; }
 
         #endregion
     }

@@ -4,12 +4,14 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
 using CHAD.Model;
 using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.Infrastructure;
 using CHAD.Model.RVACModule;
+using CHADSOSIEL.Configuration;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -24,16 +26,15 @@ namespace CHAD.DataAccess
 
         private const string ClimateInput = "InputClimate.xlsx";
         private const string ClimateOutput = "Climate.xlsx";
-
         private const string ConfigurationsFolder = "Configurations";
         private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
         private const string DecisionMakingOutput = "Hydrology.xlsx";
         private const string FieldsInput = "InputFieldSize.xlsx";
         private const string HydrologyOutput = "Hydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
-
         private const string OutputFolder = "Output";
         private const string Parameters = "Parameters.xml";
+        private const string SOSIELConfigurationInput = "SOSIELConfiguration.json";
 
         #endregion
 
@@ -96,6 +97,7 @@ namespace CHAD.DataAccess
             SaveCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
             SaveInputFieldConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             SaveMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
+            SaveSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput));
         }
 
         public void SaveSimulationResult(SimulationResult simulationResult)
@@ -185,6 +187,11 @@ namespace CHAD.DataAccess
             }
         }
 
+        private void FillSOSIELConfiguration(string path, Configuration configuration)
+        {
+            configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
+        }
+
         private string GetCellValue(SpreadsheetDocument document, Cell cell)
         {
             var stringTablePart = document.WorkbookPart.SharedStringTablePart;
@@ -207,6 +214,7 @@ namespace CHAD.DataAccess
             FillCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
             FillFieldsConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             FillMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
+            FillSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput), configuration);
 
             return configuration;
         }
@@ -543,27 +551,34 @@ namespace CHAD.DataAccess
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 1);
-                    newCell.CellValue = new CellValue(seasonResult.AgroHydrology.WaterCurtailmentRate.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(
+                            seasonResult.AgroHydrology.WaterCurtailmentRate.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 2);
-                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitTotal.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(seasonResult.RVAC.ProfitTotal.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 3);
-                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitAlfalfa.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(seasonResult.RVAC.ProfitAlfalfa.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 4);
-                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitBarley.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(seasonResult.RVAC.ProfitBarley.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 5);
-                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitCRP.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(seasonResult.RVAC.ProfitCRP.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 6);
-                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitWheat.ToString(CultureInfo.InvariantCulture));
+                    newCell.CellValue =
+                        new CellValue(seasonResult.RVAC.ProfitWheat.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
                 }
 
@@ -793,6 +808,18 @@ namespace CHAD.DataAccess
             {
                 var xmlSerializer = new XmlSerializer(typeof(Parameters));
                 xmlSerializer.Serialize(fileStream, configuration.Parameters);
+            }
+        }
+
+        private void SaveSOSIELConfiguration(string path)
+        {
+            var assembly = Assembly.GetAssembly(typeof(ConfigurationModel));
+            var resourceName = "CHADSOSIEL.configuration.json";
+
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (Stream outputStream = new FileStream(path, FileMode.Create))
+            {
+                stream.CopyTo(outputStream);
             }
         }
 

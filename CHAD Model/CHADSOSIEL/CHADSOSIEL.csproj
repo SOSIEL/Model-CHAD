@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="configuration.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="configuration.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SOSIEL\SOSIEL.csproj" />
   </ItemGroup>
 

@@ -111,20 +111,21 @@ namespace CHAD.Model
 
         #region All other members
 
-        private SosielModel CreateSosielModel(double waterInAquifer, List<Field> fields)
+        private SosielModel CreateSosielModel(Configuration configuration)
         {
             var model = new SosielModel
             {
-                WaterInAquifire = waterInAquifer
+                WaterInAquifire = (double)configuration.Parameters.WaterInAquifer,
+                WaterInAquiferMax = (double)configuration.Parameters.WaterInAquiferMax,
+                SustainableLevelAquifer = (double)configuration.Parameters.SustainableLevelAquifer
             };
 
-            foreach (var field in fields)
+            foreach (var field in configuration.Fields)
             {
                 model.Fields.Add(new ChadField
                 {
                     FieldHistoryCrop = field.GetCropNumberSeasons(),
-                    FieldHistoryNonCrop = field.GetNonCropNumberSeasons(),
-                    //ProfitCRP = (double)Configuration.Parameters.ProfitCRP
+                    FieldHistoryNonCrop = field.GetNonCropNumberSeasons()
                 });
             }
 
@@ -165,10 +166,12 @@ namespace CHAD.Model
 
                 var logger = _loggerFactory.MakeLogger(Configuration.Name, simulationSession, simulationNumber);
 
+                //Algorithm algorithm = new Algorithm();
+                var sosielModel = CreateSosielModel(Configuration);
                 Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
                 AgroHydrology = new AgroHydrology(logger, Configuration.Parameters,
                     Configuration.Fields, Configuration.CropEvapTransList);
-                var sosielModel = CreateSosielModel((double)Configuration.Parameters.WaterInAquifer, Configuration.Fields);
+                
                 RVAC = new RVAC(Configuration.Parameters);
 
                 for (var seasonNumber = 1; seasonNumber <= Configuration.Parameters.NumOfSeasons; seasonNumber++)
@@ -176,6 +179,7 @@ namespace CHAD.Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
+                    
                     Climate.ProcessSeason(seasonNumber);
                     AgroHydrology.ProcessSeasonStart();
 
