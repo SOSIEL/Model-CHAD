@@ -23,36 +23,21 @@ namespace CHAD.DataAccess
         #region Static Fields and Constants
 
         private const string ClimateInput = "InputClimate.xlsx";
-        private const string ClimateSimulationName = "Climate.xlsx";
+        private const string ClimateOutput = "Climate.xlsx";
 
-        private const string ConfigurationsFolderName = "Configurations";
+        private const string ConfigurationsFolder = "Configurations";
         private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
-        private const string Fields = "InputFieldSize.xlsx";
-        private const string HydrologySimulationName = "Hydrology.xlsx";
-        private const string MarketPrices = "InputFinancials.xlsx";
+        private const string DecisionMakingOutput = "Hydrology.xlsx";
+        private const string FieldsInput = "InputFieldSize.xlsx";
+        private const string HydrologyOutput = "Hydrology.xlsx";
+        private const string MarketPricesInput = "InputFinancials.xlsx";
 
-        private const string OutputFolderName = "Output";
+        private const string OutputFolder = "Output";
         private const string Parameters = "Parameters.xml";
 
         #endregion
 
         #region Public Interface
-
-        public Configuration GetConfiguration(Configuration configuration, string configurationPath)
-        {
-            var directoryInfo = new DirectoryInfo(configurationPath);
-
-            if (!directoryInfo.Exists)
-                return configuration;
-
-            FillParameters(Path.Combine(configurationPath, Parameters), configuration);
-            FillClimateConfiguration(Path.Combine(configurationPath, ClimateInput), configuration);
-            FillCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
-            FillFieldsConfiguration(Path.Combine(configurationPath, Fields), configuration);
-            FillMarketPrices(Path.Combine(configurationPath, MarketPrices), configuration);
-
-            return configuration;
-        }
 
         public Configuration GetConfiguration(Configuration configuration)
         {
@@ -62,32 +47,16 @@ namespace CHAD.DataAccess
             if (string.IsNullOrEmpty(configuration.Name))
                 throw new ArgumentException(nameof(configuration.Name));
 
-            var configurationPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolderName,
+            var configurationPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolder,
                 configuration.Name);
 
             return GetConfiguration(configuration, configurationPath);
         }
 
-        public Configuration GetConfiguration(string name, string path)
-        {
-            var configuration = new Configuration(name);
-
-            try
-            {
-                GetConfiguration(configuration, path);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return configuration;
-        }
-
         public IEnumerable<Configuration> GetConfigurations()
         {
             var path = Directory.GetCurrentDirectory();
-            path = Path.Combine(path, ConfigurationsFolderName);
+            path = Path.Combine(path, ConfigurationsFolder);
 
             var directoryInfo = new DirectoryInfo(path);
 
@@ -105,89 +74,14 @@ namespace CHAD.DataAccess
         public static string MakeSimulationPath(string configurationName, string simulationSession,
             int simulationNumber)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), OutputFolderName,
+            return Path.Combine(Directory.GetCurrentDirectory(), OutputFolder,
                 $"{simulationSession} - {configurationName}",
                 $"Simulation {simulationNumber:0000}");
         }
 
-        public void SaveClimate(string path, Climate climate)
-        {
-            var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
-
-            var workbookPart = spreadsheetDocument.AddWorkbookPart();
-            workbookPart.Workbook = new Workbook();
-
-            // Add a WorksheetPart to the WorkbookPart.
-            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-            // Add Sheets to the Workbook.
-            var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
-
-            // Append a new worksheet and associate it with the workbook.
-            var sheet = new Sheet
-            {
-                Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = "Sheet1"
-            };
-            sheets.Append(sheet);
-
-            UInt32Value rowIndex = 1;
-            var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-            Row row;
-            row = new Row {RowIndex = rowIndex++};
-
-            sheetData.Append(row);
-
-            var lastCell =
-                row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue("Day"),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, null);
-            lastCell = row.InsertAfter(
-                new Cell {CellValue = new CellValue("Temp"), DataType = new EnumValue<CellValues>(CellValues.String)},
-                lastCell);
-            lastCell = row.InsertAfter(
-                new Cell {CellValue = new CellValue("Precip"), DataType = new EnumValue<CellValues>(CellValues.String)},
-                lastCell);
-
-            foreach (var dailyClimate in climate.OrderBy(dc => dc.Day))
-            {
-                row = new Row {RowIndex = rowIndex++};
-                sheetData.Append(row);
-                lastCell = null;
-                lastCell = row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue(dailyClimate.Day.ToString()),
-                        DataType = new EnumValue<CellValues>(CellValues.Number)
-                    }, lastCell);
-                lastCell = row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture)),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastCell);
-                lastCell = row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture)),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastCell);
-            }
-
-            workbookPart.Workbook.Save();
-
-            // Close the document.
-            spreadsheetDocument.Close();
-        }
-
         public void SaveConfiguration(Configuration configuration, bool rewrite)
         {
-            var configurationPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolderName,
+            var configurationPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolder,
                 configuration.Name);
 
             var directoryInfo = new DirectoryInfo(configurationPath);
@@ -200,111 +94,11 @@ namespace CHAD.DataAccess
             SaveParameters(Path.Combine(configurationPath, Parameters), configuration);
             SaveClimateConfiguration(Path.Combine(configurationPath, ClimateInput), configuration);
             SaveCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
-            SaveInputFieldConfiguration(Path.Combine(configurationPath, Fields), configuration);
-            SaveMarketPrices(Path.Combine(configurationPath, MarketPrices), configuration);
+            SaveInputFieldConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
+            SaveMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
         }
 
-        public void SaveHydrology(string path, List<Hydrology> hydrology, IEnumerable<Field> fields)
-        {
-            var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook);
-
-            var workbookPart = spreadsheetDocument.AddWorkbookPart();
-            workbookPart.Workbook = new Workbook();
-
-            // Add a WorksheetPart to the WorkbookPart.
-            var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-            // Add Sheets to the Workbook.
-            var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
-
-            // Append a new worksheet and associate it with the workbook.
-            var sheet = new Sheet
-            {
-                Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = "Sheet1"
-            };
-            sheets.Append(sheet);
-
-            UInt32Value rowIndex = 1;
-            var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-            Row row;
-            row = new Row {RowIndex = rowIndex++};
-
-            sheetData.Append(row);
-
-            var lastCell =
-                row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue("Day"),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, null);
-            lastCell = row.InsertAfter(
-                new Cell
-                {
-                    CellValue = new CellValue("Aquifer"),
-                    DataType = new EnumValue<CellValues>(CellValues.String)
-                }, lastCell);
-            for (var i = 0; i < fields.Count(); i++)
-                lastCell = row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue("Field" + fields.ElementAt(i).FieldNum),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastCell);
-
-            IEnumerable<Hydrology> hydrologyOrder = hydrology.OrderBy(e => e.Field).OrderBy(e => e.Day);
-            var day = 0;
-            foreach (var h in hydrologyOrder)
-            {
-                if (day != h.Day)
-                {
-                    row = new Row {RowIndex = rowIndex++};
-                    sheetData.Append(row);
-                    day = h.Day;
-                    lastCell = null;
-                    lastCell = row.InsertAfter(
-                        new Cell
-                        {
-                            CellValue = new CellValue(h.Day.ToString()),
-                            DataType = new EnumValue<CellValues>(CellValues.Number)
-                        }, lastCell);
-                    lastCell = row.InsertAfter(
-                        new Cell
-                        {
-                            CellValue = new CellValue(h.WaterInAquifer.ToString()),
-                            DataType = new EnumValue<CellValues>(CellValues.String)
-                        }, lastCell);
-                }
-
-                lastCell = row.InsertAfter(
-                    new Cell
-                    {
-                        CellValue = new CellValue(h.WaterInField.ToString()),
-                        DataType = new EnumValue<CellValues>(CellValues.String)
-                    }, lastCell);
-            }
-
-            workbookPart.Workbook.Save();
-
-            // Close the document.
-            spreadsheetDocument.Close();
-        }
-
-        public void SaveLogs(string path, SimpleLogger logger)
-        {
-            Directory.CreateDirectory(path);
-            var stream = File.Create(path + "/info.txt");
-            var sw = new StreamWriter(stream);
-
-            foreach (var loggerEntry in logger.Entries) sw.WriteLine(loggerEntry.Text);
-
-            sw.Close();
-        }
-
-        public void SaveSimulationResult(SimulationResult simulationResult, SimulationResultPart simulationResultPart)
+        public void SaveSimulationResult(SimulationResult simulationResult)
         {
             var simulationResultPath = MakeSimulationPath(simulationResult.Configuration.Name,
                 simulationResult.SimulationSession, simulationResult.SimulationNumber);
@@ -313,12 +107,9 @@ namespace CHAD.DataAccess
             if (!directoryInfo.Exists)
                 directoryInfo.Create();
 
-            if (simulationResultPart.HasFlag(SimulationResultPart.Climate))
-                SaveClimate(Path.Combine(simulationResultPath, ClimateSimulationName),
-                    simulationResult.Climate);
-            if (simulationResultPart.HasFlag(SimulationResultPart.Hydrology))
-                SaveHydrology(Path.Combine(simulationResultPath, HydrologySimulationName),
-                    simulationResult.AgroHydrology.Hydrology, simulationResult.Configuration.Fields);
+            SaveClimateOutput(Path.Combine(simulationResultPath, ClimateOutput), simulationResult);
+            SaveHydrologyOutput(Path.Combine(simulationResultPath, HydrologyOutput), simulationResult);
+            SaveDecisionMaking(Path.Combine(simulationResultPath, DecisionMakingOutput), simulationResult);
         }
 
         #endregion
@@ -402,6 +193,22 @@ namespace CHAD.DataAccess
             if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
                 return stringTablePart.SharedStringTable.ChildElements[Convert.ToInt32(value)].InnerText;
             return value;
+        }
+
+        private Configuration GetConfiguration(Configuration configuration, string configurationPath)
+        {
+            var directoryInfo = new DirectoryInfo(configurationPath);
+
+            if (!directoryInfo.Exists)
+                return configuration;
+
+            FillParameters(Path.Combine(configurationPath, Parameters), configuration);
+            FillClimateConfiguration(Path.Combine(configurationPath, ClimateInput), configuration);
+            FillCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
+            FillFieldsConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
+            FillMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
+
+            return configuration;
         }
 
         private DataTable GetTable(string fileName)
@@ -520,6 +327,82 @@ namespace CHAD.DataAccess
             }
         }
 
+        private void SaveClimateOutput(string path, SimulationResult simulationResult)
+        {
+            using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
+            {
+                // Add a WorkbookPart to the document.
+                var workbookPart = spreadsheetDocument.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+
+                // Add a WorksheetPart to the WorkbookPart.
+                var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                // Add Sheets to the Workbook.
+                var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+
+                // Append a new worksheet and associate it with the workbook.
+                var sheet = new Sheet
+                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                sheets.Append(sheet);
+
+                // Get the sheetData cell table.
+                var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                // Add a row to the cell table.
+                var row = new Row {RowIndex = 1};
+                sheetData.Append(row);
+
+                var newCell = row.InsertAt(new Cell(), 0);
+                newCell.CellValue = new CellValue("Season");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("Day");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 2);
+                newCell.CellValue = new CellValue("Temp");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 3);
+                newCell.CellValue = new CellValue("Precip");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                var rowIndex = 2u;
+
+                foreach (var seasonResult in simulationResult)
+                foreach (var dailyClimate in seasonResult.Climate)
+                {
+                    // Add a row to the cell table.
+                    row = new Row {RowIndex = rowIndex};
+                    sheetData.Append(row);
+
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue(seasonResult.Number.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue(dailyClimate.Day.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 2);
+                    newCell.CellValue =
+                        new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 3);
+                    newCell.CellValue =
+                        new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                }
+
+                // Save the new worksheet.
+                spreadsheetDocument.Save();
+            }
+        }
+
         private void SaveCropEvapTransConfiguration(string path, Configuration configuration)
         {
             using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
@@ -585,6 +468,177 @@ namespace CHAD.DataAccess
                             .ToString(CultureInfo.InvariantCulture));
                         newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                     }
+                }
+
+                // Save the new worksheet.
+                spreadsheetDocument.Save();
+            }
+        }
+
+        private void SaveDecisionMaking(string path, SimulationResult simulationResult)
+        {
+            using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
+            {
+                // Add a WorkbookPart to the document.
+                var workbookPart = spreadsheetDocument.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+
+                // Add a WorksheetPart to the WorkbookPart.
+                var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                // Add Sheets to the Workbook.
+                var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+
+                // Append a new worksheet and associate it with the workbook.
+                var sheet = new Sheet
+                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                sheets.Append(sheet);
+
+                // Get the sheetData cell table.
+                var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                // Add a row to the cell table.
+                var row = new Row {RowIndex = 1};
+                sheetData.Append(row);
+
+                var newCell = row.InsertAt(new Cell(), 0);
+                newCell.CellValue = new CellValue("Season");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("Water\nCurtailmentRate");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 2);
+                newCell.CellValue = new CellValue("ProfitTotal");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 3);
+                newCell.CellValue = new CellValue("ProfitAlfalfa");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 4);
+                newCell.CellValue = new CellValue("ProfitBarley");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 5);
+                newCell.CellValue = new CellValue("ProfitCRP");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 6);
+                newCell.CellValue = new CellValue("ProfitWheat");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                var rowIndex = 2u;
+
+                foreach (var seasonResult in simulationResult)
+                {
+                    // Add a row to the cell table.
+                    row = new Row {RowIndex = rowIndex};
+                    sheetData.Append(row);
+
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue(seasonResult.Number.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue(seasonResult.AgroHydrology.WaterCurtailmentRate.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 2);
+                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitTotal.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 3);
+                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitAlfalfa.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 4);
+                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitBarley.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 5);
+                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitCRP.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 6);
+                    newCell.CellValue = new CellValue(seasonResult.RVAC.ProfitWheat.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                }
+
+                // Save the new worksheet.
+                spreadsheetDocument.Save();
+            }
+        }
+
+        private void SaveHydrologyOutput(string path, SimulationResult simulationResult)
+        {
+            using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
+            {
+                // Add a WorkbookPart to the document.
+                var workbookPart = spreadsheetDocument.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+
+                // Add a WorksheetPart to the WorkbookPart.
+                var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                // Add Sheets to the Workbook.
+                var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+
+                // Append a new worksheet and associate it with the workbook.
+                var sheet = new Sheet
+                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                sheets.Append(sheet);
+
+                // Get the sheetData cell table.
+                var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                // Add a row to the cell table.
+                var row = new Row {RowIndex = 1};
+                sheetData.Append(row);
+
+                var newCell = row.InsertAt(new Cell(), 0);
+                newCell.CellValue = new CellValue("Season");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("Day");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 2);
+                newCell.CellValue = new CellValue("Aquifer");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 3);
+                newCell.CellValue = new CellValue("Snowpack");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                var rowIndex = 2u;
+
+                foreach (var seasonResult in simulationResult)
+                foreach (var hydrology in seasonResult.AgroHydrology.DailyHydrology)
+                {
+                    // Add a row to the cell table.
+                    row = new Row {RowIndex = rowIndex};
+                    sheetData.Append(row);
+
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue(seasonResult.Number.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue(hydrology.Day.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 2);
+                    newCell.CellValue = new CellValue(hydrology.WaterInAquifer.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 3);
+                    newCell.CellValue = new CellValue(hydrology.WaterInSnowpack.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
                 }
 
                 // Save the new worksheet.

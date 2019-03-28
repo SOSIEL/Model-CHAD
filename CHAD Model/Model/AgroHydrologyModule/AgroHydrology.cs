@@ -19,6 +19,7 @@ namespace CHAD.Model.AgroHydrologyModule
         private decimal WaterInAquiferChange;
         private decimal WaterInAquiferGap;
         private decimal WaterInAquifer;
+        public decimal WaterCurtailmentRate { get; private set; }
         private decimal LeakAquifer;
         private decimal IrrigSeason;
 
@@ -35,7 +36,7 @@ namespace CHAD.Model.AgroHydrologyModule
         private readonly Dictionary<Field, decimal> WaterInField;
         private readonly Dictionary<Field, decimal> WaterInFieldMax;
         private readonly Dictionary<Field, decimal> WaterInput;
-        private readonly decimal WaterUsageMax;
+        private decimal WaterUsageMax;
         private decimal WaterUsageRemain;
         private decimal WaterInSnowpack;
 
@@ -55,10 +56,9 @@ namespace CHAD.Model.AgroHydrologyModule
             _fields = fields ?? throw new ArgumentNullException(nameof(fields));
             _cropEvapTrans = cropEvapTrans ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
 
-            Hydrology = new List<Hydrology>();
+            DailyHydrology = new List<DailyHydrology>();
 
             WaterInAquifer = _parameters.WaterInAquifer;
-            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - _parameters.WaterCurtailmentRate / 100);
             WaterInSnowpack = _parameters.WaterInSnowpack;
 
             var fieldsCount = _fields.Count;
@@ -97,11 +97,13 @@ namespace CHAD.Model.AgroHydrologyModule
 
         #region Public Interface
 
-        public List<Hydrology> Hydrology { get; private set; }
+        public List<DailyHydrology> DailyHydrology { get; private set; }
 
         public void ProcessSeasonStart()
         {
             WaterInAquiferPrior = WaterInAquifer;
+
+            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - _parameters.WaterCurtailmentRate / 100);
 
             foreach (var field in _fields)
                 EvapTransFromFieldSeasonMax[field] = _cropEvapTrans.Where(c => c.Plant == field.Plant).Sum(c => c.Quantity);
@@ -111,9 +113,7 @@ namespace CHAD.Model.AgroHydrologyModule
         {
             foreach (var field in _fields)
             {
-                var plantInField = field.Plant;
-
-                var precipitation = dailyClimate.Precipitation + (_parameters.MeltingRate * _parameters.WaterInSnowpack);
+                var precipitation = dailyClimate.Precipitation + _parameters.MeltingRate * _parameters.WaterInSnowpack;
 
                 if (dailyClimate.Temperature > _parameters.MeltingPoint)
                     precipitation = dailyClimate.Precipitation + _parameters.MeltingRate * WaterInSnowpack;
@@ -169,6 +169,8 @@ namespace CHAD.Model.AgroHydrologyModule
 
             foreach (var field in _fields)
                 EvapTransFromFieldToDate[field] = EvapTransFromFieldToDate[field] + EvapTransFromField[field];
+
+            DailyHydrology.Add(new DailyHydrology(dayNumber, WaterInAquifer, WaterInSnowpack));
         }
 
         public void ProcessSeasonEnd()
