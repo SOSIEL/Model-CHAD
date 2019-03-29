@@ -74,13 +74,13 @@ namespace CHAD.Model.ClimateModule
 
         #region All other members
 
-        private decimal Gaussian(int seasonNumber, double mean, double standardDeviation, double changeMean, double changeDeviation)
+        private double Gaussian(int seasonNumber, double mean, double standardDeviation, double changeMean, double changeDeviation)
         {
             var random = new Random();
             var x1 = 1 - random.NextDouble();
             var x2 = 1 - random.NextDouble();
             var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return (decimal) Math.Round(y1 * standardDeviation * Math.Pow(changeDeviation, seasonNumber) + mean * Math.Pow(changeMean, seasonNumber), 2);
+            return (double) Math.Round(y1 * standardDeviation * Math.Pow(changeDeviation, seasonNumber) + mean * Math.Pow(changeMean, seasonNumber), 2);
         }
 
         #endregion

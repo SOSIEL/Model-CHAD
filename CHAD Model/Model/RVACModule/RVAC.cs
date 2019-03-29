@@ -19,9 +19,8 @@
 
         #region Public Interface
 
-        public void ProcessSeason(MarketPrice marketPrice, decimal numberOfAlfalfaAcres, decimal numberOfBarleyAcres,
-            decimal numberOfCRPAcres, decimal numberOfWheatAcres
-            , decimal harvestableAlfalfa, decimal harvestableBarley, decimal harvestableWheat)
+        public void ProcessSeason(MarketPrice marketPrice, double numberOfAlfalfaAcres, double numberOfBarleyAcres,
+            double numberOfCRPAcres, double numberOfWheatAcres, double harvestableAlfalfa, double harvestableBarley, double harvestableWheat)
         {
             ProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _parameters.CostAlfalfa) *
                             _parameters.MeanBushelsAlfalfaPerAcre *
@@ -39,16 +38,16 @@
             ProfitTotal = ProfitAlfalfa + ProfitBarley + ProfitWheat + ProfitCRP;
         }
 
-        public decimal ProfitAlfalfa { get; private set; }
+        public double ProfitAlfalfa { get; private set; }
 
-        public decimal ProfitBarley { get; private set; }
+        public double ProfitBarley { get; private set; }
 
-        public decimal ProfitCRP { get; private set; }
+        public double ProfitCRP { get; private set; }
 
 
-        public decimal ProfitTotal { get; private set; }
+        public double ProfitTotal { get; private set; }
 
-        public decimal ProfitWheat { get; private set; }
+        public double ProfitWheat { get; private set; }
 
         #endregion
     }

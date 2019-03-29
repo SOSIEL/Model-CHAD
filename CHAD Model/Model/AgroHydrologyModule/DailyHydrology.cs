@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public DailyHydrology(int day, decimal waterInAquifer, decimal waterInSnowpack)
+        public DailyHydrology(int day, double waterInAquifer, double waterInSnowpack)
         {
             Day = day;
             WaterInAquifer = waterInAquifer;
@@ -17,9 +17,9 @@
 
         public int Day { get; }
 
-        public decimal WaterInAquifer { get; }
+        public double WaterInAquifer { get; }
 
-        public decimal WaterInSnowpack { get; }
+        public double WaterInSnowpack { get; }
 
         #endregion
     }

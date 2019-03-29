@@ -157,20 +157,19 @@ namespace CHAD.Model
                 simulationNumber++)
             {
                 var simulationResult = new SimulationResult(simulationSession, Configuration, simulationNumber);
-
+                
                 CheckStatus();
                 CurrentSimulation = simulationNumber;
 
                 var logger = _loggerFactory.MakeLogger(Configuration.Name, simulationSession, simulationNumber);
 
-                var fields = Configuration.Fields.Select(f => new FieldHistory(f)).ToList();
-                var sosielModel = CreateSosielModel(Configuration, fields);
+                var fieldHistories = Configuration.Fields.Select(f => new FieldHistory(f)).ToList();
+                var sosielModel = CreateSosielModel(Configuration, fieldHistories);
 
-                Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
-                algorithm.Initialize();
+                //Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
+               // algorithm.Initialize();
                 Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
-                AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, fields, Configuration.CropEvapTransList);
-                
+                AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, Configuration.Fields, Configuration.CropEvapTransList);
                 RVAC = new RVAC(Configuration.Parameters);
 
                 for (var seasonNumber = 1; seasonNumber <= Configuration.Parameters.NumOfSeasons; seasonNumber++)
@@ -178,10 +177,10 @@ namespace CHAD.Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
-                    algorithm.Run(sosielModel);
-                    ProcessSosielResult(seasonNumber, sosielModel, fields);
+                    //algorithm.Run(sosielModel);
+                    //ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     Climate.ProcessSeason(seasonNumber);
-                    AgroHydrology.ProcessSeasonStart((decimal)sosielModel.WaterCurtailmentRate);
+                    AgroHydrology.ProcessSeasonStart(fieldHistories, (double)sosielModel.WaterCurtailmentRate);
 
                     for (var dayNumber = 1; dayNumber < Configuration.DaysCount; dayNumber++)
                     {
@@ -189,10 +188,10 @@ namespace CHAD.Model
                         CurrentDay = dayNumber;
 
                         var dailyClimate = Climate.GetDailyClimate(dayNumber);
-                        AgroHydrology.ProcessDay(dayNumber, dailyClimate);
+                        AgroHydrology.ProcessDay(dayNumber, dailyClimate, fieldHistories);
                     }
 
-                    AgroHydrology.ProcessSeasonEnd();
+                    AgroHydrology.ProcessSeasonEnd(fieldHistories);
                     RVAC.ProcessSeason(Configuration.MarketPrices.First(mp => mp.SeasonNumber == seasonNumber), 
                         0, 
                         0, 
@@ -202,7 +201,7 @@ namespace CHAD.Model
                         AgroHydrology.HarvestableBarley,
                         AgroHydrology.HarvestableWheat);
 
-                    simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, Climate, AgroHydrology, RVAC));
+                    simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, (double)sosielModel.WaterCurtailmentRate, Climate, AgroHydrology, RVAC));
                 }
                 
                 RaiseSimulationResultObtained(simulationResult);

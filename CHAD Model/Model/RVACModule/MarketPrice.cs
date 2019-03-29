@@ -4,8 +4,8 @@
     {
         #region Constructors
 
-        public MarketPrice(int seasonNumber, decimal marketPriceAlfalfa, decimal marketPriceBarley, decimal marketPriceWheat,
-            decimal subsidyCRP)
+        public MarketPrice(int seasonNumber, double marketPriceAlfalfa, double marketPriceBarley, double marketPriceWheat,
+            double subsidyCRP)
         {
             SeasonNumber = seasonNumber;
             MarketPriceAlfalfa = marketPriceAlfalfa;
@@ -20,13 +20,13 @@
 
         public int SeasonNumber { get; }
 
-        public decimal MarketPriceAlfalfa { get; }
+        public double MarketPriceAlfalfa { get; }
 
-        public decimal MarketPriceBarley { get; }
+        public double MarketPriceBarley { get; }
 
-        public decimal MarketPriceWheat { get; }
+        public double MarketPriceWheat { get; }
 
-        public decimal SubsidyCRP { get; }
+        public double SubsidyCRP { get; }
 
         #endregion
     }

@@ -55,7 +55,7 @@ namespace CHAD.DesktopApplication.Controls
                     e.Handled = !int.TryParse(fullText, NumberStyles.Integer, CultureInfo.CurrentCulture, out _);
                     break;
                 case InputType.Decimal:
-                    e.Handled = !decimal.TryParse(fullText, NumberStyles.Float, CultureInfo.CurrentCulture,
+                    e.Handled = !double.TryParse(fullText, NumberStyles.Float, CultureInfo.CurrentCulture,
                         out var value);
                     var integer = Math.Truncate(value);
                     var fraction = value - integer;

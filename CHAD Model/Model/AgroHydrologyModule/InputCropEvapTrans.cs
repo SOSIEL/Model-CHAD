@@ -6,7 +6,7 @@
 
         public int Day { get; set; }
         public Plant Plant { get; set; }
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
 
         #endregion
     }

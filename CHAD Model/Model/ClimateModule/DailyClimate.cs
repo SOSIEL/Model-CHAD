@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public DailyClimate(int day, decimal temperature, decimal precipitation)
+        public DailyClimate(int day, double temperature, double precipitation)
         {
             Day = day;
             Temperature = temperature;
@@ -16,8 +16,8 @@
         #region Public Interface
 
         public int Day { get; }
-        public decimal Temperature { get; }
-        public decimal Precipitation { get; }
+        public double Temperature { get; }
+        public double Precipitation { get; }
 
         #endregion
 

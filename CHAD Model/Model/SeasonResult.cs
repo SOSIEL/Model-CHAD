@@ -8,9 +8,10 @@ namespace CHAD.Model
     {
         #region Constructors
 
-        public SeasonResult(int number, Climate climate, AgroHydrology agroHydrology, RVAC rvac)
+        public SeasonResult(int number, double waterCurtailmentRate, Climate climate, AgroHydrology agroHydrology, RVAC rvac)
         {
             Number = number;
+            WaterCurtailmentRate = waterCurtailmentRate;
             Climate = climate;
             AgroHydrology = agroHydrology;
             RVAC = rvac;
@@ -19,6 +20,8 @@ namespace CHAD.Model
         #endregion
 
         #region Public Interface
+
+        public double WaterCurtailmentRate { get; }
 
         public AgroHydrology AgroHydrology { get; }
 

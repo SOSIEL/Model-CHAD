@@ -26,7 +26,7 @@ namespace CHAD.Model
             CostWheat = 0;
             ProfitCRP = 0;
             WaterCurtailmentBase = 6;
-            WaterCurtailmentRate = 12.6m;
+            WaterCurtailmentRate = 12.6;
 
             Beta = 1;
             LeakAquiferFrac = 0;
@@ -56,54 +56,54 @@ namespace CHAD.Model
         public bool UseDemographicProcesses { get; set; }
 
 
-        public decimal MeanBushelsAlfalfaPerAcre { get; set; }
+        public double MeanBushelsAlfalfaPerAcre { get; set; }
 
-        public decimal MeanBushelsBarleyPerAcre { get; set; }
+        public double MeanBushelsBarleyPerAcre { get; set; }
 
-        public decimal MeanBushelsWheatPerAcre { get; set; }
-
-
-        public decimal ClimateChangePrecipMean { get; set; }
-
-        public decimal ClimateChangePrecipSD { get; set; }
-
-        public decimal ClimateChangeTempMean { get; set; }
-
-        public decimal ClimateChangeTempSD { get; set; }
+        public double MeanBushelsWheatPerAcre { get; set; }
 
 
-        public decimal CostAlfalfa { get; set; }
+        public double ClimateChangePrecipMean { get; set; }
 
-        public decimal CostBarley { get; set; }
+        public double ClimateChangePrecipSD { get; set; }
 
-        public decimal CostWheat { get; set; }
+        public double ClimateChangeTempMean { get; set; }
 
-        public decimal ProfitCRP { get; set; }
-
-        public decimal WaterCurtailmentBase { get; set; }
-
-        public decimal WaterCurtailmentRate { get; set; }
+        public double ClimateChangeTempSD { get; set; }
 
 
-        public decimal Beta { get; set; }
+        public double CostAlfalfa { get; set; }
 
-        public decimal LeakAquiferFrac { get; set; }
+        public double CostBarley { get; set; }
 
-        public decimal PercFromFieldFrac { get; set; }
+        public double CostWheat { get; set; }
 
-        public decimal SustainableLevelAquifer { get; set; }
+        public double ProfitCRP { get; set; }
 
-        public decimal WaterInAquifer { get; set; }
+        public double WaterCurtailmentBase { get; set; }
 
-        public decimal WaterInAquiferMax { get; set; }
+        public double WaterCurtailmentRate { get; set; }
 
-        public decimal WaterStoreCap { get; set; }
 
-        public decimal MeltingPoint { get; set; }
+        public double Beta { get; set; }
 
-        public decimal MeltingRate { get; set; }
+        public double LeakAquiferFrac { get; set; }
 
-        public decimal WaterInSnowpack { get; set; }
+        public double PercFromFieldFrac { get; set; }
+
+        public double SustainableLevelAquifer { get; set; }
+
+        public double WaterInAquifer { get; set; }
+
+        public double WaterInAquiferMax { get; set; }
+
+        public double WaterStoreCap { get; set; }
+
+        public double MeltingPoint { get; set; }
+
+        public double MeltingRate { get; set; }
+
+        public double WaterInSnowpack { get; set; }
 
         #endregion
 

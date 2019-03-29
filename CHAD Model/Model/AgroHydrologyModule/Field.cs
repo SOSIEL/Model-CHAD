@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public Field(int fieldNumber, decimal fieldSize)
+        public Field(int fieldNumber, double fieldSize)
         {
             FieldNumber = fieldNumber;
             FieldSize = fieldSize;
@@ -15,7 +15,7 @@
         #region Public Interface
 
         public int FieldNumber { get; }
-        public decimal FieldSize { get; }
+        public double FieldSize { get; }
 
         #endregion
     }

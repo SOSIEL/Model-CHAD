@@ -156,7 +156,7 @@ namespace CHAD.DataAccess
                     {
                         Day = Convert.ToInt32(row[0].ToString()),
                         Plant = i == 1 ? Plant.Alfalfa : i == 2 ? Plant.Barley : Plant.Wheat,
-                        Quantity = (decimal) ToDouble(row[i].ToString())
+                        Quantity = ToDouble(row[i].ToString())
                     });
         }
 
@@ -166,7 +166,7 @@ namespace CHAD.DataAccess
 
             configuration.Fields.Clear();
 
-            configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Model.AgroHydrologyModule.Field(int.Parse(e[0].ToString()), ToDecimal(e[1].ToString()))));
+            configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Model.AgroHydrologyModule.Field(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()))));
         }
 
         private void FillMarketPrices(string path, Configuration configuration)
@@ -178,10 +178,10 @@ namespace CHAD.DataAccess
             configuration.MarketPrices.AddRange(table
                 .Rows.Cast<DataRow>()
                 .Select(e => new MarketPrice(int.Parse(e[0].ToString()),
-                    ToDecimal(e[1].ToString()),
-                    ToDecimal(e[2].ToString()),
-                    ToDecimal(e[3].ToString()),
-                    ToDecimal(e[4].ToString())
+                    ToDouble(e[1].ToString()),
+                    ToDouble(e[2].ToString()),
+                    ToDouble(e[3].ToString()),
+                    ToDouble(e[4].ToString())
                 )));
         }
 
@@ -197,7 +197,8 @@ namespace CHAD.DataAccess
 
         private void FillSOSIELConfiguration(string path, Configuration configuration)
         {
-            configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
+            //configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
+            configuration.SOSIELConfiguration = new ConfigurationModel();
         }
 
         private string GetCellValue(SpreadsheetDocument document, Cell cell)
@@ -563,7 +564,7 @@ namespace CHAD.DataAccess
                     newCell = row.InsertAt(new Cell(), 1);
                     newCell.CellValue =
                         new CellValue(
-                            seasonResult.AgroHydrology.WaterCurtailmentRate.ToString(CultureInfo.InvariantCulture));
+                            seasonResult.WaterCurtailmentRate.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 2);
