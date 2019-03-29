@@ -18,18 +18,6 @@
 
     "ProbabilitiesConfiguration": [
       {
-        "Variable": "Birth",
-        "VariableType": "integer",
-        "FilePath": "birth_probability.csv",
-        "WithHeader": true
-      },
-      {
-        "Variable": "Death",
-        "VariableType": "integer",
-        "FilePath": "death_probability.csv",
-        "WithHeader": true
-      },
-      {
         "Variable": "General",
         "VariableType": "integer",
         "FilePath": "general_probability.csv",

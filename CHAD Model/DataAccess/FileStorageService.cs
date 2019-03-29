@@ -40,6 +40,11 @@ namespace CHAD.DataAccess
 
         #region Public Interface
 
+        public static string MakeConfigPathFolder(string configurationName)
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolder, configurationName);
+        }
+
         public Configuration GetConfiguration(Configuration configuration)
         {
             if (configuration == null)
@@ -197,8 +202,9 @@ namespace CHAD.DataAccess
 
         private void FillSOSIELConfiguration(string path, Configuration configuration)
         {
-            //configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
-            configuration.SOSIELConfiguration = new ConfigurationModel();
+            configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
+            if(configuration.Name != null)
+                configuration.SOSIELConfiguration.ConfigurationPath = MakeConfigPathFolder(configuration.Name);
         }
 
         private string GetCellValue(SpreadsheetDocument document, Cell cell)
@@ -837,6 +843,18 @@ namespace CHAD.DataAccess
             using (Stream outputStream = new FileStream(path, FileMode.Create))
             {
                 stream.CopyTo(outputStream);
+            }
+
+            var otherResourcesName = new[] {"CHADSOSIEL.general_probability.csv"};
+
+            foreach (var anotherResourceName in otherResourcesName)
+            {
+                var fileName = anotherResourceName.Replace("CHADSOSIEL.", string.Empty);
+                using (var stream = assembly.GetManifestResourceStream(anotherResourceName))
+                using (Stream outputStream = new FileStream(Path.Combine(Path.GetDirectoryName(path), fileName), FileMode.Create))
+                {
+                    stream.CopyTo(outputStream);
+                }
             }
         }
 

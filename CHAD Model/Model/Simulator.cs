@@ -166,8 +166,8 @@ namespace CHAD.Model
                 var fieldHistories = Configuration.Fields.Select(f => new FieldHistory(f)).ToList();
                 var sosielModel = CreateSosielModel(Configuration, fieldHistories);
 
-                //Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
-               // algorithm.Initialize();
+                Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
+                algorithm.Initialize(sosielModel);
                 Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
                 AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, Configuration.Fields, Configuration.CropEvapTransList);
                 RVAC = new RVAC(Configuration.Parameters);
@@ -177,8 +177,8 @@ namespace CHAD.Model
                     CheckStatus();
                     CurrentSeason = seasonNumber;
 
-                    //algorithm.Run(sosielModel);
-                    //ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
+                    algorithm.Run(sosielModel);
+                    ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     Climate.ProcessSeason(seasonNumber);
                     AgroHydrology.ProcessSeasonStart(fieldHistories, (double)sosielModel.WaterCurtailmentRate);
 

@@ -17,5 +17,8 @@ namespace CHADSOSIEL.Configuration
 
         [JsonRequired]
         public InitialStateConfiguration InitialState { get; set; }
+
+
+        public string ConfigurationPath { get; set; }
     }
 }

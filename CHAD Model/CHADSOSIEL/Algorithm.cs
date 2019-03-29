@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using CHADSOSIEL.Configuration;
 using CHADSOSIEL.Helpers;
 using SOSIEL.Algorithm;
@@ -17,9 +18,8 @@ namespace CHADSOSIEL
     {
         public string Name { get { return "SOSIEL"; } }
 
-        string _outputFolder;
-
-        ConfigurationModel _configuration;
+        private readonly string _configurationFolder;
+        private readonly ConfigurationModel _configuration;
 
         private SosielModel _data;
 
@@ -43,37 +43,26 @@ namespace CHADSOSIEL
 
         public Algorithm(ConfigurationModel configuration) : base(1, GetProcessConfiguration())
         {
+            _configurationFolder = configuration.ConfigurationPath;
             _configuration = configuration;
-
-            _outputFolder = @"Output\";
-
-            if (Directory.Exists(_outputFolder) == false)
-                Directory.CreateDirectory(_outputFolder);
         }
 
         public SosielModel Run(SosielModel data)
         {
-            Initialize();
-
             _data = data;
 
-            Enumerable.Range(1, _configuration.AlgorithmConfiguration.NumberOfIterations).ForEach(iteration =>
-            {
-                Console.WriteLine((string)"Starting {0} iteration", (object)iteration);
-
-                RunSosiel(data.Fields);
-            });
-
-            //return _outputFolder;
-
+            RunSosiel(data.Fields);
+            
             return _data;
         }
 
         /// <summary>
         /// Executes algorithm initialization
         /// </summary>
-        public void Initialize()
+        public void Initialize(SosielModel data)
         {
+            _data = data;
+
             InitializeAgents();
 
             InitializeProbabilities();
@@ -109,8 +98,6 @@ namespace CHADSOSIEL
 
             InitialStateConfiguration initialState = _configuration.InitialState;
 
-            var networks = new Dictionary<string, List<SOSIEL.Entities.Agent>>();
-
             //create agents, groupby is used for saving agents numeration, e.g. FE1, HM1. HM2 etc
             initialState.AgentsState.GroupBy(state => state.PrototypeOfAgent).ForEach((agentStateGroup) =>
             {
@@ -144,7 +131,7 @@ namespace CHADSOSIEL
                 var variableType = VariableTypeHelper.ConvertStringToType(probabilityElementConfiguration.VariableType);
                 var parseTableMethod = ReflectionHelper.GetGenerecMethod(variableType, typeof(ProbabilityTableParser), "Parse");
 
-                dynamic table = parseTableMethod.Invoke(null, new object[] { probabilityElementConfiguration.FilePath, probabilityElementConfiguration.WithHeader });
+                dynamic table = parseTableMethod.Invoke(null, new object[] { Path.Combine(_configurationFolder, probabilityElementConfiguration.FilePath), probabilityElementConfiguration.WithHeader });
 
                 var addToListMethod =
                     ReflectionHelper.GetGenerecMethod(variableType, typeof(Probabilities), "AddProbabilityTable");
