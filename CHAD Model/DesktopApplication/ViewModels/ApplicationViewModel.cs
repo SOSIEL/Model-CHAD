@@ -56,7 +56,9 @@ namespace CHAD.DesktopApplication.ViewModels
 
         public ConfigurationViewModel MakeConfigurationViewModel()
         {
-            return new ConfigurationViewModel(new Configuration());
+            var configuration = _storageService.GetDefaultConfiguration();
+
+            return new ConfigurationViewModel(configuration);
         }
 
         public void Start()
