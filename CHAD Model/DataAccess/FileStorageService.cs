@@ -825,6 +825,18 @@ namespace CHAD.DataAccess
             {
                 stream.CopyTo(outputStream);
             }
+
+            var otherResourcesName = new[] {"CHADSOSIEL.general_probability.csv"};
+
+            foreach (var anotherResourceName in otherResourcesName)
+            {
+                var fileName = anotherResourceName.Replace("CHADSOSIEL.", string.Empty);
+                using (var stream = assembly.GetManifestResourceStream(anotherResourceName))
+                using (Stream outputStream = new FileStream(Path.Combine(Path.GetDirectoryName(path), fileName), FileMode.Create))
+                {
+                    stream.CopyTo(outputStream);
+                }
+            }
         }
 
         private decimal ToDecimal(string input)

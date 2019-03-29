@@ -8,9 +8,6 @@ namespace CHADSOSIEL.Configuration
     /// </summary>
     public class AlgorithmConfiguration
     {
-        [JsonRequired]
-        public int NumberOfIterations { get; set; }
-
         public bool UseDemographicProcesses { get; set; }
 
         public DemographicProcessesConfiguration DemographicConfiguration { get; set; }

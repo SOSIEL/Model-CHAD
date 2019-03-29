@@ -4,7 +4,7 @@
     {
         string Name { get; }
 
-        void Initialize();
+        void Initialize(TData data);
 
         TData Run(TData data);
     }

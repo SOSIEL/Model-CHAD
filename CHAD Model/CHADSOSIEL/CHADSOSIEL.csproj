@@ -6,14 +6,29 @@
 
   <ItemGroup>
     <None Remove="configuration.json" />
+    <None Remove="general_probability.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="configuration.json" />
+    <EmbeddedResource Include="configuration.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="general_probability.csv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SOSIEL\SOSIEL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="birth_probability.csv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="death_probability.csv">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

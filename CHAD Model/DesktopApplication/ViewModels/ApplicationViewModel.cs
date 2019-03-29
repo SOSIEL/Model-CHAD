@@ -180,7 +180,7 @@ namespace CHAD.DesktopApplication.ViewModels
                 {
                     _storageService.GetConfiguration(_configurationViewModel.Configuration);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     MessageBox.Show("Configuration is corrupted", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }

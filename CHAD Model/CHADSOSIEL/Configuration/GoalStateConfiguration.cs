@@ -10,7 +10,6 @@ namespace CHADSOSIEL.Configuration
         [JsonRequired]
         public double Importance { get; set; }
 
-        [JsonRequired]
         public double Value { get; set; }
 
         public bool Randomness { get; set; }

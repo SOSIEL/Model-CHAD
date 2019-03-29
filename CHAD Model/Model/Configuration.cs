@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.RVACModule;
@@ -24,6 +26,8 @@ namespace CHAD.Model
             : this()
         {
             Name = name;
+            ConfigurationPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                "Configurations", Name);
         }
 
         #endregion
@@ -41,6 +45,8 @@ namespace CHAD.Model
         public List<MarketPrice> MarketPrices { get; }
 
         public string Name { get; set; }
+
+        public string ConfigurationPath { get; }
 
         public Parameters Parameters { get; set; }
 

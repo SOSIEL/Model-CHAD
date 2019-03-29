@@ -166,8 +166,8 @@ namespace CHAD.Model
                 var fields = Configuration.Fields.Select(f => new FieldHistory(f)).ToList();
                 var sosielModel = CreateSosielModel(Configuration, fields);
 
-                Algorithm algorithm = new Algorithm(Configuration.SOSIELConfiguration);
-                algorithm.Initialize();
+                Algorithm algorithm = new Algorithm(Configuration.ConfigurationPath, Configuration.SOSIELConfiguration);
+                algorithm.Initialize(sosielModel);
                 Climate = new Climate(Configuration.Parameters, Configuration.ClimateForecast);
                 AgroHydrology = new AgroHydrology(logger, Configuration.Parameters, fields, Configuration.CropEvapTransList);
                 
