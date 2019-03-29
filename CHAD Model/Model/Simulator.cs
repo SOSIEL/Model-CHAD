@@ -168,7 +168,7 @@ namespace CHAD.Model
             return DateTimeOffset.Now.ToString("yyyy.MM.dd -- HH-mm-ss");
         }
 
-        private void ProcessSosielResult(int seasonNumber, SosielModel sosielModel, List<FieldHistory> fieldHistories)
+        private SOSIELResult ProcessSosielResult(int seasonNumber, SosielModel sosielModel, List<FieldHistory> fieldHistories)
         {
             foreach (var fieldHistory in fieldHistories)
             {
@@ -176,6 +176,20 @@ namespace CHAD.Model
 
                 fieldHistory.AddNewSeason(new FieldSeason(seasonNumber, ConvertStringToPlant(chadField.Plant)));
             }
+
+            double numOfAlfalfaAcres =
+                fieldHistories.Where(fh => fh.Plant == Plant.Alfalfa).Sum(fh => fh.Field.FieldSize);
+
+            double numOfBarleyAcres =
+                fieldHistories.Where(fh => fh.Plant == Plant.Barley).Sum(fh => fh.Field.FieldSize);
+
+            double numOfCRPAcres =
+                fieldHistories.Where(fh => fh.Plant == Plant.Nothing).Sum(fh => fh.Field.FieldSize);
+
+            double numOfWheatAcres =
+                fieldHistories.Where(fh => fh.Plant == Plant.Wheat).Sum(fh => fh.Field.FieldSize);
+
+            return new SOSIELResult(numOfAlfalfaAcres,numOfBarleyAcres,numOfCRPAcres,numOfWheatAcres);
         }
 
         private void RaiseSimulationResultObtained(SimulationResult simulationResult)
@@ -217,7 +231,7 @@ namespace CHAD.Model
 
                     FillSosielModel(sosielModel, agroHydrology, marketPrice, rvac);
                     algorithm.Run(sosielModel);
-                    ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
+                    var sosielResult = ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     climate.ProcessSeason(seasonNumber);
                     agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate);
 
@@ -231,14 +245,7 @@ namespace CHAD.Model
                     }
 
                     agroHydrology.ProcessSeasonEnd(fieldHistories);
-                    rvac.ProcessSeason(marketPrice,
-                        0,
-                        0,
-                        0,
-                        0,
-                        agroHydrology.HarvestableAlfalfa,
-                        agroHydrology.HarvestableBarley,
-                        agroHydrology.HarvestableWheat);
+                    rvac.ProcessSeason(marketPrice, sosielResult, agroHydrology);
 
                     simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, sosielModel.WaterCurtailmentRate,
                         climate, agroHydrology, rvac));
