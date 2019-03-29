@@ -6,9 +6,11 @@ namespace CHAD.Model.Infrastructure
     {
         #region Public Interface
 
+        Configuration GetConfiguration(Configuration configuration);
+
         IEnumerable<Configuration> GetConfigurations();
 
-        Configuration GetConfiguration(Configuration configuration);
+        Configuration GetDefaultConfiguration();
 
         void SaveConfiguration(Configuration configuration, bool rewrite);
 

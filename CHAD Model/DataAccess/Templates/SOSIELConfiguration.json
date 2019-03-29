@@ -1,0 +1,298 @@
+﻿{
+  "AlgorithmConfiguration": {
+    "UseDemographicProcesses": false,
+
+    "DemographicConfiguration": {
+      "MaximumAge": 110,
+      "DeathProbability": "Death",
+      "BirthProbability": "Birth",
+      "AdoptionProbability": "Birth",
+      "PairingProbability": 0.8,
+      "SexualOrientationRate": 0.1,
+      "HomosexualTypeRate": 0.5,
+      "PairingAgeMin": 18,
+      "PairingAgeMax": 50,
+      "YearsBetweenBirths": 3,
+      "MinimumAgeForHouseholdHead": 18
+    },
+
+    "ProbabilitiesConfiguration": [
+      {
+        "Variable": "Birth",
+        "VariableType": "integer",
+        "FilePath": "birth_probability.csv",
+        "WithHeader": true
+      },
+      {
+        "Variable": "Death",
+        "VariableType": "integer",
+        "FilePath": "death_probability.csv",
+        "WithHeader": true
+      },
+      {
+        "Variable": "General",
+        "VariableType": "integer",
+        "FilePath": "general_probability.csv",
+        "WithHeader": true
+      }
+    ]
+  },
+
+  "AgentConfiguration": {
+    "PolicyMakerArchetype": {
+      "NamePrefix": "PM",
+
+      "CommonVariables": {
+        "AgentType": "Type1",
+        "InitialWaterCurtailmentRate": 12.6
+      },
+
+      "Goals": [
+        {
+          "Name": "G1",
+          "Tendency": "MaintainAtValue",
+          "ReferenceVariable": "WaterInAquifire",
+          "FocalValue": 0,
+          "ChangeFocalValueOnPrevious": true,
+          "FocalValueReference": "SustainableLevelAquifer",
+          "IsCumulative": true,
+          "MaxGoalValue": 0,
+          "MinGoalValue": 0,
+          "MaxGoalReferenceVariable": "WaterInAquiferMax",
+          "MinGoalReferenceVariable": ""
+        }
+      ],
+
+      "MentalModel": {
+        "1": {
+          "AssociatedWith": [ "G3" ],
+          "Layer": {
+            "1": {
+              "Modifiable": true,
+              "MaxNumberOfDecisionOptions": 7
+            }
+          }
+        }
+      },
+
+      "DecisionOptions": [
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 1,
+          "Id": "MM1_L1_DO1",
+          "Antecedent": [
+            {
+              "Param": "WaterInAquifire",
+              "Sign": ">=",
+              "Value": 0
+            }
+          ],
+          "Consequent": {
+            "Param": "WaterCurtailmentRate",
+            "VariableValue": "InitialWaterCurtailmentRate"
+          },
+          "RequiredParticipants": 1
+        }
+      ],
+
+      "IsSiteOriented": false,
+      "UseImportanceAdjusting": false
+    },
+
+    "FarmerArchetype": {
+      "NamePrefix": "F",
+
+      "CommonVariables": {
+        "AgentType": "Type2",
+        "NonCropAgeThreshold": 5,
+        "CropAgeThreshold": 5
+      },
+
+      "Goals": [
+        {
+          "Name": "G2",
+          "Tendency": "Maximize",
+          "ReferenceVariable": "Profit",
+          "FocalValue": 0,
+          "ChangeFocalValueOnPrevious": true,
+          "FocalValueReference": "",
+          "IsCumulative": false
+        }
+      ],
+
+      "MentalModel": {
+        "1": {
+          "AssociatedWith": [ "G3" ],
+          "Layer": {
+            "1": {
+              "Modifiable": false,
+              "MaxNumberOfDecisionOptions": 7
+            }
+          }
+        }
+      },
+
+      "DecisionOptions": [
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 1,
+          "Id": "MM1_L1_DO1",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceAlfalfa"
+            },
+            {
+              "Param": "FieldHistoryNonCrop",
+              "Sign": "<",
+              "ReferenceVariable": "NonCropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Alfalfa"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 2,
+          "Id": "MM1_L1_DO2",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceBarley"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": "<",
+              "ReferenceVariable": "CropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Barley"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 3,
+          "Id": "MM1_L1_DO3",
+          "Antecedent": [
+            {
+              "Param": "MarketPriceWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "BreakEvenPriceWheat"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": "<",
+              "ReferenceVariable": "CropAgeThreshold"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Wheat"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 4,
+          "Id": "MM1_L1_DO4",
+          "Antecedent": [
+            {
+              "Param": "AgentType",
+              "Sign": "=",
+              "Value": "Type2"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Nothing"
+          },
+          "RequiredParticipants": 1
+        }
+      ],
+
+      "IsSiteOriented": true,
+      "UseImportanceAdjusting": false
+    }
+  },
+
+  "InitialState": {
+    "AgentsState": [
+      {
+        "PrototypeOfAgent": "PolicyMakerArchetype",
+        "NumberOfAgents": 1,
+
+        "PrivateVariables": {
+        },
+
+        "AnticipatedInfluenceState": {
+          "MM1_L1_DO1": {
+            "G1": 0
+          }
+        },
+
+        "AssignedDecisionOptions": [
+          "MM1_L1_DO1"
+        ],
+
+        "AssignedGoals": [ "G1" ],
+
+        "GoalsState": {
+          "G1": {
+            "Importance": 1
+          }
+        }
+      },
+      {
+        "PrototypeOfAgent": "FarmerArchetype",
+        "NumberOfAgents": 1,
+
+        "PrivateVariables": {
+          
+        },
+
+        "AnticipatedInfluenceState": {
+          "MM1_L1_DO1": {
+            "G2": 0
+          },
+          "MM1_L1_DO2": {
+            "G2": 0
+          },
+          "MM1_L1_DO3": {
+            "G2": 0
+          },
+          "MM1_L1_DO4": {
+            "G2": 0
+          }
+        },
+
+        "AssignedDecisionOptions": [
+          "MM1_L1_DO1",
+          "MM1_L1_DO2",
+          "MM1_L1_DO3",
+          "MM1_L1_DO4"
+        ],
+
+        "AssignedGoals": [ "G2" ],
+
+        "GoalsState": {
+          "G2": {
+            "Importance": 1
+          }
+        }
+      }
+    ]
+  }
+}

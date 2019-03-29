@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NumOfSimulations>1</NumOfSimulations>
+  <NumOfSeasons>10</NumOfSeasons>
+  <UseDemographicProcesses>false</UseDemographicProcesses>
+  <MeanBushelsAlfalfaPerAcre>0</MeanBushelsAlfalfaPerAcre>
+  <MeanBushelsBarleyPerAcre>0</MeanBushelsBarleyPerAcre>
+  <MeanBushelsWheatPerAcre>0</MeanBushelsWheatPerAcre>
+  <ClimateChangePrecipMean>1</ClimateChangePrecipMean>
+  <ClimateChangePrecipSD>1</ClimateChangePrecipSD>
+  <ClimateChangeTempMean>1</ClimateChangeTempMean>
+  <ClimateChangeTempSD>1</ClimateChangeTempSD>
+  <CostAlfalfa>0</CostAlfalfa>
+  <CostBarley>0</CostBarley>
+  <CostWheat>0</CostWheat>
+  <ProfitCRP>0</ProfitCRP>
+  <WaterCurtailmentBase>6</WaterCurtailmentBase>
+  <WaterCurtailmentRate>12.6</WaterCurtailmentRate>
+  <Beta>1</Beta>
+  <LeakAquiferFrac>0</LeakAquiferFrac>
+  <PercFromFieldFrac>1</PercFromFieldFrac>
+  <SustainableLevelAquifer>5</SustainableLevelAquifer>
+  <WaterInAquifer>5</WaterInAquifer>
+  <WaterInAquiferMax>10</WaterInAquiferMax>
+  <WaterStoreCap>1</WaterStoreCap>
+  <MeltingPoint>32</MeltingPoint>
+  <MeltingRate>0</MeltingRate>
+  <WaterInSnowpack>10</WaterInSnowpack>
+</Parameters>

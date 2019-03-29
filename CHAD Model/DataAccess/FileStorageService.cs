@@ -32,6 +32,7 @@ namespace CHAD.DataAccess
         private const string HydrologyOutput = "Hydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
         private const string OutputFolder = "Output";
+        private const string DefaultConfigurationFolder = "Templates";
         private const string Parameters = "Parameters.xml";
         private const string SOSIELConfigurationInput = "SOSIELConfiguration.json";
 
@@ -69,6 +70,15 @@ namespace CHAD.DataAccess
                 configurations.Add(new Configuration(directory.Name));
 
             return configurations;
+        }
+
+        public Configuration GetDefaultConfiguration()
+        {
+            var configuration = new Configuration();
+
+            var configurationPath = Path.Combine(Directory.GetCurrentDirectory(), DefaultConfigurationFolder);
+
+            return GetConfiguration(configuration, configurationPath);
         }
 
         public static string MakeSimulationPath(string configurationName, string simulationSession,
@@ -799,6 +809,8 @@ namespace CHAD.DataAccess
                     newCell = row.InsertAt(new Cell(), 4);
                     newCell.CellValue = new CellValue(marketPrice.SubsidyCRP.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.
