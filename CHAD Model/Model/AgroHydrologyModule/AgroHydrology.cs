@@ -30,7 +30,7 @@ namespace CHAD.Model.AgroHydrologyModule
         private readonly Dictionary<Field, double> WaterInput;
         private double IrrigSeason;
         private double LeakAquifer;
-        private double WaterInAquifer;
+        public double WaterInAquifer { get; private set; }
         private double WaterInAquiferChange;
 
         private double WaterInAquiferPrior;
