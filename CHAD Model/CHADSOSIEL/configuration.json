@@ -53,11 +53,17 @@
 
       "MentalModel": {
         "1": {
-          "AssociatedWith": [ "G3" ],
+          "AssociatedWith": [ "G1" ],
           "Layer": {
             "1": {
               "Modifiable": true,
-              "MaxNumberOfDecisionOptions": 7
+              "MaxNumberOfDecisionOptions": 7,
+              "ConsequentValueInterval": [ 0, 100 ],
+              "MinConsequentReference": "",
+              "MaxConsequentReference": "",
+              "ConsequentRelationshipSign": {
+                "G1": "-"
+              }
             }
           }
         }
@@ -101,7 +107,7 @@
         {
           "Name": "G2",
           "Tendency": "Maximize",
-          "ReferenceVariable": "Profit",
+          "ReferenceVariable": "ProfitTotal",
           "FocalValue": 0,
           "ChangeFocalValueOnPrevious": true,
           "FocalValueReference": "",
@@ -111,7 +117,7 @@
 
       "MentalModel": {
         "1": {
-          "AssociatedWith": [ "G3" ],
+          "AssociatedWith": [ "G2" ],
           "Layer": {
             "1": {
               "Modifiable": false,
@@ -129,9 +135,19 @@
           "Id": "MM1_L1_DO1",
           "Antecedent": [
             {
-              "Param": "MarketPriceAlfalfa",
+              "Param": "ProfitMarginAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "BreakEvenPriceAlfalfa"
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
             },
             {
               "Param": "FieldHistoryNonCrop",
@@ -152,9 +168,19 @@
           "Id": "MM1_L1_DO2",
           "Antecedent": [
             {
-              "Param": "MarketPriceBarley",
+              "Param": "ProfitMarginBarley",
               "Sign": ">=",
-              "ReferenceVariable": "BreakEvenPriceBarley"
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -175,9 +201,19 @@
           "Id": "MM1_L1_DO3",
           "Antecedent": [
             {
-              "Param": "MarketPriceWheat",
+              "Param": "ProfitMarginWheat",
               "Sign": ">=",
-              "ReferenceVariable": "BreakEvenPriceWheat"
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -198,9 +234,19 @@
           "Id": "MM1_L1_DO4",
           "Antecedent": [
             {
-              "Param": "AgentType",
-              "Sign": "=",
-              "Value": "Type2"
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
             }
           ],
           "Consequent": {

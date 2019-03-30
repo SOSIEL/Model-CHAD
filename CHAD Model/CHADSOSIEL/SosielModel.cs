@@ -21,31 +21,17 @@ namespace CHADSOSIEL
 
         public double MarketPriceWheat { get; set; }
 
-        //public double CostAlfalfa { get; set; }
+        public double CostAlfalfa { get; set; }
 
-        //public double CostBarley { get; set; }
+        public double CostBarley { get; set; }
 
-        //public double CostWheat { get; set; }
+        public double CostWheat { get; set; }
 
-        //public double MeanBushelsAlfalfaPerAcre { get; set; }
+        public double HarvestableAlfalfa { get; set; }
 
-        //public double MeanBushelsBarleyPerAcre { get; set; }
+        public double HarvestableBarley { get; set; }
 
-        //public double MeanBushelsWheatPerAcre { get; set; }
-
-        //public double HarvestableAlfalfa { get; set; }
-
-        //public double HarvestableBarley { get; set; }
-
-        //public double HarvestableWheat { get; set; }
-
-        public double BreakEvenPriceAlfalfa { get; set; }
-
-        public double BreakEvenPriceBarley { get; set; }
-
-        public double BreakEvenPriceWheat { get; set; }
-
-        //public double SubsidyCRP { get; set; }
+        public double HarvestableWheat { get; set; }
 
         public double ProfitDoNothing { get; set; }
 
@@ -54,6 +40,8 @@ namespace CHADSOSIEL
         public double ProfitBarley { get; set; }
 
         public double ProfitWheat { get; set; }
+
+        public double SubsidyCRP { get; set; }
 
         public double ProfitCRP { get; set; }
 

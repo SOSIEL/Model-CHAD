@@ -152,12 +152,16 @@ namespace CHAD.Model
             sosielModel.ProfitCRP = rvac.ProfitCRP;
             sosielModel.ProfitTotal = rvac.ProfitTotal;
             sosielModel.ProfitDoNothing = 0;
-            sosielModel.BreakEvenPriceAlfalfa = _configuration.Parameters.CostAlfalfa;
-            sosielModel.BreakEvenPriceBarley = _configuration.Parameters.CostBarley;
-            sosielModel.BreakEvenPriceWheat = _configuration.Parameters.CostWheat;;
+            sosielModel.CostAlfalfa = _configuration.Parameters.CostAlfalfa;
+            sosielModel.CostBarley = _configuration.Parameters.CostBarley;
+            sosielModel.CostWheat = _configuration.Parameters.CostWheat;;
             sosielModel.MarketPriceAlfalfa = marketPrice.MarketPriceAlfalfa;
             sosielModel.MarketPriceBarley = marketPrice.MarketPriceBarley;
             sosielModel.MarketPriceWheat = marketPrice.MarketPriceWheat;
+            sosielModel.SubsidyCRP = marketPrice.SubsidyCRP;
+            sosielModel.HarvestableAlfalfa = agroHydrology.HarvestableAlfalfa;
+            sosielModel.HarvestableBarley = agroHydrology.HarvestableBarley;
+            sosielModel.HarvestableWheat = agroHydrology.HarvestableWheat;
             sosielModel.WaterInAquiferMax = _configuration.Parameters.WaterInAquiferMax;
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
             sosielModel.WaterInAquifire = agroHydrology.WaterInAquifer;
@@ -215,12 +219,12 @@ namespace CHAD.Model
                 var fieldHistories = _configuration.Fields.Select(f => new FieldHistory(f)).ToList();
                 var sosielModel = CreateSosielModel(_configuration, fieldHistories);
 
-                var algorithm = new Algorithm(_configuration.SOSIELConfiguration);
-                algorithm.Initialize(sosielModel);
                 var climate = new Climate(_configuration.Parameters, _configuration.ClimateForecast);
                 var agroHydrology = new AgroHydrology(logger, _configuration.Parameters, _configuration.Fields,
                     _configuration.CropEvapTransList);
                 var rvac = new RVAC(_configuration.Parameters);
+                var algorithm = new Algorithm(_configuration.SOSIELConfiguration);
+                algorithm.Initialize(sosielModel);
 
                 for (var seasonNumber = 1; seasonNumber <= _configuration.Parameters.NumOfSeasons; seasonNumber++)
                 {

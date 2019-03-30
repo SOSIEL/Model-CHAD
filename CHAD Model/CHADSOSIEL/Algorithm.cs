@@ -157,9 +157,9 @@ namespace CHADSOSIEL
                     agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
                     agent[AlgorithmVariables.MarketPriceBarley] = _data.MarketPriceBarley;
                     agent[AlgorithmVariables.MarketPriceWheat] = _data.MarketPriceWheat;
-                    agent[AlgorithmVariables.BreakEvenPriceAlfalfa] = _data.BreakEvenPriceAlfalfa;
-                    agent[AlgorithmVariables.BreakEvenPriceBarley] = _data.BreakEvenPriceBarley;
-                    agent[AlgorithmVariables.BreakEvenPriceWheat] = _data.BreakEvenPriceWheat;
+                    agent[AlgorithmVariables.CostAlfalfa] = _data.CostAlfalfa;
+                    agent[AlgorithmVariables.CostBarley] = _data.CostBarley;
+                    agent[AlgorithmVariables.CostWheat] = _data.CostWheat;
                 });
         }
 
@@ -169,11 +169,33 @@ namespace CHADSOSIEL
 
             agentList.GetAgentsWithPrefix("F").ForEach(agent =>
                 {
-                    agent[AlgorithmVariables.ProfitAlfalfa] = _data.ProfitAlfalfa;
-                    agent[AlgorithmVariables.ProfitBarley] = _data.ProfitBarley;
-                    agent[AlgorithmVariables.ProfitWheat] = _data.ProfitWheat;
-                    agent[AlgorithmVariables.ProfitCRP] = _data.ProfitCRP;
-                    agent[AlgorithmVariables.Profit] = _data.ProfitTotal;
+                    //cheat
+                    if (iteration == 1)
+                    {
+                        _data.HarvestableAlfalfa = 1;
+                        _data.HarvestableBarley = 1;
+                        _data.HarvestableWheat = 1;
+
+                        agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
+                        agent[AlgorithmVariables.MarketPriceBarley] = _data.MarketPriceBarley;
+                        agent[AlgorithmVariables.MarketPriceWheat] = _data.MarketPriceWheat;
+                        agent[AlgorithmVariables.CostAlfalfa] = _data.CostAlfalfa;
+                        agent[AlgorithmVariables.CostBarley] = _data.CostBarley;
+                        agent[AlgorithmVariables.CostWheat] = _data.CostWheat;
+                    }
+
+                    agent[AlgorithmVariables.ProfitMarginAlfalfa] = (agent[AlgorithmVariables.MarketPriceAlfalfa] - agent[AlgorithmVariables.CostAlfalfa]) * _data.HarvestableAlfalfa;
+                    agent[AlgorithmVariables.ProfitMarginBarley] = (agent[AlgorithmVariables.MarketPriceBarley] - agent[AlgorithmVariables.CostBarley]) * _data.HarvestableBarley;
+                    agent[AlgorithmVariables.ProfitMarginWheat] = (agent[AlgorithmVariables.MarketPriceWheat] - agent[AlgorithmVariables.CostWheat]) * _data.HarvestableWheat;
+                    agent[AlgorithmVariables.ProfitMarginCRP] = _data.SubsidyCRP;
+                    agent[AlgorithmVariables.ProfitTotal] = _data.ProfitTotal;
+
+                    agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
+                    agent[AlgorithmVariables.MarketPriceBarley] = _data.MarketPriceBarley;
+                    agent[AlgorithmVariables.MarketPriceWheat] = _data.MarketPriceWheat;
+                    agent[AlgorithmVariables.CostAlfalfa] = _data.CostAlfalfa;
+                    agent[AlgorithmVariables.CostBarley] = _data.CostBarley;
+                    agent[AlgorithmVariables.CostWheat] = _data.CostWheat;
                 });
         }
 

@@ -87,7 +87,7 @@ namespace SOSIEL.Processes
                             {
                                 if (consequentValue == min) return;
 
-                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue - 1, true);
+                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue, true);
                             }
 
                             break;
@@ -98,7 +98,7 @@ namespace SOSIEL.Processes
                             {
                                 if (consequentValue == min) return;
 
-                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue - 1, true);
+                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue, true);
                             }
                             if (DecisionOptionLayerConfiguration.ConvertSign(parameters.ConsequentRelationshipSign[goal.Name]) == ConsequentRelationship.Negative)
                             {
@@ -163,10 +163,11 @@ namespace SOSIEL.Processes
 
                     ConsequentRelationship relationship = DecisionOptionLayerConfiguration.ConvertSign(protDecisionOption.Layer.LayerConfiguration.ConsequentRelationshipSign[g.Name]);
 
-                    double difference = Math.Abs(ai * consequentChangeProportion);
+                    // I'm not sure that we should use absolute value;
+                    //double difference = Math.Abs(ai * consequentChangeProportion);
+                    double difference = ai * consequentChangeProportion;
 
-
-                    switch(selectedGoalState.AnticipatedDirection)
+                    switch (selectedGoalState.AnticipatedDirection)
                     {
                         case AnticipatedDirection.Up:
                             {

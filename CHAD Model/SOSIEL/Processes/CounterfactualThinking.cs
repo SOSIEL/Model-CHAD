@@ -127,14 +127,13 @@ namespace SOSIEL.Processes
         public bool Execute(IAgent agent, LinkedListNode<Dictionary<IAgent, AgentState<TSite>>> lastIteration, Goal goal,
             DecisionOption[] matched, DecisionOptionLayer layer, TSite site)
         {
-            selectedGoalState.Confidence = false;
-
             //Period currentPeriod = periodModel.Value;
             AgentState<TSite> priorIterationAgentState = lastIteration.Previous.Value[agent];
 
             selectedGoal = goal;
 
             selectedGoalState = lastIteration.Value[agent].GoalsState[selectedGoal];
+            selectedGoalState.Confidence = false;
 
             DecisionOptionsHistory history = priorIterationAgentState.DecisionOptionsHistories[site];
 
