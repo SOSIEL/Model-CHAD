@@ -1,8 +1,9 @@
-﻿using CHAD.Model.AgroHydrologyModule;
+﻿using System.Collections.Generic;
+using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.RVACModule;
 
-namespace CHAD.Model
+namespace CHAD.Model.SimulationResults
 {
     public class SeasonResult
     {
@@ -12,9 +13,9 @@ namespace CHAD.Model
         {
             Number = number;
             WaterCurtailmentRate = waterCurtailmentRate;
-            Climate = climate;
-            AgroHydrology = agroHydrology;
-            RVAC = rvac;
+            ClimateResult = new ClimateResult(climate);
+            DailyHydrology = new List<DailyHydrology>(agroHydrology.DailyHydrology);
+            RVACResult = new RVACResult(rvac);
         }
 
         #endregion
@@ -23,13 +24,13 @@ namespace CHAD.Model
 
         public double WaterCurtailmentRate { get; }
 
-        public AgroHydrology AgroHydrology { get; }
+        public List<DailyHydrology> DailyHydrology { get; }
 
-        public Climate Climate { get; }
+        public ClimateResult ClimateResult { get; }
 
         public int Number { get; }
 
-        public RVAC RVAC { get; }
+        public RVACResult RVACResult { get; }
 
         #endregion
     }

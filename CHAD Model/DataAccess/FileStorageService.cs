@@ -11,6 +11,7 @@ using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.Infrastructure;
 using CHAD.Model.RVACModule;
+using CHAD.Model.SimulationResults;
 using CHADSOSIEL.Configuration;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -396,7 +397,7 @@ namespace CHAD.DataAccess
                 var rowIndex = 2u;
 
                 foreach (var seasonResult in simulationResult)
-                foreach (var dailyClimate in seasonResult.Climate)
+                foreach (var dailyClimate in seasonResult.ClimateResult.DailyClimate)
                 {
                     // Add a row to the cell table.
                     row = new Row {RowIndex = rowIndex};
@@ -575,27 +576,27 @@ namespace CHAD.DataAccess
 
                     newCell = row.InsertAt(new Cell(), 2);
                     newCell.CellValue =
-                        new CellValue(seasonResult.RVAC.ProfitTotal.ToString(CultureInfo.InvariantCulture));
+                        new CellValue(seasonResult.RVACResult.ProfitTotal.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 3);
                     newCell.CellValue =
-                        new CellValue(seasonResult.RVAC.ProfitAlfalfa.ToString(CultureInfo.InvariantCulture));
+                        new CellValue(seasonResult.RVACResult.ProfitAlfalfa.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 4);
                     newCell.CellValue =
-                        new CellValue(seasonResult.RVAC.ProfitBarley.ToString(CultureInfo.InvariantCulture));
+                        new CellValue(seasonResult.RVACResult.ProfitBarley.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 5);
                     newCell.CellValue =
-                        new CellValue(seasonResult.RVAC.ProfitCRP.ToString(CultureInfo.InvariantCulture));
+                        new CellValue(seasonResult.RVACResult.ProfitCRP.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 6);
                     newCell.CellValue =
-                        new CellValue(seasonResult.RVAC.ProfitWheat.ToString(CultureInfo.InvariantCulture));
+                        new CellValue(seasonResult.RVACResult.ProfitWheat.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     rowIndex++;
@@ -652,7 +653,7 @@ namespace CHAD.DataAccess
                 var rowIndex = 2u;
 
                 foreach (var seasonResult in simulationResult)
-                foreach (var hydrology in seasonResult.AgroHydrology.DailyHydrology)
+                foreach (var hydrology in seasonResult.DailyHydrology)
                 {
                     // Add a row to the cell table.
                     row = new Row {RowIndex = rowIndex};

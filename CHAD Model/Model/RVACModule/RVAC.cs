@@ -1,4 +1,5 @@
 ﻿using CHAD.Model.AgroHydrologyModule;
+using CHAD.Model.SimulationResults;
 
 namespace CHAD.Model.RVACModule
 {

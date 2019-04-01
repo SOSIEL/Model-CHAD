@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CHAD.Model.SimulationResults;
 
 namespace CHAD.Model.Infrastructure
 {

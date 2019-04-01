@@ -6,6 +6,7 @@ using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.Infrastructure;
 using CHAD.Model.RVACModule;
+using CHAD.Model.SimulationResults;
 using CHADSOSIEL;
 
 namespace CHAD.Model

@@ -1,4 +1,4 @@
-﻿namespace CHAD.Model
+﻿namespace CHAD.Model.SimulationResults
 {
     public class SOSIELResult
     {

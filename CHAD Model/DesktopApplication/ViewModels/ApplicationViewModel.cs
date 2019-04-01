@@ -10,6 +10,7 @@ using CHAD.DataAccess;
 using CHAD.DesktopApplication.Tools;
 using CHAD.Model;
 using CHAD.Model.Infrastructure;
+using CHAD.Model.SimulationResults;
 
 namespace CHAD.DesktopApplication.ViewModels
 {

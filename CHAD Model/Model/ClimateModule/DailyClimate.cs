@@ -1,6 +1,6 @@
 ﻿namespace CHAD.Model.ClimateModule
 {
-    public class DailyClimate
+    public struct DailyClimate
     {
         #region Constructors
 
