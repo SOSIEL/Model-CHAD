@@ -418,22 +418,10 @@
                         Grid.Column="2"
                         Margin="0,16,0,0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.MeltingRate}" />
+                        Text="{x:Static properties:Resources.WaterInSnowpack}" />
                     <controls:ChadTextBox
                         Grid.Row="5"
                         Grid.Column="3"
-                        Margin="8,16,0,0"
-                        Text="{Binding Path=Value.MeltingRate, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
-
-                    <TextBlock
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        Margin="0,16,0,0"
-                        VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.WaterInSnowpack}" />
-                    <controls:ChadTextBox
-                        Grid.Row="6"
-                        Grid.Column="1"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.WaterInSnowpack, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 

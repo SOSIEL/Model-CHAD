@@ -24,6 +24,5 @@
   <WaterInAquiferMax>10</WaterInAquiferMax>
   <WaterStoreCap>1</WaterStoreCap>
   <MeltingPoint>32</MeltingPoint>
-  <MeltingRate>0</MeltingRate>
   <WaterInSnowpack>10</WaterInSnowpack>
 </Parameters>

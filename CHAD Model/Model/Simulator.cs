@@ -220,7 +220,7 @@ namespace CHAD.Model
                 var fieldHistories = _configuration.Fields.Select(f => new FieldHistory(f)).ToList();
                 var sosielModel = CreateSosielModel(_configuration, fieldHistories);
 
-                var climate = new Climate(_configuration.Parameters, _configuration.ClimateForecast);
+                var climate = new Climate(_configuration.Parameters, _configuration.ClimateForecast, _configuration.DroughtLevels);
                 var agroHydrology = new AgroHydrology(logger, _configuration.Parameters, _configuration.Fields,
                     _configuration.CropEvapTransList);
                 var rvac = new RVAC(_configuration.Parameters);

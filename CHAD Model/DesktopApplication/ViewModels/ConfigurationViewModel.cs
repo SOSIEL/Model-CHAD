@@ -260,16 +260,6 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double MeltingRate
-        {
-            get => Configuration.Parameters.MeltingRate;
-            set
-            {
-                Configuration.Parameters.MeltingRate = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public double WaterInSnowpack
         {
             get => Configuration.Parameters.WaterInSnowpack;

@@ -36,7 +36,6 @@ namespace CHAD.Model
             WaterInAquiferMax = 10;
             WaterStoreCap = 1;
             MeltingPoint = 32;
-            MeltingRate = 0;
             WaterInSnowpack = 10;
         }
 
@@ -100,8 +99,6 @@ namespace CHAD.Model
         public double WaterStoreCap { get; set; }
 
         public double MeltingPoint { get; set; }
-
-        public double MeltingRate { get; set; }
 
         public double WaterInSnowpack { get; set; }
 

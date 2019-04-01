@@ -259,6 +259,24 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InputDrought.xlsx is invalid..
+        /// </summary>
+        public static string DroughtFileInvalid {
+            get {
+                return ResourceManager.GetString("DroughtFileInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of season is greater than InputDrought.xlsx contains..
+        /// </summary>
+        public static string DroughtSeasonNumberInvalid {
+            get {
+                return ResourceManager.GetString("DroughtSeasonNumberInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -291,6 +309,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string FinancialsFileInvalid {
             get {
                 return ResourceManager.GetString("FinancialsFileInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of season is greater than InputFinancials.xlsx contains..
+        /// </summary>
+        public static string FinansialsSeasonNumberInvalid {
+            get {
+                return ResourceManager.GetString("FinansialsSeasonNumberInvalid", resourceCulture);
             }
         }
         
@@ -462,15 +489,6 @@ namespace CHAD.DesktopApplication.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number of season is greater than InputFinancials.xlsx contains..
-        /// </summary>
-        public static string SeasonNumberInvalid {
-            get {
-                return ResourceManager.GetString("SeasonNumberInvalid", resourceCulture);
             }
         }
         

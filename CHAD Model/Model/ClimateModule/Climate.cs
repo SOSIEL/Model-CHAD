@@ -13,16 +13,19 @@ namespace CHAD.Model.ClimateModule
         private readonly IEnumerable<ClimateForecast> _climateForecasts;
 
         private readonly List<DailyClimate> _dailyClimates;
+        private readonly List<DroughtLevel> _droughtLevels;
+
 
         #endregion
 
         #region Constructors
 
-        public Climate(Parameters parameters, IEnumerable<ClimateForecast> climateForecasts)
+        public Climate(Parameters parameters, IEnumerable<ClimateForecast> climateForecasts, IEnumerable<DroughtLevel> droughtLevel)
         {
             _parameters = parameters;
             _climateForecasts = climateForecasts;
             _dailyClimates = new List<DailyClimate>();
+            _droughtLevels = new List<DroughtLevel>(droughtLevel);
         }
 
         #endregion
@@ -35,17 +38,9 @@ namespace CHAD.Model.ClimateModule
 
             foreach (var climateForecast in _climateForecasts)
             {
-                var temperature = Gaussian(seasonNumber,
-                    climateForecast.TempMean,
-                    climateForecast.TempSD,
-                    _parameters.ClimateChangeTempMean,
-                    _parameters.ClimateChangeTempSD);
+                var temperature = GetRandomTemperature(seasonNumber, climateForecast);
 
-                var precipitation = Gaussian(seasonNumber,
-                    climateForecast.PrecipMean,
-                    climateForecast.PrecipSD,
-                    _parameters.ClimateChangePrecipMean,
-                    _parameters.ClimateChangePrecipSD);
+                var precipitation = GetRandomPrecipitation(seasonNumber, climateForecast);
 
                 _dailyClimates.Add(new DailyClimate(climateForecast.Day, temperature, precipitation));
             }
@@ -74,13 +69,36 @@ namespace CHAD.Model.ClimateModule
 
         #region All other members
 
-        private double Gaussian(int seasonNumber, double mean, double standardDeviation, double changeMean, double changeDeviation)
+        private double GetDroughtLevel(int seasonNumber)
+        {
+            return _droughtLevels.First(dl => dl.SeasonNumber == seasonNumber).Value;
+        }
+
+        private double GetRandomTemperature(int seasonNumber, ClimateForecast climateForecast)
         {
             var random = new Random();
             var x1 = 1 - random.NextDouble();
             var x2 = 1 - random.NextDouble();
             var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return Math.Round(y1 * standardDeviation * Math.Pow(changeDeviation, seasonNumber) + mean * Math.Pow(changeMean, seasonNumber), 2);
+
+            var result = y1 * climateForecast.TempSD * Math.Pow(_parameters.ClimateChangeTempSD, seasonNumber) +
+                         climateForecast.TempMean * Math.Pow(_parameters.ClimateChangeTempMean, seasonNumber);
+
+            return Math.Round(result, 2);
+        }
+
+        private double GetRandomPrecipitation(int seasonNumber, ClimateForecast climateForecast)
+        {
+            var random = new Random();
+            var x1 = 1 - random.NextDouble();
+            var x2 = 1 - random.NextDouble();
+            var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
+
+            var result = y1 * climateForecast.PrecipSD * Math.Pow(_parameters.ClimateChangePrecipSD, seasonNumber) +
+                         GetDroughtLevel(seasonNumber) * climateForecast.PrecipMean *
+                         Math.Pow(_parameters.ClimateChangePrecipMean, seasonNumber);
+
+            return Math.Round(result, 2);
         }
 
         #endregion

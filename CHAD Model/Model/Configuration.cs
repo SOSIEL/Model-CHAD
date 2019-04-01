@@ -17,6 +17,7 @@ namespace CHAD.Model
         {
             Parameters = new Parameters();
             ClimateForecast = new List<ClimateForecast>();
+            DroughtLevels = new List<DroughtLevel>();
             CropEvapTransList = new List<InputCropEvapTrans>();
             Fields = new List<Field>();
             MarketPrices = new List<MarketPrice>();
@@ -31,6 +32,8 @@ namespace CHAD.Model
         #endregion
 
         #region Public Interface
+
+        public List<DroughtLevel> DroughtLevels { get; }
 
         public List<ClimateForecast> ClimateForecast { get; }
 

@@ -93,8 +93,14 @@ namespace CHAD.DesktopApplication.ViewModels
             if(!configuration.ClimateForecast.Any())
                 builder.Append("\n" + Properties.Resources.FinancialsFileInvalid);
 
+            if(!configuration.DroughtLevels.Any())
+                builder.Append("\n" + Properties.Resources.DroughtFileInvalid);
+
             if (configuration.Parameters.NumOfSeasons > configuration.MarketPrices.Count)
-                builder.Append("\n" + Properties.Resources.SeasonNumberInvalid);
+                builder.Append("\n" + Properties.Resources.FinansialsSeasonNumberInvalid);
+
+            if (configuration.Parameters.NumOfSeasons > configuration.DroughtLevels.Count)
+                builder.Append("\n" + Properties.Resources.DroughtSeasonNumberInvalid);
 
             return builder.ToString();
         }

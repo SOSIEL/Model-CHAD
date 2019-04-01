@@ -16,6 +16,7 @@ using CHADSOSIEL.Configuration;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Field = CHAD.Model.AgroHydrologyModule.Field;
 using Parameters = CHAD.Model.Parameters;
 
 namespace CHAD.DataAccess
@@ -29,22 +30,18 @@ namespace CHAD.DataAccess
         private const string ConfigurationsFolder = "Configurations";
         private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
         private const string DecisionMakingOutput = "OutputDecisionMaking.xlsx";
+        private const string DefaultConfigurationFolder = "Templates";
+        private const string DroughtLevelInput = "InputDrought.xlsx";
         private const string FieldsInput = "InputFieldSize.xlsx";
         private const string HydrologyOutput = "Hydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
         private const string OutputFolder = "Output";
-        private const string DefaultConfigurationFolder = "Templates";
         private const string Parameters = "Parameters.xml";
         private const string SOSIELConfigurationInput = "SOSIELConfiguration.json";
 
         #endregion
 
         #region Public Interface
-
-        public static string MakeConfigPathFolder(string configurationName)
-        {
-            return Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolder, configurationName);
-        }
 
         public Configuration GetConfiguration(Configuration configuration)
         {
@@ -87,6 +84,11 @@ namespace CHAD.DataAccess
             return GetConfiguration(configuration, configurationPath);
         }
 
+        public static string MakeConfigPathFolder(string configurationName)
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), ConfigurationsFolder, configurationName);
+        }
+
         public static string MakeSimulationPath(string configurationName, string simulationSession,
             int simulationNumber)
         {
@@ -109,11 +111,13 @@ namespace CHAD.DataAccess
 
             SaveParameters(Path.Combine(configurationPath, Parameters), configuration);
             SaveClimateConfiguration(Path.Combine(configurationPath, ClimateInput), configuration);
+            SaveDroughtLevelConfiguration(Path.Combine(configurationPath, DroughtLevelInput), configuration);
             SaveCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
             SaveInputFieldConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             SaveMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
             SaveSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput));
         }
+
 
         public void SaveSimulationResult(SimulationResult simulationResult)
         {
@@ -166,13 +170,24 @@ namespace CHAD.DataAccess
                     });
         }
 
+        private void FillDroughtLevelConfiguration(string path, Configuration configuration)
+        {
+            var table = GetTable(path);
+
+            configuration.DroughtLevels.Clear();
+
+            configuration.DroughtLevels.AddRange(table.Rows.Cast<DataRow>()
+                .Select(e => new DroughtLevel(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()))));
+        }
+
         private void FillFieldsConfiguration(string path, Configuration configuration)
         {
             var table = GetTable(path);
 
             configuration.Fields.Clear();
 
-            configuration.Fields.AddRange(table.Rows.Cast<DataRow>().Select(e => new Model.AgroHydrologyModule.Field(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()))));
+            configuration.Fields.AddRange(table.Rows.Cast<DataRow>()
+                .Select(e => new Field(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()))));
         }
 
         private void FillMarketPrices(string path, Configuration configuration)
@@ -204,7 +219,7 @@ namespace CHAD.DataAccess
         private void FillSOSIELConfiguration(string path, Configuration configuration)
         {
             configuration.SOSIELConfiguration = ConfigurationParser.ParseConfiguration(path);
-            if(configuration.Name != null)
+            if (configuration.Name != null)
                 configuration.SOSIELConfiguration.ConfigurationPath = MakeConfigPathFolder(configuration.Name);
         }
 
@@ -231,6 +246,7 @@ namespace CHAD.DataAccess
             FillFieldsConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             FillMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
             FillSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput), configuration);
+            FillDroughtLevelConfiguration(Path.Combine(configurationPath, DroughtLevelInput), configuration);
 
             return configuration;
         }
@@ -607,6 +623,63 @@ namespace CHAD.DataAccess
             }
         }
 
+        private void SaveDroughtLevelConfiguration(string path, Configuration configuration)
+        {
+            using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
+            {
+                // Add a WorkbookPart to the document.
+                var workbookPart = spreadsheetDocument.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+
+                // Add a WorksheetPart to the WorkbookPart.
+                var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+                // Add Sheets to the Workbook.
+                var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+
+                // Append a new worksheet and associate it with the workbook.
+                var sheet = new Sheet
+                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                sheets.Append(sheet);
+
+                // Get the sheetData cell table.
+                var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+                // Add a row to the cell table.
+                var row = new Row {RowIndex = 1};
+                sheetData.Append(row);
+
+                var newCell = row.InsertAt(new Cell(), 0);
+                newCell.CellValue = new CellValue("Season");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("Drought");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                var rowIndex = 2u;
+
+                foreach (var field in configuration.DroughtLevels)
+                {
+                    // Add a row to the cell table.
+                    row = new Row {RowIndex = rowIndex};
+                    sheetData.Append(row);
+
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue(field.SeasonNumber.ToString());
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue(field.Value.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                }
+
+                // Save the new worksheet.
+                spreadsheetDocument.Save();
+            }
+        }
+
         private void SaveHydrologyOutput(string path, SimulationResult simulationResult)
         {
             using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
@@ -728,11 +801,11 @@ namespace CHAD.DataAccess
 
                     newCell = row.InsertAt(new Cell(), 0);
                     newCell.CellValue = new CellValue(field.FieldNumber.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     newCell = row.InsertAt(new Cell(), 1);
                     newCell.CellValue = new CellValue(field.FieldSize.ToString(CultureInfo.InvariantCulture));
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
                 }
 
                 // Save the new worksheet.
@@ -852,7 +925,8 @@ namespace CHAD.DataAccess
             {
                 var fileName = anotherResourceName.Replace("CHADSOSIEL.", string.Empty);
                 using (var stream = assembly.GetManifestResourceStream(anotherResourceName))
-                using (Stream outputStream = new FileStream(Path.Combine(Path.GetDirectoryName(path), fileName), FileMode.Create))
+                using (Stream outputStream =
+                    new FileStream(Path.Combine(Path.GetDirectoryName(path), fileName), FileMode.Create))
                 {
                     stream.CopyTo(outputStream);
                 }
