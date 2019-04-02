@@ -240,7 +240,7 @@ namespace CHAD.Model
                     climate.ProcessSeason(seasonNumber);
                     agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate);
 
-                    for (var dayNumber = 1; dayNumber < _configuration.DaysCount; dayNumber++)
+                    for (var dayNumber = 1; dayNumber < _configuration.Parameters.NumOfDays; dayNumber++)
                     {
                         CheckStatus();
                         CurrentDay = dayNumber;

@@ -10,7 +10,7 @@ namespace CHAD.Model.AgroHydrologyModule
     {
         #region Fields
 
-        private readonly List<InputCropEvapTrans> _cropEvapTrans;
+        private readonly List<CropEvapTrans> _cropEvapTrans;
         private readonly ILogger _logger;
         private readonly Parameters _parameters;
         private readonly List<Field> _fields;
@@ -43,12 +43,12 @@ namespace CHAD.Model.AgroHydrologyModule
         #region Constructors
 
         public AgroHydrology(ILogger logger, Parameters parameters, List<Field> fields,
-            List<InputCropEvapTrans> cropEvapTrans)
+            List<CropEvapTrans> cropEvapTrans)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
             _fields = fields ?? throw new ArgumentNullException(nameof(fields));
-            _cropEvapTrans = cropEvapTrans ?? throw new ArgumentNullException(nameof(InputCropEvapTrans));
+            _cropEvapTrans = cropEvapTrans ?? throw new ArgumentNullException(nameof(CropEvapTrans));
 
             DailyHydrology = new List<DailyHydrology>();
 
@@ -134,7 +134,7 @@ namespace CHAD.Model.AgroHydrologyModule
                     IrrigNeed[field] = 0;
                 else
                     IrrigNeed[field] =
-                        Math.Max(0, _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == fieldHistory.Plant).Quantity *
+                        Math.Max(0, _cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) *
                         fieldHistory.Field.FieldSize -
                         PrecipOnField[field]);
 
@@ -168,7 +168,7 @@ namespace CHAD.Model.AgroHydrologyModule
                 else
                     EvapTransFromField[field] =
                         Math.Min(
-                            _cropEvapTrans.First(et => et.Day == dayNumber && et.Plant == fieldHistory.Plant).Quantity *
+                            _cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) *
                             fieldHistory.Field.FieldSize, WaterInField[field] / AcInToFt3);
                 _logger.Write($"EvapTransFromField = {EvapTransFromField[field]}");
 
@@ -251,10 +251,10 @@ namespace CHAD.Model.AgroHydrologyModule
             _logger.Write($"WaterUsageMax = {WaterUsageMax} for current season");
 
             // The maximum amount of water that can evaporate from field when accounting for plant type and field size.
-            foreach (var fieldHistory in fieldHistories)
+            foreach (var fieldHistory in fieldHistories.Where(fh => fh.Plant != Plant.Nothing))
             {
                 EvapTransFromFieldSeasonMax[fieldHistory.Field] =
-                    _cropEvapTrans.Where(c => c.Plant == fieldHistory.Plant).Sum(c => c.Quantity);
+                    _cropEvapTrans.Select(et => et.GetEvapTrans(fieldHistory.Plant)).Sum();
                 _logger.Write(
                     $"EvapTransFromFieldSeasonMax = {EvapTransFromFieldSeasonMax[fieldHistory.Field]} for field {fieldHistory.Field.FieldNumber}");
             }

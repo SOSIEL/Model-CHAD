@@ -121,6 +121,12 @@ namespace CHAD.DesktopApplication.ViewModels
             if (configuration.Parameters.NumOfSeasons > configuration.DroughtLevels.Count)
                 builder.Append("\n" + Properties.Resources.DroughtSeasonNumberInvalid);
 
+            if (configuration.Parameters.NumOfDays > configuration.ClimateForecast.Count)
+                builder.Append("\n" + Properties.Resources.ClimateDaysNumberInvalid);
+
+            if (configuration.Parameters.NumOfDays > configuration.CropEvapTransList.Count)
+                builder.Append("\n" + Properties.Resources.CropEvapTransDaysNumberInvalid);
+
             return builder.ToString();
         }
 
@@ -158,6 +164,8 @@ namespace CHAD.DesktopApplication.ViewModels
                 RaisePropertyChangedForDispatchers(nameof(CurrentSimulation));
             }
         }
+
+       
 
         public int CurrentSeason
         {

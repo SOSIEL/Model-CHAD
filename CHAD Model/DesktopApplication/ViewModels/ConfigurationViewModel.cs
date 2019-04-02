@@ -59,6 +59,18 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
+        public int DaysCount
+        {
+            get => Configuration.Parameters.NumOfDays;
+            set
+            {
+                if (value == Configuration.Parameters.NumOfDays)
+                    return;
+                Configuration.Parameters.NumOfDays = value;
+                RaisePropertyChanged(nameof(DaysCount));
+            }
+        }
+
         public double MeanBushelsAlfalfaPerAcre
         {
             get => Configuration.Parameters.MeanBushelsAlfalfaPerAcre;
