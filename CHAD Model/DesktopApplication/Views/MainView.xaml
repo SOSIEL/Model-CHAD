@@ -52,6 +52,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -120,6 +121,24 @@
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
                     LostFocus="TextBox_OnLostFocus"
                     Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
+
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static properties:Resources.NumberOfDays}" />
+
+                <controls:ChadTextBox
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="64"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Left"
+                    InputType="Integer"
+                    IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
+                    LostFocus="TextBox_OnLostFocus"
+                    Text="{Binding Path=ConfigurationViewModel.DaysCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
             </Grid>
 

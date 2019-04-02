@@ -18,7 +18,7 @@ namespace CHAD.Model
             Parameters = new Parameters();
             ClimateForecast = new List<ClimateForecast>();
             DroughtLevels = new List<DroughtLevel>();
-            CropEvapTransList = new List<InputCropEvapTrans>();
+            CropEvapTransList = new List<CropEvapTrans>();
             Fields = new List<Field>();
             MarketPrices = new List<MarketPrice>();
         }
@@ -37,9 +37,7 @@ namespace CHAD.Model
 
         public List<ClimateForecast> ClimateForecast { get; }
 
-        public List<InputCropEvapTrans> CropEvapTransList { get; }
-
-        public int DaysCount => ClimateForecast.Count;
+        public List<CropEvapTrans> CropEvapTransList { get; }
 
         public List<Field> Fields { get; }
 

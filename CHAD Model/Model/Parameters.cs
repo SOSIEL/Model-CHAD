@@ -10,6 +10,7 @@ namespace CHAD.Model
         {
             NumOfSimulations = 1;
             NumOfSeasons = 1;
+            NumOfDays = 153;
             UseDemographicProcesses = false;
 
             MeanBushelsAlfalfaPerAcre = 0;
@@ -51,6 +52,8 @@ namespace CHAD.Model
         public int NumOfSimulations { get; set; }
 
         public int NumOfSeasons { get; set; }
+
+        public int NumOfDays { get; set; }
 
         public bool UseDemographicProcesses { get; set; }
 

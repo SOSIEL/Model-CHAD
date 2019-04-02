@@ -161,13 +161,8 @@ namespace CHAD.DataAccess
             configuration.CropEvapTransList.Clear();
 
             foreach (DataRow row in table.Rows)
-                for (var i = 1; i <= 3; i++)
-                    configuration.CropEvapTransList.Add(new InputCropEvapTrans
-                    {
-                        Day = Convert.ToInt32(row[0].ToString()),
-                        Plant = i == 1 ? Plant.Alfalfa : i == 2 ? Plant.Barley : Plant.Wheat,
-                        Quantity = ToDouble(row[i].ToString())
-                    });
+                configuration.CropEvapTransList.Add(new CropEvapTrans(Convert.ToInt32(row[0].ToString()),
+                    ToDouble(row[1].ToString()), ToDouble(row[2].ToString()), ToDouble(row[3].ToString())));
         }
 
         private void FillDroughtLevelConfiguration(string path, Configuration configuration)
@@ -476,40 +471,46 @@ namespace CHAD.DataAccess
                     ? configuration.CropEvapTransList.Max(item => item.Day)
                     : 0;
 
-                var plantGroups = configuration.CropEvapTransList.GroupBy(plant => plant.Plant)
-                    .OrderByDescending(plantGroup => plantGroup.Key).ToList();
-
                 var newCell = row.InsertAt(new Cell(), 0);
                 newCell.CellValue = new CellValue("Day");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                var columnIndex = 1;
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("Alfalfa");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                foreach (var plantGroup in plantGroups)
-                {
-                    newCell = row.InsertAt(new Cell(), columnIndex);
-                    newCell.CellValue = new CellValue(plantGroup.First().Plant.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
-                }
+                newCell = row.InsertAt(new Cell(), 2);
+                newCell.CellValue = new CellValue("Barley");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                for (var day = 1u; day <= days; day++)
+                newCell = row.InsertAt(new Cell(), 3);
+                newCell.CellValue = new CellValue("Wheat");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                var rowIndex = 2u;
+
+                foreach (var cropEvapTrans in configuration.CropEvapTransList)
                 {
-                    // Add a row to the cell table.
-                    row = new Row {RowIndex = day + 1};
+                    row = new Row {RowIndex = rowIndex};
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
-                    newCell.CellValue = new CellValue(day.ToString());
+                    newCell.CellValue = new CellValue(cropEvapTrans.Day.ToString());
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    foreach (var plantGroup in plantGroups)
-                    {
-                        newCell = row.InsertAt(new Cell(), columnIndex);
-                        newCell.CellValue = new CellValue(configuration.CropEvapTransList
-                            .First(item => item.Day == day && item.Plant == plantGroup.Key).Quantity
-                            .ToString(CultureInfo.InvariantCulture));
-                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
-                    }
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue(cropEvapTrans.AlfalfaValue.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 2);
+                    newCell.CellValue = new CellValue(cropEvapTrans.BarleyValue.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 3);
+                    newCell.CellValue = new CellValue(cropEvapTrans.WheatValue.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.

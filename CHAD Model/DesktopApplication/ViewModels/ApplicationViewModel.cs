@@ -86,10 +86,12 @@ namespace CHAD.DesktopApplication.ViewModels
                     foreach (var exception in task.Exception.InnerExceptions)
                         message += "\n\n" + exception.Message;
 
-                    MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    if(task.Exception.InnerExceptions.Count == 1 && task.Exception.InnerExceptions.First() is ThreadAbortException)
+                        return;
+                        
                     Simulator.Stop();
-                    
+
+                    MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             _checkStatusTimer.Change(0, 100);
@@ -120,6 +122,12 @@ namespace CHAD.DesktopApplication.ViewModels
 
             if (configuration.Parameters.NumOfSeasons > configuration.DroughtLevels.Count)
                 builder.Append("\n" + Properties.Resources.DroughtSeasonNumberInvalid);
+
+            if (configuration.Parameters.NumOfDays > configuration.ClimateForecast.Count)
+                builder.Append("\n" + Properties.Resources.ClimateDaysNumberInvalid);
+
+            if (configuration.Parameters.NumOfDays > configuration.CropEvapTransList.Count)
+                builder.Append("\n" + Properties.Resources.CropEvapTransDaysNumberInvalid);
 
             return builder.ToString();
         }
@@ -158,6 +166,8 @@ namespace CHAD.DesktopApplication.ViewModels
                 RaisePropertyChangedForDispatchers(nameof(CurrentSimulation));
             }
         }
+
+       
 
         public int CurrentSeason
         {

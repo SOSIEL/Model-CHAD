@@ -160,6 +160,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Number of days is greater than InputClimate.xlsx contains..
+        /// </summary>
+        public static string ClimateDaysNumberInvalid {
+            get {
+                return ResourceManager.GetString("ClimateDaysNumberInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на InputClimate.xlsx is invalid..
         /// </summary>
         public static string ClimateFileInvalid {
@@ -210,6 +219,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string CostWheat {
             get {
                 return ResourceManager.GetString("CostWheat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number of days is greater than InputCropEvapTrans.xlsx contains..
+        /// </summary>
+        public static string CropEvapTransDaysNumberInvalid {
+            get {
+                return ResourceManager.GetString("CropEvapTransDaysNumberInvalid", resourceCulture);
             }
         }
         
@@ -417,6 +435,15 @@ namespace CHAD.DesktopApplication.Properties {
         public static string NextButtonText {
             get {
                 return ResourceManager.GetString("NextButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Number of days.
+        /// </summary>
+        public static string NumberOfDays {
+            get {
+                return ResourceManager.GetString("NumberOfDays", resourceCulture);
             }
         }
         

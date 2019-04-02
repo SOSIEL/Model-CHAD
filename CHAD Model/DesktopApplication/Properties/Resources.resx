@@ -306,4 +306,13 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ClimateDaysNumberInvalid" xml:space="preserve">
+    <value>Number of days is greater than InputClimate.xlsx contains.</value>
+  </data>
+  <data name="CropEvapTransDaysNumberInvalid" xml:space="preserve">
+    <value>Number of days is greater than InputCropEvapTrans.xlsx contains.</value>
+  </data>
+  <data name="NumberOfDays" xml:space="preserve">
+    <value>Number of days</value>
+  </data>
 </root>

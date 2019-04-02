@@ -89,10 +89,6 @@ namespace CHAD.Model
             if (Status == SimulatorStatus.Stopped)
                 throw new InvalidOperationException("Simulator is already stopped");
 
-            CurrentSimulation = 0;
-            CurrentSeason = 0;
-            CurrentDay = 0;
-
             Status = SimulatorStatus.Stopped;
         }
 
@@ -240,7 +236,7 @@ namespace CHAD.Model
                     climate.ProcessSeason(seasonNumber);
                     agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate);
 
-                    for (var dayNumber = 1; dayNumber < _configuration.DaysCount; dayNumber++)
+                    for (var dayNumber = 1; dayNumber < _configuration.Parameters.NumOfDays; dayNumber++)
                     {
                         CheckStatus();
                         CurrentDay = dayNumber;
