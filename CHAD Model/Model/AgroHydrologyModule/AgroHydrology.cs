@@ -109,20 +109,20 @@ namespace CHAD.Model.AgroHydrologyModule
 
                 PrecipOnField[field] = dailyClimate.Precipitation;
 
-                var MeltingRate = Math.Max(0, dailyClimate.Temperature - _parameters.MeltingPoint);
+                var MeltingRate = Math.Max(0, (dailyClimate.Temperature - _parameters.MeltingPoint) / 100);
 
                 if (dailyClimate.Temperature > _parameters.MeltingPoint)
                 {
                     _logger.Write("Temperature > MeltingPoint.");
-                    WaterInSnowpack = WaterInSnowpack - MeltingRate * WaterInSnowpack;
                     PrecipOnField[field] = dailyClimate.Precipitation +
                                            MeltingRate * (WaterInSnowpack / RainToSnow);
+                    WaterInSnowpack = WaterInSnowpack - MeltingRate * WaterInSnowpack;
                 }
                 else
                 {
                     _logger.Write("Temperature <= MeltingPoint.");
-                    WaterInSnowpack = WaterInSnowpack + PrecipOnField[field] * RainToSnow;
                     PrecipOnField[field] = 0;
+                    WaterInSnowpack = WaterInSnowpack + PrecipOnField[field] * RainToSnow;
                 }
 
                 PrecipOnField[field] = PrecipOnField[field] *
