@@ -230,6 +230,7 @@ namespace CHADSOSIEL
             {
                 agent[AlgorithmVariables.FieldHistoryCrop] = site.FieldHistoryCrop;
                 agent[AlgorithmVariables.FieldHistoryNonCrop] = site.FieldHistoryNonCrop;
+                agent[AlgorithmVariables.PlantInField] = AlgorithmVariables.Nothing;
             }
         }
 
@@ -242,7 +243,7 @@ namespace CHADSOSIEL
 
             if (agent.Prototype.NamePrefix == "F")
             {
-                site.Plant = agent[AlgorithmVariables.PlantInField];
+                site.Plant = agent.ContainsVariable(AlgorithmVariables.PlantInField) ? agent[AlgorithmVariables.PlantInField]: AlgorithmVariables.Nothing;
             }
         }
 
