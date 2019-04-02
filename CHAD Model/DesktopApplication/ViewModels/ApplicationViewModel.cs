@@ -68,11 +68,30 @@ namespace CHAD.DesktopApplication.ViewModels
 
             if (!string.IsNullOrEmpty(message))
             {
-                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            Task.Run(() => { Simulator.Start(ConfigurationViewModel.Configuration); });
+            Task.Run(() => { Simulator.Start(ConfigurationViewModel.Configuration); }).ContinueWith(task =>
+            {
+                if (task.Status == TaskStatus.Faulted)
+                {
+                    message = string.Empty;
+
+                    if(task.Exception == null)
+                        return;
+
+                    message = task.Exception.Message;
+
+                    foreach (var exception in task.Exception.InnerExceptions)
+                        message += "\n\n" + exception.Message;
+
+                    MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    Simulator.Stop();
+                    
+                }
+            });
             _checkStatusTimer.Change(0, 100);
             _stopwatch.Restart();
         }
