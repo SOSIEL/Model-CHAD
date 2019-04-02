@@ -786,7 +786,7 @@ namespace CHAD.DataAccess
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
-                newCell.CellValue = new CellValue("Day");
+                newCell.CellValue = new CellValue("FieldNum");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                 newCell = row.InsertAt(new Cell(), 1);
