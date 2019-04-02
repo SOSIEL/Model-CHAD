@@ -89,10 +89,6 @@ namespace CHAD.Model
             if (Status == SimulatorStatus.Stopped)
                 throw new InvalidOperationException("Simulator is already stopped");
 
-            CurrentSimulation = 0;
-            CurrentSeason = 0;
-            CurrentDay = 0;
-
             Status = SimulatorStatus.Stopped;
         }
 

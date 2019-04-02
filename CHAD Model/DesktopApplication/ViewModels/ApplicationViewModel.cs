@@ -86,10 +86,12 @@ namespace CHAD.DesktopApplication.ViewModels
                     foreach (var exception in task.Exception.InnerExceptions)
                         message += "\n\n" + exception.Message;
 
-                    MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    if(task.Exception.InnerExceptions.Count == 1 && task.Exception.InnerExceptions.First() is ThreadAbortException)
+                        return;
+                        
                     Simulator.Stop();
-                    
+
+                    MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             _checkStatusTimer.Change(0, 100);
