@@ -58,7 +58,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
         public int GetNonCropNumberSeasons()
         {
-            return GetLastFive().Count(pf => pf == Plant.Nothing || pf == Plant.Alfalfa);
+            return GetLastFive().Count(pf => pf == Plant.Alfalfa);
         }
 
         public static bool operator ==(FieldHistory left, FieldHistory right)

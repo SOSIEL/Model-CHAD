@@ -5,7 +5,7 @@ namespace CHADSOSIEL
     public class SosielModel
     {
         #region Aquifire
-        public double WaterInAquifire { get; set; }
+        public double WaterInAquifer { get; set; }
 
         public double WaterCurtailmentRate { get; internal set; }
 
@@ -46,6 +46,14 @@ namespace CHADSOSIEL
         public double ProfitCRP { get; set; }
 
         public double ProfitTotal { get; set; }
+
+        public double ProfitMarginAlfalfa { get; internal set; }
+
+        public double ProfitMarginBarley { get; internal set; }
+
+        public double ProfitMarginWheat { get; internal set; }
+
+        public double ProfitMarginCRP { get; internal set; }
         #endregion
 
 

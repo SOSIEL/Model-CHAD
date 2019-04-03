@@ -123,7 +123,7 @@ namespace CHAD.Model
         {
             var model = new SosielModel
             {
-                WaterInAquifire = configuration.Parameters.WaterInAquifer,
+                WaterInAquifer = configuration.Parameters.WaterInAquifer,
                 WaterInAquiferMax = configuration.Parameters.WaterInAquiferMax,
                 SustainableLevelAquifer = configuration.Parameters.SustainableLevelAquifer
             };
@@ -161,7 +161,7 @@ namespace CHAD.Model
             sosielModel.HarvestableWheat = agroHydrology.HarvestableWheat;
             sosielModel.WaterInAquiferMax = _configuration.Parameters.WaterInAquiferMax;
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
-            sosielModel.WaterInAquifire = agroHydrology.WaterInAquifer;
+            sosielModel.WaterInAquifer = agroHydrology.WaterInAquifer;
         }
 
         private string MakeSimulationSession()
@@ -176,6 +176,9 @@ namespace CHAD.Model
                 var chadField = sosielModel.Fields.First(cf => cf.Number == fieldHistory.Field.FieldNumber);
 
                 fieldHistory.AddNewSeason(new FieldSeason(seasonNumber, ConvertStringToPlant(chadField.Plant)));
+
+                chadField.FieldHistoryCrop = fieldHistory.GetCropNumberSeasons();
+                chadField.FieldHistoryNonCrop = fieldHistory.GetNonCropNumberSeasons();
             }
 
             double numOfAlfalfaAcres =
@@ -233,6 +236,20 @@ namespace CHAD.Model
 
                     FillSosielModel(sosielModel, agroHydrology, marketPrice, rvac);
                     algorithm.Run(sosielModel);
+
+                    logger.Write($"SOSIEL run: {nameof(sosielModel.MarketPriceAlfalfa)}={sosielModel.MarketPriceAlfalfa} " +
+                                 $"{nameof(sosielModel.MarketPriceBarley)}={sosielModel.MarketPriceBarley} " +
+                                 $"{nameof(sosielModel.MarketPriceWheat)}={sosielModel.MarketPriceWheat} " +
+                                 $"{nameof(sosielModel.CostAlfalfa)}={sosielModel.CostAlfalfa} " +
+                                 $"{nameof(sosielModel.CostBarley)}={sosielModel.CostBarley} " +
+                                 $"{nameof(sosielModel.CostWheat)}={sosielModel.CostWheat} " +
+                                 $"{nameof(sosielModel.HarvestableAlfalfa)}={sosielModel.HarvestableAlfalfa} " +
+                                 $"{nameof(sosielModel.HarvestableBarley)}={sosielModel.HarvestableBarley} " +
+                                 $"{nameof(sosielModel.HarvestableWheat)}={sosielModel.HarvestableWheat} " +
+                                 $"{nameof(sosielModel.ProfitMarginAlfalfa)}={sosielModel.ProfitMarginAlfalfa} " +
+                                 $"{nameof(sosielModel.ProfitMarginBarley)}={sosielModel.ProfitMarginBarley} " +
+                                 $"{nameof(sosielModel.ProfitMarginWheat)}={sosielModel.ProfitMarginWheat}", Severity.Level1);
+
                     var sosielResult = ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     climate.ProcessSeason(seasonNumber);
                     agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate);
