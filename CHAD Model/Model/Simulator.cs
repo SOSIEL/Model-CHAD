@@ -206,12 +206,12 @@ namespace CHAD.Model
                 simulationNumber <= _configuration.Parameters.NumOfSimulations;
                 simulationNumber++)
             {
-                var simulationResult = new SimulationResult(simulationSession, _configuration, simulationNumber);
+                var logger = _loggerFactory.MakeLogger(_configuration.Name, simulationSession, simulationNumber);
+
+                var simulationResult = new SimulationResult(simulationSession, logger, _configuration, simulationNumber);
 
                 CheckStatus();
                 CurrentSimulation = simulationNumber;
-
-                var logger = _loggerFactory.MakeLogger(_configuration.Name, simulationSession, simulationNumber);
 
                 var fieldHistories = _configuration.Fields.Select(f => new FieldHistory(f)).ToList();
                 var sosielModel = CreateSosielModel(_configuration, fieldHistories);
@@ -227,6 +227,7 @@ namespace CHAD.Model
                 {
                     CheckStatus();
                     CurrentSeason = seasonNumber;
+                    logger.Write($"Start season {seasonNumber}", Severity.Level1);
 
                     var marketPrice = _configuration.MarketPrices.First(mp => mp.SeasonNumber == seasonNumber);
 
@@ -240,9 +241,12 @@ namespace CHAD.Model
                     {
                         CheckStatus();
                         CurrentDay = dayNumber;
+                        logger.Write($"Start day {dayNumber}", Severity.Level1);
 
                         var dailyClimate = climate.GetDailyClimate(dayNumber);
                         agroHydrology.ProcessDay(dayNumber, dailyClimate, fieldHistories);
+
+                        logger.Write($"Finish day {dayNumber}", Severity.Level1);
                     }
 
                     agroHydrology.ProcessSeasonEnd(fieldHistories);
@@ -250,6 +254,8 @@ namespace CHAD.Model
 
                     simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, sosielModel.WaterCurtailmentRate,
                         climate, agroHydrology, rvac));
+
+                    logger.Write($"Finish season {seasonNumber}", Severity.Level1);
                 }
 
                 RaiseSimulationResultObtained(simulationResult);

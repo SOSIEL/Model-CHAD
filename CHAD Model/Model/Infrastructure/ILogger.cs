@@ -6,7 +6,7 @@ namespace CHAD.Model.Infrastructure
     {
         #region Public Interface
 
-        void Write(string text);
+        void Write(string text, Severity severity);
 
         void Clear();
 

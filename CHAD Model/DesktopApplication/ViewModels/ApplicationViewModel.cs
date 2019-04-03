@@ -248,6 +248,8 @@ namespace CHAD.DesktopApplication.ViewModels
 
         private void SimulatorOnSimulationResultObtained(SimulationResult simulationResult)
         {
+            var logger = (FileLogger)simulationResult.Logger;
+            logger.Dispose();
             _storageService.SaveSimulationResult(simulationResult);
         }
 

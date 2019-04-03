@@ -12,7 +12,7 @@ namespace CHAD.Model.Infrastructure
             yield break;
         }
 
-        public void Write(string text)
+        public void Write(string text, Severity severity)
         {
         }
 

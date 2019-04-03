@@ -6,15 +6,16 @@ namespace CHAD.Model.Infrastructure
     {
         #region Constructors
 
-        public LogEntry(string text)
-            : this(DateTimeOffset.Now, text)
+        public LogEntry(string text, Severity severity)
+            : this(DateTimeOffset.Now, text, severity)
         {
         }
 
-        public LogEntry(DateTimeOffset time, string text)
+        public LogEntry(DateTimeOffset time, string text, Severity severity)
         {
             Time = time;
             Text = text;
+            Severity = severity;
         }
 
         #endregion
@@ -24,6 +25,7 @@ namespace CHAD.Model.Infrastructure
         public DateTimeOffset Time { get; }
 
         public string Text { get; }
+        public Severity Severity { get; }
 
         #endregion
     }

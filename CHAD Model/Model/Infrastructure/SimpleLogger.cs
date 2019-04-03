@@ -18,9 +18,9 @@ namespace CHAD.Model.Infrastructure
 
         public LinkedList<LogEntry> Entries { get; }
 
-        public void Write(string text)
+        public void Write(string text, Severity severity)
         {
-            Entries.AddLast(new LogEntry(text));
+            Entries.AddLast(new LogEntry(text, severity));
         }
 
         public void Clear()

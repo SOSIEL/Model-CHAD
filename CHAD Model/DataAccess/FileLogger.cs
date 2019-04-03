@@ -21,9 +21,6 @@ namespace CHAD.DataAccess
         private readonly string _path;
         private readonly StreamWriter _streamWriter;
 
-
-        private readonly FileStream _fileStream;
-
         #endregion
 
         #region Constructors
@@ -37,8 +34,8 @@ namespace CHAD.DataAccess
             if (!directoryInfo.Exists)
                 directoryInfo.Create();
 
-            _fileStream = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
-            _streamWriter = new StreamWriter(_fileStream);
+            var fileStream = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+            _streamWriter = new StreamWriter(fileStream);
         }
 
         #endregion
@@ -63,14 +60,16 @@ namespace CHAD.DataAccess
 
                     var time = DateTimeOffset.Parse(timeString);
 
-                    yield return new LogEntry(time, text);
+                    yield return new LogEntry(time, text, Severity.Level1);
                 }
             }
         }
 
-        public void Write(string text)
+        public void Write(string text, Severity severity)
         {
-            _streamWriter.WriteLine($"{DateTimeOffset.Now.TimeOfDay} :: {text}");
+            var severityString =
+                severity == Severity.Level1 ? string.Empty : severity == Severity.Level2 ? "\t" : "\t\t";
+            _streamWriter.WriteLine($"{DateTimeOffset.Now.TimeOfDay} :: {severityString}{text}");
         }
 
         public void Clear()
@@ -82,7 +81,6 @@ namespace CHAD.DataAccess
 
         public void Dispose()
         {
-            _fileStream?.Dispose();
             _streamWriter?.Dispose();
         }
 

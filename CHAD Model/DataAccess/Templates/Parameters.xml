@@ -22,7 +22,7 @@
   <PercFromFieldFrac>0.25</PercFromFieldFrac>
   <SustainableLevelAquifer>1000000</SustainableLevelAquifer>
   <WaterInAquifer>1500000</WaterInAquifer>
-  <WaterInAquiferMax>10</WaterInAquiferMax>
+  <WaterInAquiferMax>10000000</WaterInAquiferMax>
   <WaterStoreCap>1</WaterStoreCap>
   <MeltingPoint>32</MeltingPoint>
   <WaterInSnowpack>0</WaterInSnowpack>

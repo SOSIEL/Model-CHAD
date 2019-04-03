@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CHAD.Model.Infrastructure;
 
 namespace CHAD.Model.SimulationResults
 {
@@ -13,9 +14,10 @@ namespace CHAD.Model.SimulationResults
 
         #region Constructors
 
-        public SimulationResult(string simulationSession, Configuration configuration, int simulationNumber)
+        public SimulationResult(string simulationSession, ILogger logger, Configuration configuration, int simulationNumber)
         {
             SimulationSession = simulationSession;
+            Logger = logger;
             Configuration = configuration;
             SimulationNumber = simulationNumber;
 
@@ -25,6 +27,8 @@ namespace CHAD.Model.SimulationResults
         #endregion
 
         #region Public Interface
+
+        public ILogger Logger { get; }
 
         public void AddSeasonResult(SeasonResult seasonResult)
         {
