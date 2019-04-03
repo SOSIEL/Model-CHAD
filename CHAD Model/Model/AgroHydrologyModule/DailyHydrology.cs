@@ -1,6 +1,6 @@
 ﻿namespace CHAD.Model.AgroHydrologyModule
 {
-    public class DailyHydrology
+    public struct DailyHydrology
     {
         #region Constructors
 

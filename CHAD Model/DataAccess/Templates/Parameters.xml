@@ -1,28 +1,29 @@
 <?xml version="1.0"?>
 <Parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <NumOfSimulations>1</NumOfSimulations>
-  <NumOfSeasons>10</NumOfSeasons>
+  <NumOfSeasons>50</NumOfSeasons>
+  <NumOfDays>365</NumOfDays>
   <UseDemographicProcesses>false</UseDemographicProcesses>
-  <MeanBushelsAlfalfaPerAcre>0</MeanBushelsAlfalfaPerAcre>
-  <MeanBushelsBarleyPerAcre>0</MeanBushelsBarleyPerAcre>
-  <MeanBushelsWheatPerAcre>0</MeanBushelsWheatPerAcre>
+  <MeanBushelsAlfalfaPerAcre>5</MeanBushelsAlfalfaPerAcre>
+  <MeanBushelsBarleyPerAcre>135</MeanBushelsBarleyPerAcre>
+  <MeanBushelsWheatPerAcre>130</MeanBushelsWheatPerAcre>
   <ClimateChangePrecipMean>1</ClimateChangePrecipMean>
   <ClimateChangePrecipSD>1</ClimateChangePrecipSD>
   <ClimateChangeTempMean>1</ClimateChangeTempMean>
   <ClimateChangeTempSD>1</ClimateChangeTempSD>
-  <CostAlfalfa>0</CostAlfalfa>
-  <CostBarley>0</CostBarley>
-  <CostWheat>0</CostWheat>
+  <CostAlfalfa>117.11</CostAlfalfa>
+  <CostBarley>4.52</CostBarley>
+  <CostWheat>4.86</CostWheat>
   <ProfitCRP>0</ProfitCRP>
-  <WaterCurtailmentBase>6</WaterCurtailmentBase>
+  <WaterCurtailmentBase>700000</WaterCurtailmentBase>
   <WaterCurtailmentRate>12.6</WaterCurtailmentRate>
   <Beta>1</Beta>
   <LeakAquiferFrac>0</LeakAquiferFrac>
-  <PercFromFieldFrac>1</PercFromFieldFrac>
-  <SustainableLevelAquifer>5</SustainableLevelAquifer>
-  <WaterInAquifer>5</WaterInAquifer>
+  <PercFromFieldFrac>0.25</PercFromFieldFrac>
+  <SustainableLevelAquifer>1000000</SustainableLevelAquifer>
+  <WaterInAquifer>1500000</WaterInAquifer>
   <WaterInAquiferMax>10</WaterInAquiferMax>
   <WaterStoreCap>1</WaterStoreCap>
   <MeltingPoint>32</MeltingPoint>
-  <WaterInSnowpack>10</WaterInSnowpack>
+  <WaterInSnowpack>0</WaterInSnowpack>
 </Parameters>
