@@ -121,7 +121,7 @@
           "Layer": {
             "1": {
               "Modifiable": false,
-              "MaxNumberOfDecisionOptions": 7
+              "MaxNumberOfDecisionOptions": 15
             }
           }
         }
@@ -254,6 +254,287 @@
             "Value": "Nothing"
           },
           "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 5,
+          "Id": "MM1_L1_DO5",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryNonCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "NonCropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Barley"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 6,
+          "Id": "MM1_L1_DO6",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryNonCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "NonCropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Wheat"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 7,
+          "Id": "MM1_L1_DO7",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryNonCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "NonCropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Nothing"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 8,
+          "Id": "MM1_L1_DO8",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "CropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Alfalfa"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 9,
+          "Id": "MM1_L1_DO9",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginWheat"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginBarley",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "CropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Nothing"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 10,
+          "Id": "MM1_L1_DO10",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "CropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginAlfalfa",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Alfalfa"
+          },
+          "RequiredParticipants": 1
+        },
+        {
+          "MentalModel": 1,
+          "DecisionOptionsLayer": 1,
+          "PositionNumber": 11,
+          "Id": "MM1_L1_DO11",
+          "Antecedent": [
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginBarley"
+            },
+            {
+              "Param": "ProfitMarginWheat",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginCRP"
+            },
+            {
+              "Param": "FieldHistoryCrop",
+              "Sign": ">=",
+              "ReferenceVariable": "CropAgeThreshold"
+            },
+            {
+              "Param": "ProfitMarginCRP",
+              "Sign": ">=",
+              "ReferenceVariable": "ProfitMarginAlfalfa"
+            }
+          ],
+          "Consequent": {
+            "Param": "PlantInField",
+            "Value": "Nothing"
+          },
+          "RequiredParticipants": 1
         }
       ],
 
@@ -309,6 +590,27 @@
           },
           "MM1_L1_DO4": {
             "G2": 0
+          },
+          "MM1_L1_DO5": {
+            "G2": 0
+          },
+          "MM1_L1_DO6": {
+            "G2": 0
+          },
+          "MM1_L1_DO7": {
+            "G2": 0
+          },
+          "MM1_L1_DO8": {
+            "G2": 0
+          },
+          "MM1_L1_DO9": {
+            "G2": 0
+          },
+          "MM1_L1_DO10": {
+            "G2": 0
+          },
+          "MM1_L1_DO11": {
+            "G2": 0
           }
         },
 
@@ -316,7 +618,14 @@
           "MM1_L1_DO1",
           "MM1_L1_DO2",
           "MM1_L1_DO3",
-          "MM1_L1_DO4"
+          "MM1_L1_DO4",
+          "MM1_L1_DO5",
+          "MM1_L1_DO6",
+          "MM1_L1_DO7",
+          "MM1_L1_DO8",
+          "MM1_L1_DO9",
+          "MM1_L1_DO10",
+          "MM1_L1_DO11"
         ],
 
         "AssignedGoals": [ "G2" ],
