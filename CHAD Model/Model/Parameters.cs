@@ -49,6 +49,8 @@ namespace CHAD.Model
             return ((ICloneable) this).Clone() as Parameters;
         }
 
+        public string SosielConfiguration { get; set; }
+
         public int NumOfSimulations { get; set; }
 
         public int NumOfSeasons { get; set; }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using CHAD.Model.AgroHydrologyModule;
 using CHAD.Model.ClimateModule;
 using CHAD.Model.RVACModule;
@@ -21,6 +18,7 @@ namespace CHAD.Model
             CropEvapTransList = new List<CropEvapTrans>();
             Fields = new List<Field>();
             MarketPrices = new List<MarketPrice>();
+            AvailableSosielConfigurations = new List<string>();
         }
 
         public Configuration(string name)
@@ -33,11 +31,11 @@ namespace CHAD.Model
 
         #region Public Interface
 
-        public List<DroughtLevel> DroughtLevels { get; }
-
         public List<ClimateForecast> ClimateForecast { get; }
 
         public List<CropEvapTrans> CropEvapTransList { get; }
+
+        public List<DroughtLevel> DroughtLevels { get; }
 
         public List<Field> Fields { get; }
 
@@ -48,6 +46,8 @@ namespace CHAD.Model
         public Parameters Parameters { get; set; }
 
         public ConfigurationModel SOSIELConfiguration { get; set; }
+
+        public List<string> AvailableSosielConfigurations { get; set; }
 
         #endregion
     }

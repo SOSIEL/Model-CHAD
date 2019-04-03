@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using CHAD.DesktopApplication.ViewModels;
 using CHAD.DesktopApplication.ViewServices;
 using CHAD.Model;
@@ -39,25 +40,6 @@ namespace CHAD.DesktopApplication.Views
 
         #region All other members
 
-        private void Start_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_applicationViewModel.Simulator.Status == SimulatorStatus.Stopped)
-                _applicationViewModel.Start();
-
-            if (_applicationViewModel.Simulator.Status == SimulatorStatus.OnPaused)
-                _applicationViewModel.Continue();
-        }
-
-        private void Stop_OnClick(object sender, RoutedEventArgs e)
-        {
-            _applicationViewModel.Stop();
-        }
-
-        private void Pause_OnClick(object sender, RoutedEventArgs e)
-        {
-            _applicationViewModel.Pause();
-        }
-
         private void AddNewSimulation_OnClick(object sender, RoutedEventArgs e)
         {
             var configurationEditorViewModel =
@@ -72,6 +54,32 @@ namespace CHAD.DesktopApplication.Views
                 new ConfigurationEditorViewModel(_applicationViewModel.ConfigurationViewModel);
 
             _navigationService.NavigateToParametersView(configurationEditorViewModel);
+        }
+
+        private void Pause_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationViewModel.Pause();
+        }
+
+        private void SosielConfigurationsCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _applicationViewModel.ConfigurationViewModel.SosielConfiguration = (string) e.AddedItems[0];
+            _applicationViewModel.SaveConfiguration(_applicationViewModel.ConfigurationViewModel);
+            _applicationViewModel.ConfigurationViewModel = _applicationViewModel.ConfigurationViewModel;
+        }
+
+        private void Start_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_applicationViewModel.Simulator.Status == SimulatorStatus.Stopped)
+                _applicationViewModel.Start();
+
+            if (_applicationViewModel.Simulator.Status == SimulatorStatus.OnPaused)
+                _applicationViewModel.Continue();
+        }
+
+        private void Stop_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationViewModel.Stop();
         }
 
         private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)

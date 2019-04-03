@@ -5,22 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="configuration.json" />
-    <None Remove="configuration_PM_disable.json" />
-    <None Remove="configuration_PM_without_innovation.json" />
     <None Remove="general_probability.csv" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="configuration_PM_without_innovation.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="configuration_PM_disable.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="configuration.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="general_probability.csv">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

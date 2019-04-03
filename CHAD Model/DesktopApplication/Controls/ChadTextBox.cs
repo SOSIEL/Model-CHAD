@@ -46,23 +46,23 @@ namespace CHAD.DesktopApplication.Controls
 
         protected override void OnPreviewTextInput(TextCompositionEventArgs e)
         {
-            //var fullText = Text + e.Text;
-            var fullText = Text.Insert(SelectionStart, e.Text);
+            ////var fullText = Text + e.Text;
+            //var fullText = Text.Insert(SelectionStart, e.Text);
 
-            switch (InputType)
-            {
-                case InputType.Integer:
-                    e.Handled = !int.TryParse(fullText, NumberStyles.Integer, CultureInfo.CurrentCulture, out _);
-                    break;
-                case InputType.Decimal:
-                    e.Handled = !double.TryParse(fullText, NumberStyles.Float, CultureInfo.CurrentCulture,
-                        out var value);
-                    var integer = Math.Truncate(value);
-                    var fraction = value - integer;
-                    if (fraction.ToString(CultureInfo.InvariantCulture).Length > 4)
-                        e.Handled = true;
-                    break;
-            }
+            //switch (InputType)
+            //{
+            //    case InputType.Integer:
+            //        e.Handled = !int.TryParse(fullText, NumberStyles.Integer, CultureInfo.CurrentCulture, out _);
+            //        break;
+            //    case InputType.Decimal:
+            //        e.Handled = !double.TryParse(fullText, NumberStyles.Float, CultureInfo.CurrentCulture,
+            //            out var value);
+            //        var integer = Math.Truncate(value);
+            //        var fraction = value - integer;
+            //        if (fraction.ToString(CultureInfo.InvariantCulture).Length > 4)
+            //            e.Handled = true;
+            //        break;
+            //}
         }
 
         #endregion

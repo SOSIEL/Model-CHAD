@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <Parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SosielConfiguration>configuration.json</SosielConfiguration>
   <NumOfSimulations>1</NumOfSimulations>
   <NumOfSeasons>50</NumOfSeasons>
   <NumOfDays>365</NumOfDays>

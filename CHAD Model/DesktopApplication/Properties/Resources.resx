@@ -315,4 +315,7 @@
   <data name="NumberOfDays" xml:space="preserve">
     <value>Number of days</value>
   </data>
+  <data name="SOSIELConfiguration" xml:space="preserve">
+    <value>SOSIEL Configuration:</value>
+  </data>
 </root>

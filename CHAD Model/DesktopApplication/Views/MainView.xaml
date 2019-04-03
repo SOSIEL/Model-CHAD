@@ -53,6 +53,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -91,10 +92,27 @@
                     Grid.Column="0"
                     Margin="0,8,0,0"
                     VerticalAlignment="Center"
+                    Text="{x:Static properties:Resources.SOSIELConfiguration}" />
+
+                <ComboBox Grid.Row="1"
+                          SelectionChanged="SosielConfigurationsCombobox_OnSelectionChanged"
+                          SelectedItem="{Binding Path=ConfigurationViewModel.SosielConfiguration, Mode=TwoWay}"
+                          ItemsSource="{Binding Path=ConfigurationViewModel.AvailableSosielConfigurations}"
+                          Grid.Column="1"
+                          IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
+                          Width="352"
+                          Margin="0,8,0,0"
+                          HorizontalAlignment="Left"/>
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Center"
                     Text="{x:Static properties:Resources.NumberOfSimulations}" />
 
                 <controls:ChadTextBox
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="1"
                     Width="64"
                     Margin="0,8,0,0"
@@ -105,14 +123,14 @@
                     Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
                 <TextBlock
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     Margin="0,8,0,0"
                     VerticalAlignment="Center"
                     Text="{x:Static properties:Resources.NumberOfSeasons}" />
 
                 <controls:ChadTextBox
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="1"
                     Width="64"
                     Margin="0,8,0,0"
@@ -123,14 +141,14 @@
                     Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
                 <TextBlock
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="0"
                     Margin="0,8,0,0"
                     VerticalAlignment="Center"
                     Text="{x:Static properties:Resources.NumberOfDays}" />
 
                 <controls:ChadTextBox
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.Column="1"
                     Width="64"
                     Margin="0,8,0,0"

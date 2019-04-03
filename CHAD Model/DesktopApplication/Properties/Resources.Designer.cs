@@ -547,6 +547,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SOSIEL Configuration:.
+        /// </summary>
+        public static string SOSIELConfiguration {
+            get {
+                return ResourceManager.GetString("SOSIELConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Start.
         /// </summary>
         public static string Start {

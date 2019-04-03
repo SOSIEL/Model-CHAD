@@ -1,4 +1,5 @@
-﻿using CHAD.DesktopApplication.Tools;
+﻿using System.Collections.Generic;
+using CHAD.DesktopApplication.Tools;
 using CHAD.Model;
 
 namespace CHAD.DesktopApplication.ViewModels
@@ -34,6 +35,18 @@ namespace CHAD.DesktopApplication.ViewModels
                 RaisePropertyChanged(nameof(Name));
             }
         }
+
+        public string SosielConfiguration
+        {
+            get => Configuration.Parameters.SosielConfiguration;
+            set
+            {
+                Configuration.Parameters.SosielConfiguration = value;
+                RaisePropertyChanged(nameof(SosielConfiguration));
+            }
+        }
+
+        public List<string> AvailableSosielConfigurations => Configuration.AvailableSosielConfigurations;
 
         public int SimulationsCount
         {

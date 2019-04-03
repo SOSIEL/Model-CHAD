@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Serialization;
 using CHAD.Model;
 using CHAD.Model.AgroHydrologyModule;
@@ -37,7 +38,6 @@ namespace CHAD.DataAccess
         private const string MarketPricesInput = "InputFinancials.xlsx";
         private const string OutputFolder = "Output";
         private const string Parameters = "Parameters.xml";
-        private const string SOSIELConfigurationInput = "SOSIELConfiguration.json";
 
         #endregion
 
@@ -73,6 +73,25 @@ namespace CHAD.DataAccess
                 configurations.Add(new Configuration(directory.Name));
 
             return configurations;
+        }
+
+        private List<string> GetAvailableSosielConfigurations(string path)
+        {
+            var directoryInfo = new DirectoryInfo(path);
+
+            if (!directoryInfo.Exists)
+                throw new DirectoryNotFoundException(path);
+
+            var result = new List<string>();
+
+            foreach (var enumerateFile in directoryInfo.EnumerateFiles())
+            {
+                if (enumerateFile.Name.StartsWith("configuration", StringComparison.OrdinalIgnoreCase) &&
+                    enumerateFile.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                    result.Add(enumerateFile.Name);
+            }
+
+            return result;
         }
 
         public Configuration GetDefaultConfiguration()
@@ -115,7 +134,7 @@ namespace CHAD.DataAccess
             SaveCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
             SaveInputFieldConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             SaveMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
-            SaveSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput));
+            SaveSOSIELConfiguration(Path.Combine(configurationPath));
         }
 
 
@@ -235,12 +254,15 @@ namespace CHAD.DataAccess
             if (!directoryInfo.Exists)
                 return configuration;
 
+            configuration.AvailableSosielConfigurations = GetAvailableSosielConfigurations(configurationPath);
             FillParameters(Path.Combine(configurationPath, Parameters), configuration);
+            if (string.IsNullOrEmpty(configuration.Parameters.SosielConfiguration))
+                configuration.Parameters.SosielConfiguration = configuration.AvailableSosielConfigurations.First();
             FillClimateConfiguration(Path.Combine(configurationPath, ClimateInput), configuration);
             FillCropEvapTransConfiguration(Path.Combine(configurationPath, CropEvapTransInput), configuration);
             FillFieldsConfiguration(Path.Combine(configurationPath, FieldsInput), configuration);
             FillMarketPrices(Path.Combine(configurationPath, MarketPricesInput), configuration);
-            FillSOSIELConfiguration(Path.Combine(configurationPath, SOSIELConfigurationInput), configuration);
+            FillSOSIELConfiguration(Path.Combine(configurationPath, configuration.Parameters.SosielConfiguration), configuration);
             FillDroughtLevelConfiguration(Path.Combine(configurationPath, DroughtLevelInput), configuration);
 
             return configuration;
@@ -913,15 +935,30 @@ namespace CHAD.DataAccess
 
         private void SaveSOSIELConfiguration(string path)
         {
-            var assembly = Assembly.GetAssembly(typeof(ConfigurationModel));
-            var resourceName = "CHADSOSIEL.configuration.json";
+            var assembly = Assembly.GetAssembly(typeof(FileStorageService));
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            using (Stream outputStream = new FileStream(path, FileMode.Create))
+            var resourceNames = assembly.GetManifestResourceNames();
+
+            foreach (var resourceName in resourceNames)
             {
-                stream.CopyTo(outputStream);
+                var nameBuilder = new StringBuilder(resourceName);
+                nameBuilder.Replace("CHAD.DataAccess.Templates.", string.Empty);
+                var name = nameBuilder.ToString();
+
+                if (name.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    var outputPath = Path.Combine(path, name);
+
+                    using (var stream = assembly.GetManifestResourceStream(resourceName))
+                    using (Stream outputStream = new FileStream(outputPath, FileMode.Create))
+                    {
+                        stream.CopyTo(outputStream);
+                    }
+                }
             }
 
+            assembly = Assembly.GetAssembly(typeof(ConfigurationModel));
+            
             var otherResourcesName = new[] {"CHADSOSIEL.general_probability.csv"};
 
             foreach (var anotherResourceName in otherResourcesName)
@@ -929,7 +966,7 @@ namespace CHAD.DataAccess
                 var fileName = anotherResourceName.Replace("CHADSOSIEL.", string.Empty);
                 using (var stream = assembly.GetManifestResourceStream(anotherResourceName))
                 using (Stream outputStream =
-                    new FileStream(Path.Combine(Path.GetDirectoryName(path), fileName), FileMode.Create))
+                    new FileStream(Path.Combine(Path.Combine(path, fileName)), FileMode.Create))
                 {
                     stream.CopyTo(outputStream);
                 }
