@@ -22,7 +22,6 @@ namespace CHAD.Model.AgroHydrologyModule
         private readonly Dictionary<Field, double> EvapTransFromFieldToDate;
         private readonly Dictionary<Field, double> IrrigNeed;
         private readonly Dictionary<Field, double> IrrigOfField;
-        private readonly Dictionary<Field, double> IrrigOfFieldSeason;
         private readonly Dictionary<Field, double> PercFromField;
         private readonly Dictionary<Field, double> PrecipOnField;
         private readonly Dictionary<Field, double> WaterInField;
@@ -63,7 +62,6 @@ namespace CHAD.Model.AgroHydrologyModule
             DirectRunoff = new Dictionary<Field, double>(fieldsCount);
             IrrigNeed = new Dictionary<Field, double>(fieldsCount);
             IrrigOfField = new Dictionary<Field, double>(fieldsCount);
-            IrrigOfFieldSeason = new Dictionary<Field, double>(fieldsCount);
             PercFromField = new Dictionary<Field, double>(fieldsCount);
             PrecipOnField = new Dictionary<Field, double>(fieldsCount);
             WaterInput = new Dictionary<Field, double>(fieldsCount);
@@ -78,7 +76,6 @@ namespace CHAD.Model.AgroHydrologyModule
                 DirectRunoff[field] = 0;
                 IrrigNeed[field] = 0;
                 IrrigOfField[field] = 0;
-                IrrigOfFieldSeason[field] = 0;
                 PercFromField[field] = 0;
                 PrecipOnField[field] = 0;
                 WaterInput[field] = 0;
@@ -127,8 +124,7 @@ namespace CHAD.Model.AgroHydrologyModule
                     PrecipOnField[field] = 0;
                 }
 
-                PrecipOnField[field] = PrecipOnField[field] *
-                                       (fieldHistory.Field.FieldSize / fieldHistories.Sum(f => f.Field.FieldSize));
+                PrecipOnField[field] = PrecipOnField[field] * fieldHistory.Field.FieldSize;
                 _logger.Write($"PrecipOnField = {PrecipOnField[field]}", Severity.Level3);
                 _logger.Write($"WaterInSnowpack = {WaterInSnowpack}", Severity.Level3);
 
@@ -145,18 +141,14 @@ namespace CHAD.Model.AgroHydrologyModule
                 WaterUsageRemain = Math.Max(0, WaterUsageMax - IrrigSeason);
                 _logger.Write($"WaterUsageRemain = {WaterUsageRemain}", Severity.Level3);
 
-                IrrigOfField[field] = Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer);
+                IrrigOfField[field] = Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer / AcInToFt3);
                 _logger.Write($"IrrigOfField = {IrrigOfField[field]}", Severity.Level3);
 
-                IrrigOfFieldSeason[field] = IrrigOfFieldSeason[field] + IrrigOfField[field];
-                _logger.Write($"IrrigOfFieldSeason = {IrrigOfFieldSeason[field]}", Severity.Level3);
-
-                IrrigSeason = IrrigOfFieldSeason.Sum(i => i.Value);
+                IrrigSeason = IrrigSeason + IrrigOfField[field];
                 _logger.Write($"IrrigSeason = {IrrigSeason}", Severity.Level3);
 
                 DirectRunoff[field] = (PrecipOnField[field] + IrrigOfField[field]) *
-                                      (double) Math.Pow((double) WaterInField[field] / (double) WaterInFieldMax[field],
-                                          (double) _parameters.Beta);
+                                      Math.Pow(WaterInField[field] / WaterInFieldMax[field], _parameters.Beta);
                 _logger.Write($"DirectRunoff = {DirectRunoff[field]}", Severity.Level3);
 
                 WaterInput[field] = PrecipOnField[field] + IrrigOfField[field] - DirectRunoff[field];
@@ -184,12 +176,15 @@ namespace CHAD.Model.AgroHydrologyModule
                     _parameters.WaterInAquiferMax - WaterInAquifer);
                 _logger.Write($"PercFromField = {PercFromField[field]}", Severity.Level3);
 
-                WaterInField[field] = WaterInField[field] - PercFromField[field];
-                _logger.Write($"WaterInField - PercFromField = {WaterInField[field]}", Severity.Level3);
-            }
+                WaterInAquifer = WaterInAquifer + PercFromField[field];
+                _logger.Write($"WaterInAquifer = WaterInAquifer + PercFromField = {WaterInAquifer}", Severity.Level3);
 
-            WaterInAquifer = WaterInAquifer + PercFromField.Sum(i => i.Value);
-            _logger.Write($"WaterInAquifer = WaterInAquifer + SUM(PercFromField) = {WaterInAquifer}", Severity.Level3);
+                WaterInField[field] = WaterInField[field] - PercFromField[field];
+                _logger.Write($"WaterInField = WaterInField - PercFromField = {WaterInField[field]}", Severity.Level3);
+
+                EvapTransFromFieldToDate[fieldHistory.Field] = EvapTransFromFieldToDate[fieldHistory.Field] + EvapTransFromField[field];
+                _logger.Write($"EvapTransFromFieldToDate = EvapTransFromFieldToDate + EvapTransFromField = {EvapTransFromFieldToDate[fieldHistory.Field]}", Severity.Level3);
+            }
 
             LeakAquifer = _parameters.LeakAquiferFrac * WaterInAquifer;
             _logger.Write($"LeakAquifer = {LeakAquifer}", Severity.Level3);
@@ -197,16 +192,8 @@ namespace CHAD.Model.AgroHydrologyModule
             WaterInAquifer = WaterInAquifer - LeakAquifer;
             _logger.Write($"WaterInAquifer = {WaterInAquifer}", Severity.Level3);
 
-            WaterInAquiferChange = Math.Abs(WaterInAquifer - WaterInAquiferPrior);
+            WaterInAquiferChange = WaterInAquifer - WaterInAquiferPrior;
             _logger.Write($"WaterInAquiferChange = {WaterInAquiferChange}", Severity.Level3);
-
-            foreach (var fieldHistory in fieldHistories)
-            {
-                EvapTransFromFieldToDate[fieldHistory.Field] =
-                    EvapTransFromFieldToDate[fieldHistory.Field] + EvapTransFromField[fieldHistory.Field];
-
-                _logger.Write($"EvapTransFromFieldToDate + EvapTransFromField = {EvapTransFromFieldToDate[fieldHistory.Field]} for field {fieldHistory.Field.FieldNumber}", Severity.Level3);
-            }
 
             DailyHydrology.Add(new DailyHydrology(dayNumber, WaterInAquifer, WaterInSnowpack));
 
@@ -249,9 +236,10 @@ namespace CHAD.Model.AgroHydrologyModule
             HarvestableBarley = 0;
             HarvestableWheat = 0;
 
+            IrrigSeason = 0;
+
             foreach (var field in _fields)
             {
-                IrrigOfFieldSeason[field] = 0;
                 WaterInField[field] = 0;
             }
 
