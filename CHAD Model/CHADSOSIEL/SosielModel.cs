@@ -54,6 +54,16 @@ namespace CHADSOSIEL
         public double ProfitMarginWheat { get; internal set; }
 
         public double ProfitMarginCRP { get; internal set; }
+
+        public double ExpectedProfitAlfalfa { get; set; }
+
+        public double ExpectedProfitBarley { get;set; }
+
+        public double ExpectedProfitWheat { get; set; }
+
+        public double ExpectedCRP { get; set; }
+
+
         #endregion
 
 

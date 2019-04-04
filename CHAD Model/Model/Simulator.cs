@@ -162,6 +162,11 @@ namespace CHAD.Model
             sosielModel.WaterInAquiferMax = _configuration.Parameters.WaterInAquiferMax;
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
             sosielModel.WaterInAquifer = agroHydrology.WaterInAquifer;
+
+            sosielModel.ExpectedProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _configuration.Parameters.CostAlfalfa) * _configuration.Parameters.MeanBushelsAlfalfaPerAcre;
+            sosielModel.ExpectedProfitBarley = (marketPrice.MarketPriceBarley - _configuration.Parameters.CostBarley) * _configuration.Parameters.MeanBushelsBarleyPerAcre;
+            sosielModel.ExpectedProfitWheat = (marketPrice.MarketPriceWheat - _configuration.Parameters.CostWheat) * _configuration.Parameters.MeanBushelsWheatPerAcre;
+            sosielModel.ExpectedCRP = marketPrice.SubsidyCRP;
         }
 
         private string MakeSimulationSession()
