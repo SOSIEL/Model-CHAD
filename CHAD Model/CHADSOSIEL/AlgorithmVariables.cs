@@ -7,7 +7,7 @@ namespace CHADSOSIEL
     /// </summary>
     public class AlgorithmVariables: SosielVariables
     {
-        public const string WaterInAquifire = "WaterInAquifire";
+        public const string WaterInAquifer = "WaterInAquifer";
         public const string SustainableLevelAquifer = "SustainableLevelAquifer";
         public const string WaterCurtailmentRate = "WaterCurtailmentRate";
         public const string WaterInAquiferMax = "WaterInAquiferMax";
@@ -23,6 +23,10 @@ namespace CHADSOSIEL
         public const string CostAlfalfa = "CostAlfalfa";
         public const string CostBarley = "CostBarley";
         public const string CostWheat = "CostWheat";
+
+        public const string HarvestableAlfalfa = "HarvestableAlfalfa";
+        public const string HarvestableBarley = "HarvestableBarley";
+        public const string HarvestableWheat = "HarvestableWheat";
 
         public const string ProfitMarginAlfalfa = "ProfitMarginAlfalfa";
         public const string ProfitMarginBarley = "ProfitMarginBarley";

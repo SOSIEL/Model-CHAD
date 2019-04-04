@@ -39,7 +39,7 @@
         {
           "Name": "G1",
           "Tendency": "MaintainAtValue",
-          "ReferenceVariable": "WaterInAquifire",
+          "ReferenceVariable": "WaterInAquifer",
           "FocalValue": 0,
           "ChangeFocalValueOnPrevious": true,
           "FocalValueReference": "SustainableLevelAquifer",
@@ -77,7 +77,7 @@
           "Id": "MM1_L1_DO1",
           "Antecedent": [
             {
-              "Param": "WaterInAquifire",
+              "Param": "WaterInAquifer",
               "Sign": ">=",
               "Value": 0
             }
