@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using CHADSOSIEL.Configuration;
 using CHADSOSIEL.Helpers;
 using SOSIEL.Algorithm;
@@ -172,10 +170,6 @@ namespace CHADSOSIEL
                     //cheat
                     if (iteration == 1)
                     {
-                        _data.HarvestableAlfalfa = 1;
-                        _data.HarvestableBarley = 1;
-                        _data.HarvestableWheat = 1;
-
                         agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
                         agent[AlgorithmVariables.MarketPriceBarley] = _data.MarketPriceBarley;
                         agent[AlgorithmVariables.MarketPriceWheat] = _data.MarketPriceWheat;
@@ -184,19 +178,11 @@ namespace CHADSOSIEL
                         agent[AlgorithmVariables.CostWheat] = _data.CostWheat;
                     }
 
-                    if (_data.HarvestableAlfalfa > 0)
-                        agent[AlgorithmVariables.HarvestableAlfalfa] = _data.HarvestableAlfalfa;
+                    agent[AlgorithmVariables.ExpectedProfitAlfalfa] = _data.ExpectedProfitAlfalfa;
+                    agent[AlgorithmVariables.ExpectedProfitBarley] = _data.ExpectedProfitBarley;
+                    agent[AlgorithmVariables.ExpectedProfitWheat] = _data.ExpectedProfitWheat;
+                    agent[AlgorithmVariables.ExpectedProfitCRP] = _data.ExpectedCRP;
 
-                    if (_data.HarvestableBarley > 0)
-                        agent[AlgorithmVariables.HarvestableBarley] = _data.HarvestableBarley;
-
-                    if (_data.HarvestableWheat > 0)
-                        agent[AlgorithmVariables.HarvestableWheat] = _data.HarvestableWheat;
-
-                    agent[AlgorithmVariables.ProfitMarginAlfalfa] = (agent[AlgorithmVariables.MarketPriceAlfalfa] - agent[AlgorithmVariables.CostAlfalfa]) * agent[AlgorithmVariables.HarvestableAlfalfa];
-                    agent[AlgorithmVariables.ProfitMarginBarley] = (agent[AlgorithmVariables.MarketPriceBarley] - agent[AlgorithmVariables.CostBarley]) * agent[AlgorithmVariables.HarvestableBarley];
-                    agent[AlgorithmVariables.ProfitMarginWheat] = (agent[AlgorithmVariables.MarketPriceWheat] - agent[AlgorithmVariables.CostWheat]) * agent[AlgorithmVariables.HarvestableWheat];
-                    agent[AlgorithmVariables.ProfitMarginCRP] = _data.SubsidyCRP;
                     agent[AlgorithmVariables.ProfitTotal] = _data.ProfitTotal;
 
                     agent[AlgorithmVariables.MarketPriceAlfalfa] = _data.MarketPriceAlfalfa;
@@ -256,29 +242,9 @@ namespace CHADSOSIEL
             }
         }
 
-
         protected override void Maintenance()
         {
             base.Maintenance();
-        }
-
-        protected override void PostIterationCalculations(int iteration)
-        {
-            base.PostIterationCalculations(iteration);
-        }
-
-        /// <inheritdoc />
-        protected override void PostIterationStatistic(int iteration)
-        {
-            var agent = agentList.GetAgentsWithPrefix("F").First();
-
-            _data.HarvestableAlfalfa = agent[AlgorithmVariables.HarvestableAlfalfa];
-            _data.HarvestableBarley = agent[AlgorithmVariables.HarvestableBarley];
-            _data.HarvestableWheat = agent[AlgorithmVariables.HarvestableWheat];
-
-            _data.ProfitMarginAlfalfa = agent[AlgorithmVariables.ProfitMarginAlfalfa];
-            _data.ProfitMarginBarley = agent[AlgorithmVariables.ProfitMarginBarley];
-            _data.ProfitMarginWheat = agent[AlgorithmVariables.ProfitMarginWheat];
         }
     }
 }

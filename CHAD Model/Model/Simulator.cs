@@ -251,9 +251,9 @@ namespace CHAD.Model
                                  $"{nameof(sosielModel.HarvestableAlfalfa)}={sosielModel.HarvestableAlfalfa} " +
                                  $"{nameof(sosielModel.HarvestableBarley)}={sosielModel.HarvestableBarley} " +
                                  $"{nameof(sosielModel.HarvestableWheat)}={sosielModel.HarvestableWheat} " +
-                                 $"{nameof(sosielModel.ProfitMarginAlfalfa)}={sosielModel.ProfitMarginAlfalfa} " +
-                                 $"{nameof(sosielModel.ProfitMarginBarley)}={sosielModel.ProfitMarginBarley} " +
-                                 $"{nameof(sosielModel.ProfitMarginWheat)}={sosielModel.ProfitMarginWheat}", Severity.Level1);
+                                 $"{nameof(sosielModel.ExpectedProfitAlfalfa)}={sosielModel.ExpectedProfitAlfalfa} " +
+                                 $"{nameof(sosielModel.ExpectedProfitBarley)}={sosielModel.ExpectedProfitBarley} " +
+                                 $"{nameof(sosielModel.ExpectedProfitWheat)}={sosielModel.ExpectedProfitWheat}", Severity.Level1);
 
                     var sosielResult = ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     climate.ProcessSeason(seasonNumber);
