@@ -18,7 +18,7 @@
   <ProfitCRP>0</ProfitCRP>
   <WaterCurtailmentBase>700000</WaterCurtailmentBase>
   <WaterCurtailmentRate>12.6</WaterCurtailmentRate>
-  <Beta>1</Beta>
+  <Beta>2</Beta>
   <LeakAquiferFrac>0</LeakAquiferFrac>
   <PercFromFieldFrac>0.25</PercFromFieldFrac>
   <SustainableLevelAquifer>1000000</SustainableLevelAquifer>

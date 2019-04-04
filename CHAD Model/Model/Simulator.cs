@@ -143,14 +143,17 @@ namespace CHAD.Model
 
         private void FillSosielModel(SosielModel sosielModel, AgroHydrology agroHydrology, MarketPrice marketPrice, RVAC rvac)
         {
-            if (agroHydrology.HarvestableAlfalfa == 0)
-                sosielModel.HarvestableAlfalfa = sosielModel.HarvestableAlfalfa;
+            var harvestableAlfalfa = agroHydrology.HarvestableAlfalfa == 0
+                ? sosielModel.HarvestableAlfalfa
+                : agroHydrology.HarvestableAlfalfa;
 
-            if (agroHydrology.HarvestableBarley == 0)
-                sosielModel.HarvestableBarley = sosielModel.HarvestableAlfalfa;
+            var harvestableBarley = agroHydrology.HarvestableBarley == 0
+                ? sosielModel.HarvestableBarley
+                : agroHydrology.HarvestableBarley;
 
-            if (agroHydrology.HarvestableAlfalfa == 0)
-                sosielModel.CostWheat = sosielModel.HarvestableWheat;
+            var harvestableWheat = agroHydrology.HarvestableWheat == 0
+                ? sosielModel.HarvestableWheat
+                : agroHydrology.HarvestableWheat;
 
             sosielModel.ProfitAlfalfa = rvac.ProfitAlfalfa;
             sosielModel.ProfitBarley = rvac.ProfitBarley;
@@ -165,9 +168,9 @@ namespace CHAD.Model
             sosielModel.MarketPriceBarley = marketPrice.MarketPriceBarley;
             sosielModel.MarketPriceWheat = marketPrice.MarketPriceWheat;
             sosielModel.SubsidyCRP = marketPrice.SubsidyCRP;
-            sosielModel.HarvestableAlfalfa = agroHydrology.HarvestableAlfalfa;
-            sosielModel.HarvestableBarley = agroHydrology.HarvestableBarley;
-            sosielModel.HarvestableWheat = agroHydrology.HarvestableWheat;
+            sosielModel.HarvestableAlfalfa = harvestableAlfalfa;
+            sosielModel.HarvestableBarley = harvestableBarley;
+            sosielModel.HarvestableWheat = harvestableWheat;
             sosielModel.WaterInAquiferMax = _configuration.Parameters.WaterInAquiferMax;
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
             sosielModel.WaterInAquifer = agroHydrology.WaterInAquifer;
