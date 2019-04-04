@@ -143,6 +143,15 @@ namespace CHAD.Model
 
         private void FillSosielModel(SosielModel sosielModel, AgroHydrology agroHydrology, MarketPrice marketPrice, RVAC rvac)
         {
+            if (agroHydrology.HarvestableAlfalfa == 0)
+                sosielModel.HarvestableAlfalfa = sosielModel.HarvestableAlfalfa;
+
+            if (agroHydrology.HarvestableBarley == 0)
+                sosielModel.HarvestableBarley = sosielModel.HarvestableAlfalfa;
+
+            if (agroHydrology.HarvestableAlfalfa == 0)
+                sosielModel.CostWheat = sosielModel.HarvestableWheat;
+
             sosielModel.ProfitAlfalfa = rvac.ProfitAlfalfa;
             sosielModel.ProfitBarley = rvac.ProfitBarley;
             sosielModel.ProfitWheat = rvac.ProfitWheat;
@@ -163,9 +172,9 @@ namespace CHAD.Model
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
             sosielModel.WaterInAquifer = agroHydrology.WaterInAquifer;
 
-            sosielModel.ExpectedProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _configuration.Parameters.CostAlfalfa) * _configuration.Parameters.MeanBushelsAlfalfaPerAcre;
-            sosielModel.ExpectedProfitBarley = (marketPrice.MarketPriceBarley - _configuration.Parameters.CostBarley) * _configuration.Parameters.MeanBushelsBarleyPerAcre;
-            sosielModel.ExpectedProfitWheat = (marketPrice.MarketPriceWheat - _configuration.Parameters.CostWheat) * _configuration.Parameters.MeanBushelsWheatPerAcre;
+            sosielModel.ExpectedProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _configuration.Parameters.CostAlfalfa) * _configuration.Parameters.MeanBushelsAlfalfaPerAcre * agroHydrology.HarvestableAlfalfa;
+            sosielModel.ExpectedProfitBarley = (marketPrice.MarketPriceBarley - _configuration.Parameters.CostBarley) * _configuration.Parameters.MeanBushelsBarleyPerAcre * agroHydrology.HarvestableBarley;
+            sosielModel.ExpectedProfitWheat = (marketPrice.MarketPriceWheat - _configuration.Parameters.CostWheat) * _configuration.Parameters.MeanBushelsWheatPerAcre * agroHydrology.HarvestableWheat;
             sosielModel.ExpectedCRP = marketPrice.SubsidyCRP;
         }
 
