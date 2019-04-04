@@ -135,19 +135,19 @@
           "Id": "MM1_L1_DO1",
           "Antecedent": [
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryNonCrop",
@@ -168,19 +168,19 @@
           "Id": "MM1_L1_DO2",
           "Antecedent": [
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -201,19 +201,19 @@
           "Id": "MM1_L1_DO3",
           "Antecedent": [
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -234,19 +234,19 @@
           "Id": "MM1_L1_DO4",
           "Antecedent": [
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             }
           ],
           "Consequent": {
@@ -262,19 +262,19 @@
           "Id": "MM1_L1_DO5",
           "Antecedent": [
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryNonCrop",
@@ -282,14 +282,14 @@
               "ReferenceVariable": "NonCropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             }
           ],
           "Consequent": {
@@ -305,19 +305,19 @@
           "Id": "MM1_L1_DO6",
           "Antecedent": [
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryNonCrop",
@@ -325,14 +325,14 @@
               "ReferenceVariable": "NonCropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             }
           ],
           "Consequent": {
@@ -348,19 +348,19 @@
           "Id": "MM1_L1_DO7",
           "Antecedent": [
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryNonCrop",
@@ -368,14 +368,14 @@
               "ReferenceVariable": "NonCropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             }
           ],
           "Consequent": {
@@ -391,19 +391,19 @@
           "Id": "MM1_L1_DO8",
           "Antecedent": [
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -411,9 +411,9 @@
               "ReferenceVariable": "CropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             }
           ],
           "Consequent": {
@@ -429,19 +429,19 @@
           "Id": "MM1_L1_DO9",
           "Antecedent": [
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginWheat"
+              "ReferenceVariable": "ExpectedProfitWheat"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginBarley",
+              "Param": "ExpectedProfitBarley",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -449,9 +449,9 @@
               "ReferenceVariable": "CropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             }
           ],
           "Consequent": {
@@ -467,19 +467,19 @@
           "Id": "MM1_L1_DO10",
           "Antecedent": [
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -487,9 +487,9 @@
               "ReferenceVariable": "CropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginAlfalfa",
+              "Param": "ExpectedProfitAlfalfa",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             }
           ],
           "Consequent": {
@@ -505,19 +505,19 @@
           "Id": "MM1_L1_DO11",
           "Antecedent": [
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginBarley"
+              "ReferenceVariable": "ExpectedProfitBarley"
             },
             {
-              "Param": "ProfitMarginWheat",
+              "Param": "ExpectedProfitWheat",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginCRP"
+              "ReferenceVariable": "ExpectedProfitCRP"
             },
             {
               "Param": "FieldHistoryCrop",
@@ -525,9 +525,9 @@
               "ReferenceVariable": "CropAgeThreshold"
             },
             {
-              "Param": "ProfitMarginCRP",
+              "Param": "ExpectedProfitCRP",
               "Sign": ">=",
-              "ReferenceVariable": "ProfitMarginAlfalfa"
+              "ReferenceVariable": "ExpectedProfitAlfalfa"
             }
           ],
           "Consequent": {

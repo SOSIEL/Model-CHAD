@@ -47,14 +47,6 @@ namespace CHADSOSIEL
 
         public double ProfitTotal { get; set; }
 
-        public double ProfitMarginAlfalfa { get; internal set; }
-
-        public double ProfitMarginBarley { get; internal set; }
-
-        public double ProfitMarginWheat { get; internal set; }
-
-        public double ProfitMarginCRP { get; internal set; }
-
         public double ExpectedProfitAlfalfa { get; set; }
 
         public double ExpectedProfitBarley { get;set; }

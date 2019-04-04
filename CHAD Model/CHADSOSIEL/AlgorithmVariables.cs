@@ -24,14 +24,10 @@ namespace CHADSOSIEL
         public const string CostBarley = "CostBarley";
         public const string CostWheat = "CostWheat";
 
-        public const string HarvestableAlfalfa = "HarvestableAlfalfa";
-        public const string HarvestableBarley = "HarvestableBarley";
-        public const string HarvestableWheat = "HarvestableWheat";
-
-        public const string ProfitMarginAlfalfa = "ProfitMarginAlfalfa";
-        public const string ProfitMarginBarley = "ProfitMarginBarley";
-        public const string ProfitMarginWheat = "ProfitMarginWheat";
-        public const string ProfitMarginCRP = "ProfitMarginCRP";
+        public const string ExpectedProfitAlfalfa = "ExpectedProfitAlfalfa";
+        public const string ExpectedProfitBarley = "ExpectedProfitBarley";
+        public const string ExpectedProfitWheat = "ExpectedProfitWheat";
+        public const string ExpectedProfitCRP = "ExpectedProfitCRP";
 
         public const string ProfitDoNothing = "ProfitDoNothing";
 
