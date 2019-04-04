@@ -15,6 +15,9 @@ namespace CHAD.Model.ClimateModule
         private readonly List<DailyClimate> _dailyClimates;
         private readonly List<DroughtLevel> _droughtLevels;
 
+        private readonly Random _temperatureRandom;
+        private readonly Random _precipitationRandom;
+
 
         #endregion
 
@@ -26,6 +29,9 @@ namespace CHAD.Model.ClimateModule
             _climateForecasts = climateForecasts;
             _dailyClimates = new List<DailyClimate>();
             _droughtLevels = new List<DroughtLevel>(droughtLevel);
+
+            _temperatureRandom = new Random();
+            _precipitationRandom = new Random();
         }
 
         #endregion
@@ -76,29 +82,30 @@ namespace CHAD.Model.ClimateModule
 
         private double GetRandomTemperature(int seasonNumber, ClimateForecast climateForecast)
         {
-            var random = new Random();
-            var x1 = 1 - random.NextDouble();
-            var x2 = 1 - random.NextDouble();
-            var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
+            var u1 = 1d - _temperatureRandom.NextDouble();
+            var u2 = 1d - _temperatureRandom.NextDouble();
+            var randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
 
-            var result = y1 * climateForecast.TempSD * Math.Pow(_parameters.ClimateChangeTempSD, seasonNumber) +
-                         climateForecast.TempMean * Math.Pow(_parameters.ClimateChangeTempMean, seasonNumber);
+            var mean = Math.Pow(_parameters.ClimateChangeTempMean, seasonNumber) * climateForecast.TempMean;
+            var deviation = Math.Pow(_parameters.ClimateChangeTempSD, seasonNumber) * climateForecast.TempSD;
 
-            return Math.Round(result, 2);
+            var temperature = mean + deviation * randStdNormal;
+
+            return Math.Round(temperature, 2);
         }
 
         private double GetRandomPrecipitation(int seasonNumber, ClimateForecast climateForecast)
         {
-            var random = new Random();
-            var x1 = 1 - random.NextDouble();
-            var x2 = 1 - random.NextDouble();
-            var y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
+            var u1 = 1d - _precipitationRandom.NextDouble();
+            var u2 = 1d - _precipitationRandom.NextDouble();
+            var randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
 
-            var result = y1 * climateForecast.PrecipSD * Math.Pow(_parameters.ClimateChangePrecipSD, seasonNumber) +
-                         GetDroughtLevel(seasonNumber) * climateForecast.PrecipMean *
-                         Math.Pow(_parameters.ClimateChangePrecipMean, seasonNumber);
+            var mean = GetDroughtLevel(seasonNumber) * Math.Pow(_parameters.ClimateChangePrecipMean, seasonNumber) * climateForecast.PrecipMean;
+            var deviation = Math.Pow(_parameters.ClimateChangePrecipSD, seasonNumber) * climateForecast.PrecipSD;
 
-            return Math.Round(result, 2);
+            var precipitation = mean + deviation * randStdNormal;
+
+            return Math.Round(precipitation, 2);
         }
 
         #endregion
