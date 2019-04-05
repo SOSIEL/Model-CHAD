@@ -12,8 +12,6 @@ namespace CHAD.Model.AgroHydrologyModule
 
         private const double AcInToAcFt = 1d / 12;
 
-        private const double AcInToFt3 = 3.630;
-
         private const double RainToSnow = 10;
 
         #endregion
@@ -89,12 +87,8 @@ namespace CHAD.Model.AgroHydrologyModule
                 PrecipOnField[field] = 0;
                 WaterInput[field] = 0;
                 WaterInField[field] = 0;
-                WaterInFieldMax[field] = Math.Round(_parameters.FieldDepth * field.FieldSize, 2);
+                WaterInFieldMax[field] = _parameters.FieldDepth * field.FieldSize * AcInToAcFt;
             }
-
-            HarvestableAlfalfa = 1;
-            HarvestableBarley = 1;
-            HarvestableWheat = 1;
         }
 
         #endregion
@@ -140,14 +134,13 @@ namespace CHAD.Model.AgroHydrologyModule
                         Math.Max(0, _cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) *
                                     fieldHistory.Field.FieldSize -
                                     PrecipOnField[field]);
-
                 _logger.Write($"IrrigNeed = {IrrigNeed[field]}", Severity.Level3);
 
                 WaterUsageRemain = Math.Max(0, WaterUsageMax - IrrigSeason);
                 _logger.Write($"WaterUsageRemain = {WaterUsageRemain}", Severity.Level3);
 
                 IrrigOfField[field] =
-                    Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer / AcInToFt3);
+                    Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer / AcInToAcFt);
                 _logger.Write($"IrrigOfField = {IrrigOfField[field]}", Severity.Level3);
 
                 IrrigSeason = IrrigSeason + IrrigOfField[field];
@@ -167,15 +160,14 @@ namespace CHAD.Model.AgroHydrologyModule
                     EvapTransFromField[field] = 0;
                 else
                     EvapTransFromField[field] =
-                        Math.Min(
-                            _cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) *
-                            fieldHistory.Field.FieldSize, WaterInField[field] / AcInToFt3);
+                        Math.Min(_cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) * fieldHistory.Field.FieldSize, 
+                                    WaterInField[field] / AcInToAcFt);
                 _logger.Write($"EvapTransFromField = {EvapTransFromField[field]}", Severity.Level3);
 
-                WaterInField[field] = WaterInField[field] - EvapTransFromField[field];
+                WaterInField[field] = WaterInField[field] - AcInToAcFt * EvapTransFromField[field];
                 _logger.Write($"WaterInField - EvapTransFromField = {WaterInField[field]}", Severity.Level3);
 
-                WaterInAquifer = WaterInAquifer - AcInToFt3 * IrrigOfField.Sum(i => i.Value);
+                WaterInAquifer = WaterInAquifer - AcInToAcFt * IrrigOfField.Sum(i => i.Value);
                 _logger.Write($"WaterInAquifer = {WaterInAquifer}", Severity.Level3);
 
                 PercFromField[field] = Math.Min(_parameters.PercFromFieldFrac * WaterInField[field],
@@ -188,11 +180,8 @@ namespace CHAD.Model.AgroHydrologyModule
                 WaterInField[field] = WaterInField[field] - PercFromField[field];
                 _logger.Write($"WaterInField = WaterInField - PercFromField = {WaterInField[field]}", Severity.Level3);
 
-                EvapTransFromFieldToDate[fieldHistory.Field] =
-                    EvapTransFromFieldToDate[fieldHistory.Field] + EvapTransFromField[field];
-                _logger.Write(
-                    $"EvapTransFromFieldToDate = EvapTransFromFieldToDate + EvapTransFromField = {EvapTransFromFieldToDate[fieldHistory.Field]}",
-                    Severity.Level3);
+                EvapTransFromFieldToDate[fieldHistory.Field] = EvapTransFromFieldToDate[fieldHistory.Field] + EvapTransFromField[field];
+                _logger.Write($"EvapTransFromFieldToDate = EvapTransFromFieldToDate + EvapTransFromField = {EvapTransFromFieldToDate[fieldHistory.Field]}", Severity.Level3);
             }
 
             LeakAquifer = _parameters.LeakAquiferFrac * WaterInAquifer;
@@ -254,7 +243,7 @@ namespace CHAD.Model.AgroHydrologyModule
             _logger.Write($"WaterInAquifer = {WaterInAquiferPrior} at the beginning of the season", Severity.Level3);
             _logger.Write($"WaterCurtailmentRate = {waterCurtailmentRate}", Severity.Level3);
 
-            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - waterCurtailmentRate / 100) / AcInToFt3;
+            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - waterCurtailmentRate / 100);
             _logger.Write($"WaterUsageMax = {WaterUsageMax} for current season", Severity.Level3);
 
             // The maximum amount of water that can evaporate from field when accounting for plant type and field size.
