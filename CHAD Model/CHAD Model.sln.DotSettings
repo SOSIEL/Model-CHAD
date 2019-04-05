@@ -169,6 +169,7 @@
           &lt;/And&gt;&#xD;
         &lt;/Entry.Match&gt;&#xD;
         &lt;Entry.SortBy&gt;&#xD;
+          &lt;Kind Is="Member" /&gt;&#xD;
           &lt;Name /&gt;&#xD;
         &lt;/Entry.SortBy&gt;&#xD;
       &lt;/Entry&gt;&#xD;
