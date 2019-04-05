@@ -25,7 +25,7 @@ namespace CHAD.Model.RVACModule
         public void ProcessSeason(MarketPrice marketPrice, SOSIELResult sosielResult, AgroHydrology agroHydrology)
         {
             ProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _parameters.CostAlfalfa) *
-                            _parameters.MeanBushelsAlfalfaPerAcre *
+                            _parameters.MeanTonsAlfalfaPerAcre *
                             sosielResult.NumOfAlfalfaAcres * agroHydrology.HarvestableAlfalfa;
 
             ProfitBarley = (marketPrice.MarketPriceBarley - _parameters.CostBarley) *

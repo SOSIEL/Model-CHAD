@@ -237,11 +237,11 @@
   <data name="TimeSinceStart" xml:space="preserve">
     <value>Time since start</value>
   </data>
-  <data name="WaterCurtailmentBase" xml:space="preserve">
-    <value>WaterCurtailmentBase</value>
+  <data name="WaterUseBase" xml:space="preserve">
+    <value>WaterUseBase</value>
   </data>
-  <data name="WaterCurtailmentRate" xml:space="preserve">
-    <value>WaterCurtailmentRate</value>
+  <data name="WaterUseRate" xml:space="preserve">
+    <value>WaterUseRate</value>
   </data>
   <data name="WaterInAquifer" xml:space="preserve">
     <value>WaterInAquifer</value>
@@ -320,5 +320,11 @@
   </data>
   <data name="FieldDepth" xml:space="preserve">
     <value>FieldDepth</value>
+  </data>
+  <data name="Beta" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="MeanTonsAlfalfaPerAcre" xml:space="preserve">
+    <value>MeanTonsAlfalfaPerAcre</value>
   </data>
 </root>

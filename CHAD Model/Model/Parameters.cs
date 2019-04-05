@@ -10,10 +10,10 @@ namespace CHAD.Model
         {
             NumOfSimulations = 1;
             NumOfSeasons = 1;
-            NumOfDays = 153;
+            NumOfDays = 356;
             UseDemographicProcesses = false;
 
-            MeanBushelsAlfalfaPerAcre = 5;
+            MeanTonsAlfalfaPerAcre = 5;
             MeanBushelsBarleyPerAcre = 135;
             MeanBushelsWheatPerAcre = 130;
 
@@ -25,18 +25,17 @@ namespace CHAD.Model
             CostAlfalfa = 81.09;
             CostBarley = 2.96;
             CostWheat = 3.23;
-            ProfitCRP = 0;
-            WaterCurtailmentBase = 8400000;
-            WaterCurtailmentRate = 12.6;
+            WaterUseBase = 8400000;
+            WaterUseRate = 12.6;
 
             Beta = 2;
             FieldDepth = 72;
             LeakAquiferFrac = 0;
             PercFromFieldFrac = 0.25;
+            MeltingPoint = 32;
             SustainableLevelAquifer = 1000000;
             WaterInAquifer = 1500000;
             WaterInAquiferMax = 10000000;
-            MeltingPoint = 32;
             WaterInSnowpack = 0;
         }
 
@@ -60,7 +59,7 @@ namespace CHAD.Model
         public bool UseDemographicProcesses { get; set; }
 
 
-        public double MeanBushelsAlfalfaPerAcre { get; set; }
+        public double MeanTonsAlfalfaPerAcre { get; set; }
 
         public double MeanBushelsBarleyPerAcre { get; set; }
 
@@ -82,11 +81,9 @@ namespace CHAD.Model
 
         public double CostWheat { get; set; }
 
-        public double ProfitCRP { get; set; }
+        public double WaterUseBase { get; set; }
 
-        public double WaterCurtailmentBase { get; set; }
-
-        public double WaterCurtailmentRate { get; set; }
+        public double WaterUseRate { get; set; }
 
 
         public double Beta { get; set; }
@@ -97,13 +94,13 @@ namespace CHAD.Model
 
         public double PercFromFieldFrac { get; set; }
 
+        public double MeltingPoint { get; set; }
+
         public double SustainableLevelAquifer { get; set; }
 
         public double WaterInAquifer { get; set; }
 
         public double WaterInAquiferMax { get; set; }
-
-        public double MeltingPoint { get; set; }
 
         public double WaterInSnowpack { get; set; }
 

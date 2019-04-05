@@ -265,7 +265,7 @@ namespace CHAD.Model.AgroHydrologyModule
             _logger.Write($"WaterInAquifer = {WaterInAquiferPrior} at the beginning of the season", Severity.Level3);
             _logger.Write($"WaterCurtailmentRate = {waterCurtailmentRate}", Severity.Level3);
 
-            WaterUsageMax = _parameters.WaterCurtailmentBase * (1 - waterCurtailmentRate / 100);
+            WaterUsageMax = _parameters.WaterUseBase * (1 - waterCurtailmentRate / 100);
             _logger.Write($"WaterUsageMax = {WaterUsageMax} for current season", Severity.Level3);
 
             // The maximum amount of water that can evaporate from field when accounting for plant type and field size.

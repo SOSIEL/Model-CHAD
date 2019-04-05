@@ -79,6 +79,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Beta.
+        /// </summary>
+        public static string Beta {
+            get {
+                return ResourceManager.GetString("Beta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Cancel.
         /// </summary>
         public static string Cancel {
@@ -412,6 +421,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на MeanTonsAlfalfaPerAcre.
+        /// </summary>
+        public static string MeanTonsAlfalfaPerAcre {
+            get {
+                return ResourceManager.GetString("MeanTonsAlfalfaPerAcre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на MeltingPoint.
         /// </summary>
         public static string MeltingPoint {
@@ -610,24 +628,6 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на WaterCurtailmentBase.
-        /// </summary>
-        public static string WaterCurtailmentBase {
-            get {
-                return ResourceManager.GetString("WaterCurtailmentBase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на WaterCurtailmentRate.
-        /// </summary>
-        public static string WaterCurtailmentRate {
-            get {
-                return ResourceManager.GetString("WaterCurtailmentRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на WaterInAquifer.
         /// </summary>
         public static string WaterInAquifer {
@@ -669,6 +669,24 @@ namespace CHAD.DesktopApplication.Properties {
         public static string WaterUsageMax {
             get {
                 return ResourceManager.GetString("WaterUsageMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на WaterUseBase.
+        /// </summary>
+        public static string WaterUseBase {
+            get {
+                return ResourceManager.GetString("WaterUseBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на WaterUseRate.
+        /// </summary>
+        public static string WaterUseRate {
+            get {
+                return ResourceManager.GetString("WaterUseRate", resourceCulture);
             }
         }
     }

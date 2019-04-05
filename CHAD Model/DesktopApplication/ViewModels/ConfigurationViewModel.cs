@@ -84,12 +84,12 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double MeanBushelsAlfalfaPerAcre
+        public double MeanTonsAlfalfaPerAcre
         {
-            get => Configuration.Parameters.MeanBushelsAlfalfaPerAcre;
+            get => Configuration.Parameters.MeanTonsAlfalfaPerAcre;
             set
             {
-                Configuration.Parameters.MeanBushelsAlfalfaPerAcre = value;
+                Configuration.Parameters.MeanTonsAlfalfaPerAcre = value;
                 RaisePropertyChanged();
             }
         }
@@ -175,16 +175,6 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double ProfitCRP
-        {
-            get => Configuration.Parameters.ProfitCRP;
-            set
-            {
-                Configuration.Parameters.ProfitCRP = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public double CostWheat
         {
             get => Configuration.Parameters.CostWheat;
@@ -195,22 +185,32 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double WaterCurtailmentBase
+        public double WaterUseBase
         {
-            get => Configuration.Parameters.WaterCurtailmentBase;
+            get => Configuration.Parameters.WaterUseBase;
             set
             {
-                Configuration.Parameters.WaterCurtailmentBase = value;
+                Configuration.Parameters.WaterUseBase = value;
                 RaisePropertyChanged();
             }
         }
 
-        public double WaterCurtailmentRate
+        public double WaterUseRate
         {
-            get => Configuration.Parameters.WaterCurtailmentRate;
+            get => Configuration.Parameters.WaterUseRate;
             set
             {
-                Configuration.Parameters.WaterCurtailmentRate = value;
+                Configuration.Parameters.WaterUseRate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public double Beta
+        {
+            get => Configuration.Parameters.Beta;
+            set
+            {
+                Configuration.Parameters.Beta = value;
                 RaisePropertyChanged();
             }
         }
