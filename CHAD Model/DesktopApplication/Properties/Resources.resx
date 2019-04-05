@@ -318,4 +318,7 @@
   <data name="SOSIELConfiguration" xml:space="preserve">
     <value>SOSIEL Configuration:</value>
   </data>
+  <data name="FieldDepth" xml:space="preserve">
+    <value>FieldDepth</value>
+  </data>
 </root>

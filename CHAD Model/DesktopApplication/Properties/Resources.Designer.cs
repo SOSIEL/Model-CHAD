@@ -322,6 +322,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на FieldDepth.
+        /// </summary>
+        public static string FieldDepth {
+            get {
+                return ResourceManager.GetString("FieldDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на InputFieldSize.xlsx is invalid..
         /// </summary>
         public static string FieldsFileInvalid {

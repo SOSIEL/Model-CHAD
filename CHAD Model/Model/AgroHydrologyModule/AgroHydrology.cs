@@ -80,7 +80,7 @@ namespace CHAD.Model.AgroHydrologyModule
                 PrecipOnField[field] = 0;
                 WaterInput[field] = 0;
                 WaterInField[field] = 0;
-                WaterInFieldMax[field] = Math.Round(_parameters.WaterStoreCap * field.FieldSize, 2);
+                WaterInFieldMax[field] = Math.Round(_parameters.FieldDepth * field.FieldSize, 2);
             }
 
             HarvestableAlfalfa = 1;

@@ -19,12 +19,12 @@
   <WaterCurtailmentBase>700000</WaterCurtailmentBase>
   <WaterCurtailmentRate>12.6</WaterCurtailmentRate>
   <Beta>2</Beta>
+  <FieldDepth>72</FieldDepth>
   <LeakAquiferFrac>0</LeakAquiferFrac>
   <PercFromFieldFrac>0.25</PercFromFieldFrac>
   <SustainableLevelAquifer>1000000</SustainableLevelAquifer>
   <WaterInAquifer>1500000</WaterInAquifer>
   <WaterInAquiferMax>10000000</WaterInAquiferMax>
-  <WaterStoreCap>1</WaterStoreCap>
   <MeltingPoint>32</MeltingPoint>
   <WaterInSnowpack>0</WaterInSnowpack>
 </Parameters>

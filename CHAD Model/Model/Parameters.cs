@@ -13,31 +13,31 @@ namespace CHAD.Model
             NumOfDays = 153;
             UseDemographicProcesses = false;
 
-            MeanBushelsAlfalfaPerAcre = 0;
-            MeanBushelsBarleyPerAcre = 0;
-            MeanBushelsWheatPerAcre = 0;
+            MeanBushelsAlfalfaPerAcre = 5;
+            MeanBushelsBarleyPerAcre = 135;
+            MeanBushelsWheatPerAcre = 130;
 
             ClimateChangePrecipMean = 1;
             ClimateChangePrecipSD = 1;
             ClimateChangeTempMean = 1;
             ClimateChangeTempSD = 1;
 
-            CostAlfalfa = 0;
-            CostBarley = 0;
-            CostWheat = 0;
+            CostAlfalfa = 81.09;
+            CostBarley = 2.96;
+            CostWheat = 3.23;
             ProfitCRP = 0;
-            WaterCurtailmentBase = 6;
+            WaterCurtailmentBase = 8400000;
             WaterCurtailmentRate = 12.6;
 
-            Beta = 1;
+            Beta = 2;
+            FieldDepth = 72;
             LeakAquiferFrac = 0;
-            PercFromFieldFrac = 1;
-            SustainableLevelAquifer = 5;
-            WaterInAquifer = 5;
-            WaterInAquiferMax = 10;
-            WaterStoreCap = 1;
+            PercFromFieldFrac = 0.25;
+            SustainableLevelAquifer = 1000000;
+            WaterInAquifer = 1500000;
+            WaterInAquiferMax = 10000000;
             MeltingPoint = 32;
-            WaterInSnowpack = 10;
+            WaterInSnowpack = 0;
         }
 
         #endregion
@@ -91,6 +91,8 @@ namespace CHAD.Model
 
         public double Beta { get; set; }
 
+        public double FieldDepth { get; set; }
+
         public double LeakAquiferFrac { get; set; }
 
         public double PercFromFieldFrac { get; set; }
@@ -100,8 +102,6 @@ namespace CHAD.Model
         public double WaterInAquifer { get; set; }
 
         public double WaterInAquiferMax { get; set; }
-
-        public double WaterStoreCap { get; set; }
 
         public double MeltingPoint { get; set; }
 

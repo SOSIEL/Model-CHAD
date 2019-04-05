@@ -255,15 +255,16 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double WaterStoreCap
+        public double FieldDepth
         {
-            get => Configuration.Parameters.WaterStoreCap;
+            get => Configuration.Parameters.FieldDepth;
             set
             {
-                Configuration.Parameters.WaterStoreCap = value;
-                RaisePropertyChanged();
+                Configuration.Parameters.FieldDepth = value;
+                RaisePropertyChanged(nameof(FieldDepth));
             }
         }
+        
 
         public double SustainableLevelAquifer
         {
