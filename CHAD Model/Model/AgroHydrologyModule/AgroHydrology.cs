@@ -240,7 +240,10 @@ namespace CHAD.Model.AgroHydrologyModule
 
             IrrigSeason = 0;
 
-            foreach (var field in _fields) WaterInField[field] = 0;
+            foreach (var field in _fields)
+            {
+                EvapTransFromFieldToDate[field] = 0;
+            }
 
             // Documented to calculate WaterInAquiferChange at the end of season.
             WaterInAquiferPrior = WaterInAquifer;
@@ -254,7 +257,8 @@ namespace CHAD.Model.AgroHydrologyModule
             foreach (var fieldHistory in fieldHistories.Where(fh => fh.Plant != Plant.Nothing))
             {
                 EvapTransFromFieldSeasonMax[fieldHistory.Field] =
-                    _cropEvapTrans.Select(et => et.GetEvapTrans(fieldHistory.Plant)).Sum();
+                    _cropEvapTrans.Select(et => et.GetEvapTrans(fieldHistory.Plant)).Sum() *
+                    fieldHistory.Field.FieldSize;
                 _logger.Write(
                     $"EvapTransFromFieldSeasonMax = {EvapTransFromFieldSeasonMax[fieldHistory.Field]} for field {fieldHistory.Field.FieldNumber}",
                     Severity.Level3);

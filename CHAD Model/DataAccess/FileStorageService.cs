@@ -831,6 +831,8 @@ namespace CHAD.DataAccess
                     newCell = row.InsertAt(new Cell(), 1);
                     newCell.CellValue = new CellValue(field.FieldSize.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    rowIndex++;
                 }
 
                 // Save the new worksheet.

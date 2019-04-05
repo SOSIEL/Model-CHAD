@@ -12,19 +12,19 @@
   <ClimateChangePrecipSD>1</ClimateChangePrecipSD>
   <ClimateChangeTempMean>1</ClimateChangeTempMean>
   <ClimateChangeTempSD>1</ClimateChangeTempSD>
-  <CostAlfalfa>117.11</CostAlfalfa>
-  <CostBarley>4.52</CostBarley>
-  <CostWheat>4.86</CostWheat>
+  <CostAlfalfa>81.09</CostAlfalfa>
+  <CostBarley>2.96</CostBarley>
+  <CostWheat>3.23</CostWheat>
   <ProfitCRP>0</ProfitCRP>
-  <WaterCurtailmentBase>700000</WaterCurtailmentBase>
+  <WaterCurtailmentBase>8400000</WaterCurtailmentBase>
   <WaterCurtailmentRate>12.6</WaterCurtailmentRate>
   <Beta>2</Beta>
   <FieldDepth>72</FieldDepth>
   <LeakAquiferFrac>0</LeakAquiferFrac>
   <PercFromFieldFrac>0.25</PercFromFieldFrac>
-  <SustainableLevelAquifer>1000000</SustainableLevelAquifer>
-  <WaterInAquifer>1500000</WaterInAquifer>
-  <WaterInAquiferMax>10000000</WaterInAquiferMax>
+  <SustainableLevelAquifer>12677</SustainableLevelAquifer>
+  <WaterInAquifer>12677</WaterInAquifer>
+  <WaterInAquiferMax>100000</WaterInAquiferMax>
   <MeltingPoint>32</MeltingPoint>
   <WaterInSnowpack>0</WaterInSnowpack>
 </Parameters>
