@@ -206,22 +206,37 @@ namespace CHAD.Model.AgroHydrologyModule
         {
             _logger.Write("AgroHydrology: start the processing of season result", Severity.Level2);
 
+            double alfalfaSumToDate = 0;
+            double alfalfaSumMax = 0;
+            double barleySumToDate = 0;
+            double barleySumMax = 0;
+            double wheatSumToDate = 0;
+            double wheatSumMax = 0;
+
             foreach (var fieldHistory in fieldHistories)
             {
-                var field = fieldHistory.Field;
-
                 if (fieldHistory.Plant == Plant.Alfalfa)
-                    HarvestableAlfalfa = HarvestableAlfalfa + EvapTransFromFieldToDate[field] /
-                                         EvapTransFromFieldSeasonMax[field];
+                {
+                    alfalfaSumToDate += EvapTransFromFieldToDate[fieldHistory.Field];
+                    alfalfaSumMax += EvapTransFromFieldSeasonMax[fieldHistory.Field];
+                }
 
                 if (fieldHistory.Plant == Plant.Barley)
-                    HarvestableBarley = HarvestableBarley + EvapTransFromFieldToDate[field] /
-                                        EvapTransFromFieldSeasonMax[field];
+                {
+                    barleySumToDate += EvapTransFromFieldToDate[fieldHistory.Field];
+                    barleySumMax += EvapTransFromFieldSeasonMax[fieldHistory.Field];
+                }
 
                 if (fieldHistory.Plant == Plant.Wheat)
-                    HarvestableWheat = HarvestableWheat + EvapTransFromFieldToDate[field] /
-                                       EvapTransFromFieldSeasonMax[field];
+                {
+                    wheatSumToDate += EvapTransFromFieldToDate[fieldHistory.Field];
+                    wheatSumMax += EvapTransFromFieldSeasonMax[fieldHistory.Field];
+                }
             }
+
+            HarvestableAlfalfa = alfalfaSumMax != 0 ? alfalfaSumToDate / alfalfaSumMax : 0;
+            HarvestableBarley = barleySumMax != 0 ? barleySumToDate / barleySumMax : 0;
+            HarvestableWheat = wheatSumMax != 0 ? wheatSumToDate / wheatSumMax : 0;
 
             _logger.Write($"HarvestableAlfalfa = {HarvestableAlfalfa}", Severity.Level3);
             _logger.Write($"HarvestableBarley = {HarvestableBarley}", Severity.Level3);
