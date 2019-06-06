@@ -17,6 +17,8 @@ namespace CHAD.Model.Infrastructure
 
         void SaveSimulationResult(SimulationResult simulationResult);
 
+        void SaveAgroHydrologyResults(SimulationInfo simulationInfo, IEnumerable<AgroHydrologyRecord> records);
+
         #endregion
     }
 }

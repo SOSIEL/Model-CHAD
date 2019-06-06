@@ -22,14 +22,14 @@ using Parameters = CHAD.Model.Parameters;
 
 namespace CHAD.DataAccess
 {
-    public class FileStorageService : IStorageService
+    public partial class FileStorageService : IStorageService
     {
         #region Static Fields and Constants
 
         private const string ClimateInput = "InputClimate.xlsx";
         private const string ClimateOutput = "Climate.xlsx";
         private const string ConfigurationsFolder = "Configurations";
-        private const string CropEvapTransInput = "InputCropEvapTrans.xlsx";
+        private const string CropEvapTransInput = "InputPlantEvapTrans.xlsx";
         private const string DecisionMakingOutput = "OutputDecisionMaking.xlsx";
         private const string DefaultConfigurationFolder = "Templates";
         private const string DroughtLevelInput = "InputDrought.xlsx";
@@ -201,7 +201,7 @@ namespace CHAD.DataAccess
             configuration.Fields.Clear();
 
             configuration.Fields.AddRange(table.Rows.Cast<DataRow>()
-                .Select(e => new Field(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()))));
+                .Select(e => new Field(int.Parse(e[0].ToString()), ToDouble(e[1].ToString()), ToDouble(e[2].ToString()))));
         }
 
         private void FillMarketPrices(string path, Configuration configuration)
@@ -225,7 +225,7 @@ namespace CHAD.DataAccess
             using (var fileStream = new FileStream(path, FileMode.Open))
             {
                 var xmlSerializer = new XmlSerializer(typeof(Parameters));
-                var parameters = (Parameters) xmlSerializer.Deserialize(fileStream);
+                var parameters = (Parameters)xmlSerializer.Deserialize(fileStream);
                 configuration.Parameters = parameters;
             }
         }
@@ -275,14 +275,14 @@ namespace CHAD.DataAccess
             {
                 var sheets = spreadSheetDocument.WorkbookPart.Workbook.GetFirstChild<Sheets>().Elements<Sheet>();
                 var relationshipId = sheets.First().Id.Value;
-                var worksheetPart = (WorksheetPart) spreadSheetDocument.WorkbookPart.GetPartById(relationshipId);
+                var worksheetPart = (WorksheetPart)spreadSheetDocument.WorkbookPart.GetPartById(relationshipId);
                 var workSheet = worksheetPart.Worksheet;
                 var sheetData = workSheet.GetFirstChild<SheetData>();
                 var rows = sheetData.Descendants<Row>();
 
                 foreach (var openXmlElement in rows.ElementAt(0))
                 {
-                    var cell = (Cell) openXmlElement;
+                    var cell = (Cell)openXmlElement;
                     dataTable.Columns.Add(GetCellValue(spreadSheetDocument, cell));
                 }
 
@@ -318,14 +318,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -353,7 +353,7 @@ namespace CHAD.DataAccess
                 foreach (var climate in configuration.ClimateForecast)
                 {
                     // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -401,14 +401,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -430,32 +430,32 @@ namespace CHAD.DataAccess
                 var rowIndex = 2u;
 
                 foreach (var seasonResult in simulationResult)
-                foreach (var dailyClimate in seasonResult.ClimateResult.DailyClimate)
-                {
-                    // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
-                    sheetData.Append(row);
+                    foreach (var dailyClimate in seasonResult.ClimateResult.DailyClimate)
+                    {
+                        // Add a row to the cell table.
+                        row = new Row { RowIndex = rowIndex };
+                        sheetData.Append(row);
 
-                    newCell = row.InsertAt(new Cell(), 0);
-                    newCell.CellValue = new CellValue(seasonResult.Number.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 0);
+                        newCell.CellValue = new CellValue(seasonResult.Number.ToString());
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 1);
-                    newCell.CellValue = new CellValue(dailyClimate.Day.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 1);
+                        newCell.CellValue = new CellValue(dailyClimate.Day.ToString());
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 2);
-                    newCell.CellValue =
-                        new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture));
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 2);
+                        newCell.CellValue =
+                            new CellValue(dailyClimate.Temperature.ToString(CultureInfo.InvariantCulture));
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 3);
-                    newCell.CellValue =
-                        new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture));
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 3);
+                        newCell.CellValue =
+                            new CellValue(dailyClimate.Precipitation.ToString(CultureInfo.InvariantCulture));
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    rowIndex++;
-                }
+                        rowIndex++;
+                    }
 
                 // Save the new worksheet.
                 spreadsheetDocument.Save();
@@ -479,14 +479,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var days = configuration.CropEvapTransList.Any()
@@ -513,7 +513,7 @@ namespace CHAD.DataAccess
 
                 foreach (var cropEvapTrans in configuration.CropEvapTransList)
                 {
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -557,14 +557,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -600,7 +600,7 @@ namespace CHAD.DataAccess
                 foreach (var seasonResult in simulationResult)
                 {
                     // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -663,14 +663,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -686,7 +686,7 @@ namespace CHAD.DataAccess
                 foreach (var field in configuration.DroughtLevels)
                 {
                     // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -722,14 +722,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -751,30 +751,30 @@ namespace CHAD.DataAccess
                 var rowIndex = 2u;
 
                 foreach (var seasonResult in simulationResult)
-                foreach (var hydrology in seasonResult.DailyHydrology)
-                {
-                    // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
-                    sheetData.Append(row);
+                    foreach (var hydrology in seasonResult.DailyHydrology)
+                    {
+                        // Add a row to the cell table.
+                        row = new Row { RowIndex = rowIndex };
+                        sheetData.Append(row);
 
-                    newCell = row.InsertAt(new Cell(), 0);
-                    newCell.CellValue = new CellValue(seasonResult.Number.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 0);
+                        newCell.CellValue = new CellValue(seasonResult.Number.ToString());
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 1);
-                    newCell.CellValue = new CellValue(hydrology.Day.ToString());
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 1);
+                        newCell.CellValue = new CellValue(hydrology.Day.ToString());
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 2);
-                    newCell.CellValue = new CellValue(hydrology.WaterInAquifer.ToString(CultureInfo.InvariantCulture));
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 2);
+                        newCell.CellValue = new CellValue(hydrology.WaterInAquifer.ToString(CultureInfo.InvariantCulture));
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    newCell = row.InsertAt(new Cell(), 3);
-                    newCell.CellValue = new CellValue(hydrology.WaterInSnowpack.ToString(CultureInfo.InvariantCulture));
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                        newCell = row.InsertAt(new Cell(), 3);
+                        newCell.CellValue = new CellValue(hydrology.WaterInSnowpack.ToString(CultureInfo.InvariantCulture));
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
-                    rowIndex++;
-                }
+                        rowIndex++;
+                    }
 
                 // Save the new worksheet.
                 spreadsheetDocument.Save();
@@ -798,14 +798,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -816,12 +816,16 @@ namespace CHAD.DataAccess
                 newCell.CellValue = new CellValue("FieldSize");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
+                newCell = row.InsertAt(new Cell(), 1);
+                newCell.CellValue = new CellValue("WaterInField");
+                newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
                 var rowIndex = 2u;
 
                 foreach (var field in configuration.Fields)
                 {
                     // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -830,6 +834,10 @@ namespace CHAD.DataAccess
 
                     newCell = row.InsertAt(new Cell(), 1);
                     newCell.CellValue = new CellValue(field.FieldSize.ToString(CultureInfo.InvariantCulture));
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+
+                    newCell = row.InsertAt(new Cell(), 2);
+                    newCell.CellValue = new CellValue(field.InitialWaterVolume.ToString(CultureInfo.InvariantCulture));
                     newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
 
                     rowIndex++;
@@ -857,14 +865,14 @@ namespace CHAD.DataAccess
 
                 // Append a new worksheet and associate it with the workbook.
                 var sheet = new Sheet
-                    {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+                { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet" };
                 sheets.Append(sheet);
 
                 // Get the sheetData cell table.
                 var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
                 // Add a row to the cell table.
-                var row = new Row {RowIndex = 1};
+                var row = new Row { RowIndex = 1 };
                 sheetData.Append(row);
 
                 var newCell = row.InsertAt(new Cell(), 0);
@@ -892,7 +900,7 @@ namespace CHAD.DataAccess
                 foreach (var marketPrice in configuration.MarketPrices)
                 {
                     // Add a row to the cell table.
-                    row = new Row {RowIndex = rowIndex};
+                    row = new Row { RowIndex = rowIndex };
                     sheetData.Append(row);
 
                     newCell = row.InsertAt(new Cell(), 0);
@@ -960,8 +968,8 @@ namespace CHAD.DataAccess
             }
 
             assembly = Assembly.GetAssembly(typeof(ConfigurationModel));
-            
-            var otherResourcesName = new[] {"CHADSOSIEL.general_probability.csv"};
+
+            var otherResourcesName = new[] { "CHADSOSIEL.general_probability.csv" };
 
             foreach (var anotherResourceName in otherResourcesName)
             {

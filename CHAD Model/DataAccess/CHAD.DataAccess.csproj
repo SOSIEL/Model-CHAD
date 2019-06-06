@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FileStorageService.AgroHydrology2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Templates\configuration.json" />
     <None Remove="Templates\configuration_PM_disable.json" />
     <None Remove="Templates\configuration_PM_without_innovation.json" />
@@ -34,7 +38,7 @@
     <None Update="Templates\InputClimate.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\InputCropEvapTrans.xlsx">
+    <None Update="Templates\InputPlantEvapTrans.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Templates\InputDrought.xlsx">

@@ -16,6 +16,7 @@ namespace CHAD.Model
         #region Fields
 
         private readonly ILoggerFactory _loggerFactory;
+        private readonly IAgroHydrologyCalculationLoggerFactory _agroHydrologyCalculationLoggerFactory;
 
         private Configuration _configuration;
 
@@ -25,9 +26,10 @@ namespace CHAD.Model
 
         #region Constructors
 
-        public Simulator(ILoggerFactory loggerFactory)
+        public Simulator(ILoggerFactory loggerFactory, IAgroHydrologyCalculationLoggerFactory agroHydrologyCalculationLoggerFactory)
         {
             _loggerFactory = loggerFactory;
+            _agroHydrologyCalculationLoggerFactory = agroHydrologyCalculationLoggerFactory;
         }
 
         #endregion
@@ -227,6 +229,7 @@ namespace CHAD.Model
                 simulationNumber++)
             {
                 var logger = _loggerFactory.MakeLogger(_configuration.Name, simulationSession, simulationNumber);
+                var calculationLogger = _agroHydrologyCalculationLoggerFactory.MakeLogger(new SimulationInfo(_configuration.Name, simulationSession, simulationNumber,_configuration.Parameters.NumOfSeasons, _configuration.Parameters.NumOfDays, _configuration.Fields.Select(f => f.FieldNumber.ToString())));
 
                 var simulationResult = new SimulationResult(simulationSession, logger, _configuration, simulationNumber);
 
@@ -237,7 +240,7 @@ namespace CHAD.Model
                 var sosielModel = CreateSosielModel(_configuration, fieldHistories);
 
                 var climate = new Climate(_configuration.Parameters, _configuration.ClimateForecast, _configuration.DroughtLevels);
-                var agroHydrology = new AgroHydrology(logger, _configuration.Parameters, _configuration.Fields,
+                var agroHydrology = new AgroHydrology(logger, calculationLogger, _configuration.Parameters, _configuration.Fields,
                     _configuration.CropEvapTransList);
                 var rvac = new RVAC(_configuration.Parameters);
                 var algorithm = new Algorithm(_configuration.SOSIELConfiguration);
@@ -278,7 +281,7 @@ namespace CHAD.Model
                         logger.Write($"Start day {dayNumber}", Severity.Level1);
 
                         var dailyClimate = climate.GetDailyClimate(dayNumber);
-                        agroHydrology.ProcessDay(dayNumber, dailyClimate, fieldHistories);
+                        agroHydrology.ProcessDay(seasonNumber, dayNumber, dailyClimate, fieldHistories);
 
                         logger.Write($"Finish day {dayNumber}", Severity.Level1);
                     }

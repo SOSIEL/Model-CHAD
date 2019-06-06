@@ -35,7 +35,7 @@ namespace CHAD.DesktopApplication.ViewModels
         public ApplicationViewModel(IStorageService storageService)
         {
             _storageService = storageService;
-            Simulator = new Simulator(new FileLoggerFactory());
+            Simulator = new Simulator(new FileLoggerFactory(), new AgroHydrologyCalculationLoggerFactory(_storageService, SaveFrequency.PerDay));
             Simulator.StatusChanged += SimulatorOnStatusChanged;
             Simulator.SimulationResultObtained += SimulatorOnSimulationResultObtained;
 
