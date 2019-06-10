@@ -816,7 +816,7 @@ namespace CHAD.DataAccess
                 newCell.CellValue = new CellValue("FieldSize");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                newCell = row.InsertAt(new Cell(), 1);
+                newCell = row.InsertAt(new Cell(), 2);
                 newCell.CellValue = new CellValue("WaterInField");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
