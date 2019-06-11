@@ -12,7 +12,7 @@ namespace CHAD.DataAccess
 {
     public partial class FileStorageService
     {
-        private const string HydrologyDetailedOutput = "HydrologyDetailed.xlsx";
+        private const string HydrologyDetailedOutput = "OutputHydrologyDetailed.xlsx";
 
         private readonly List<string> _beforeFieldsRecordNames = new List<string> {SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
 

@@ -27,14 +27,14 @@ namespace CHAD.DataAccess
         #region Static Fields and Constants
 
         private const string ClimateInput = "InputClimate.xlsx";
-        private const string ClimateOutput = "Climate.xlsx";
+        private const string ClimateOutput = "OutputClimate.xlsx";
         private const string ConfigurationsFolder = "Configurations";
         private const string CropEvapTransInput = "InputPlantEvapTrans.xlsx";
         private const string DecisionMakingOutput = "OutputDecisionMaking.xlsx";
         private const string DefaultConfigurationFolder = "Templates";
         private const string DroughtLevelInput = "InputDrought.xlsx";
         private const string FieldsInput = "InputFieldSize.xlsx";
-        private const string HydrologyOutput = "Hydrology.xlsx";
+        private const string HydrologyOutput = "OutputHydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
         private const string OutputFolder = "Output";
         private const string Parameters = "Parameters.xml";

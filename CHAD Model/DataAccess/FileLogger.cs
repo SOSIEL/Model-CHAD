@@ -12,7 +12,7 @@ namespace CHAD.DataAccess
 
         private const string Separator = " :: ";
 
-        private const string SimulationLogsName = "Logs.txt";
+        private const string SimulationLogsName = "OutputLogs.txt";
 
         #endregion
 
