@@ -110,6 +110,26 @@ namespace CHAD.Model.AgroHydrologyModule
             WaterInAquiferPrior = WaterInAquifer;
             _logger.Write($"WaterInAquifer = {WaterInAquiferPrior} at the beginning of the season", Severity.Level3);
 
+            var Precip = dailyClimate.Precipitation;
+            var MeltingRate = Math.Max(0, (dailyClimate.Temperature - _parameters.MeltingPoint) / 100);
+
+            if (dailyClimate.Temperature > _parameters.MeltingPoint)
+            {
+                _logger.Write("Temperature > MeltingPoint.", Severity.Level3);
+                Precip = dailyClimate.Precipitation +
+                                       MeltingRate * (WaterInSnowpack / RainToSnow);
+                WaterInSnowpack = WaterInSnowpack - MeltingRate * WaterInSnowpack;
+            }
+            else
+            {
+                _logger.Write("Temperature <= MeltingPoint.", Severity.Level3);
+                WaterInSnowpack = WaterInSnowpack + Precip * RainToSnow;
+                Precip = 0;
+            }
+
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip.ToString("F2", CultureInfo.CurrentCulture));
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.SnowInSnowpack, WaterInSnowpack.ToString("F2", CultureInfo.CurrentCulture));
+
             foreach (var fieldHistory in fieldHistories)
             {
                 var field = fieldHistory.Field;
@@ -117,28 +137,7 @@ namespace CHAD.Model.AgroHydrologyModule
                 _logger.Write($"Process field number {field.FieldNumber}", Severity.Level2);
                 _logger.Write($"{fieldHistory.Plant} is planted on the field", Severity.Level3);
 
-                PrecipOnField[field] = dailyClimate.Precipitation;
-
-                var MeltingRate = Math.Max(0, (dailyClimate.Temperature - _parameters.MeltingPoint) / 100);
-
-                if (dailyClimate.Temperature > _parameters.MeltingPoint)
-                {
-                    _logger.Write("Temperature > MeltingPoint.", Severity.Level3);
-                    PrecipOnField[field] = dailyClimate.Precipitation +
-                                           MeltingRate * (WaterInSnowpack / RainToSnow);
-                    WaterInSnowpack = WaterInSnowpack - MeltingRate * WaterInSnowpack;
-                }
-                else
-                {
-                    _logger.Write("Temperature <= MeltingPoint.", Severity.Level3);
-                    WaterInSnowpack = WaterInSnowpack + PrecipOnField[field] * RainToSnow;
-                    PrecipOnField[field] = 0;
-                }
-
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.Precip, PrecipOnField[field].ToString("F2", CultureInfo.CurrentCulture));
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.SnowInSnowpack, WaterInSnowpack.ToString("F2", CultureInfo.CurrentCulture));
-
-                PrecipOnField[field] = PrecipOnField[field] * fieldHistory.Field.FieldSize;
+                PrecipOnField[field] = Precip * fieldHistory.Field.FieldSize;
                 _logger.Write($"PrecipOnField = {PrecipOnField[field]}", Severity.Level3);
                 _logger.Write($"WaterInSnowpack = {WaterInSnowpack}", Severity.Level3);
                 _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.PrecipOnField, PrecipOnField[field].ToString("F2", CultureInfo.CurrentCulture));

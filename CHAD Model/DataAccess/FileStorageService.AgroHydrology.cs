@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,30 @@ namespace CHAD.DataAccess
     public partial class FileStorageService
     {
         private const string HydrologyDetailedOutput = "HydrologyDetailed.xlsx";
+
+        private readonly List<string> _beforeFieldsRecordNames = new List<string> {SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
+
+        private readonly List<string> _fieldRecordNames = new List<string>
+        {
+            SimulationInfo.Plant,
+            SimulationInfo.PrecipOnField,
+            SimulationInfo.IrrigNeed,
+            SimulationInfo.IrrigOfField,
+            SimulationInfo.IrrigSeason,
+            SimulationInfo.DirectRunoff,
+            SimulationInfo.WaterInput,
+            SimulationInfo.WaterInField,
+            SimulationInfo.EvapTransFromField,
+            SimulationInfo.WaterInField2,
+            SimulationInfo.WaterInAquifer,
+            SimulationInfo.PercFromField,
+            SimulationInfo.WaterInAquifer2,
+            SimulationInfo.WaterInField3,
+            SimulationInfo.EvapTransToDate,
+            SimulationInfo.Harvestable
+        };
+
+        private readonly List<string> _afterFieldsRecordNames = new List<string> {SimulationInfo.LeakAquifer, SimulationInfo.WaterInAquifer3, SimulationInfo.WaterInAquiferChange};
 
         public void SaveAgroHydrologyResults(SimulationInfo simulationInfo,
             IEnumerable<AgroHydrologyRecord> records)
@@ -93,25 +118,7 @@ namespace CHAD.DataAccess
 
                 var rowIndex = 2u;
 
-                for (int i = 1; i <= simulationInfo.FieldNames.Count; i++)
-                {
-                    for (int j = 1; j <= simulationInfo.FieldRecordNames.Count; j++)
-                    {
-                        var row = new Row {RowIndex = ++rowIndex};
-
-                        newCell = row.InsertAt(new Cell(), 0);
-                        newCell.CellValue = new CellValue($"{simulationInfo.FieldNames[i - 1]}");
-                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
-
-                        newCell = row.InsertAt(new Cell(), 1);
-                        newCell.CellValue = new CellValue($"{simulationInfo.FieldRecordNames[j - 1]}");
-                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
-
-                        sheetData.Append(row);
-                    }
-                }
-
-                for (int j = 1; j <= simulationInfo.RecordNames.Count; j++)
+                for (int j = 1; j <= _beforeFieldsRecordNames.Count; j++)
                 {
                     var row = new Row {RowIndex = ++rowIndex};
 
@@ -120,7 +127,40 @@ namespace CHAD.DataAccess
                     newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                     newCell = row.InsertAt(new Cell(), 1);
-                    newCell.CellValue = new CellValue($"{simulationInfo.RecordNames[j - 1]}");
+                    newCell.CellValue = new CellValue($"{_beforeFieldsRecordNames[j - 1]}");
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                    sheetData.Append(row);
+                }
+
+                for (int i = 1; i <= simulationInfo.FieldNames.Count; i++)
+                {
+                    for (int j = 1; j <= _fieldRecordNames.Count; j++)
+                    {
+                        var row = new Row {RowIndex = ++rowIndex};
+
+                        newCell = row.InsertAt(new Cell(), 0);
+                        newCell.CellValue = new CellValue($"{simulationInfo.FieldNames[i - 1]}");
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                        newCell = row.InsertAt(new Cell(), 1);
+                        newCell.CellValue = new CellValue($"{_fieldRecordNames[j - 1]}");
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                        sheetData.Append(row);
+                    }
+                }
+
+                for (int j = 1; j <= _afterFieldsRecordNames.Count; j++)
+                {
+                    var row = new Row {RowIndex = ++rowIndex};
+
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue(string.Empty);
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue($"{_afterFieldsRecordNames[j - 1]}");
                     newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                     sheetData.Append(row);
@@ -158,13 +198,24 @@ namespace CHAD.DataAccess
             if (record is AgroHydrologyFieldRecord fieldRecord)
             {
                 return new Point((fieldRecord.Season - 1) * simulationInfo.DaysCount + fieldRecord.Day + 1,
-                    simulationInfo.FieldNames.IndexOf(fieldRecord.Field) * simulationInfo.FieldRecordNames.Count +
-                    simulationInfo.FieldRecordNames.IndexOf(fieldRecord.RecordName) + 2);
+                    _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.IndexOf(fieldRecord.Field) * _fieldRecordNames.Count +
+                    _fieldRecordNames.IndexOf(fieldRecord.RecordName) + 2);
             }
 
-            return new Point((record.Season - 1) * simulationInfo.DaysCount + record.Day + 1,
-                simulationInfo.FieldNames.Count * simulationInfo.FieldRecordNames.Count +
-                simulationInfo.RecordNames.IndexOf(record.RecordName) + 2);
+            if (_beforeFieldsRecordNames.Contains(record.RecordName))
+            {
+                return new Point((record.Season - 1) * simulationInfo.DaysCount + record.Day + 1,
+                    _beforeFieldsRecordNames.IndexOf(record.RecordName) + 2);
+            }
+
+            if (_afterFieldsRecordNames.Contains(record.RecordName))
+            {
+                return new Point((record.Season - 1) * simulationInfo.DaysCount + record.Day + 1,
+                    _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.Count * _fieldRecordNames.Count +
+                    _afterFieldsRecordNames.IndexOf(record.RecordName) + 2);
+            }
+
+            throw new ArgumentException(nameof(record));
         }
     }
 }
