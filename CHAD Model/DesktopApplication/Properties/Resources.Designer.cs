@@ -502,6 +502,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Configurable parameters with only one value. Parameters with two or more values are modified in the files in the &quot;Configurations&quot; folder..
+        /// </summary>
+        public static string ParametersInfo {
+            get {
+                return ResourceManager.GetString("ParametersInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Pause.
         /// </summary>
         public static string Pause {

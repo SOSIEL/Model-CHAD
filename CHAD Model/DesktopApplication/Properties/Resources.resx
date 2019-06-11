@@ -327,4 +327,7 @@
   <data name="MeanTonsAlfalfaPerAcre" xml:space="preserve">
     <value>MeanTonsAlfalfaPerAcre</value>
   </data>
+  <data name="ParametersInfo" xml:space="preserve">
+    <value>Configurable parameters with only one value. Parameters with two or more values are modified in the files in the "Configurations" folder.</value>
+  </data>
 </root>
