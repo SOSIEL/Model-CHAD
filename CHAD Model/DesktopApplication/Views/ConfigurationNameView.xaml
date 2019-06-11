@@ -31,7 +31,10 @@
 
         <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Name}" />
 
-        <TextBlock Grid.Row="1" Text="{x:Static properties:Resources.EditSimulationInfoText}" />
+        <TextBlock
+            Grid.Row="1"
+            Margin="0,16,0,0"
+            Text="{x:Static properties:Resources.EditSimulationInfoText}" />
 
         <StackPanel
             Grid.Row="2"
