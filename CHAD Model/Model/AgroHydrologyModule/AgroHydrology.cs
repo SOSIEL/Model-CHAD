@@ -127,20 +127,20 @@ namespace CHAD.Model.AgroHydrologyModule
                 Precip = 0;
             }
 
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip.ToString("F2", CultureInfo.CurrentCulture));
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.SnowInSnowpack, WaterInSnowpack.ToString("F2", CultureInfo.CurrentCulture));
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip);
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.SnowInSnowpack, WaterInSnowpack);
 
             foreach (var fieldHistory in fieldHistories)
             {
                 var field = fieldHistory.Field;
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.Plant, fieldHistory.Plant.ToString());
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.Plant, fieldHistory.Plant);
                 _logger.Write($"Process field number {field.FieldNumber}", Severity.Level2);
                 _logger.Write($"{fieldHistory.Plant} is planted on the field", Severity.Level3);
 
                 PrecipOnField[field] = Precip * fieldHistory.Field.FieldSize;
                 _logger.Write($"PrecipOnField = {PrecipOnField[field]}", Severity.Level3);
                 _logger.Write($"WaterInSnowpack = {WaterInSnowpack}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.PrecipOnField, PrecipOnField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.PrecipOnField, PrecipOnField[field]);
 
                 if (fieldHistory.Plant == Plant.Nothing)
                     IrrigNeed[field] = 0;
@@ -150,7 +150,7 @@ namespace CHAD.Model.AgroHydrologyModule
                                     fieldHistory.Field.FieldSize -
                                     PrecipOnField[field]);
                 _logger.Write($"IrrigNeed = {IrrigNeed[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigNeed, IrrigNeed[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigNeed, IrrigNeed[field]);
 
                 WaterUsageRemain = Math.Max(0, WaterUsageMax - IrrigSeason);
                 _logger.Write($"WaterUsageRemain = {WaterUsageRemain}", Severity.Level3);
@@ -158,23 +158,23 @@ namespace CHAD.Model.AgroHydrologyModule
                 IrrigOfField[field] =
                     Math.Min(Math.Min(IrrigNeed[field], WaterUsageRemain), WaterInAquifer / AcInToAcFt);
                 _logger.Write($"IrrigOfField = {IrrigOfField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigOfField, IrrigOfField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigOfField, IrrigOfField[field]);
 
                 IrrigSeason = IrrigSeason + IrrigOfField[field];
                 _logger.Write($"IrrigSeason = {IrrigSeason}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigSeason, IrrigSeason.ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigSeason, IrrigSeason);
 
                 DirectRunoff[field] = (PrecipOnField[field] + IrrigOfField[field]) * Math.Pow(WaterInField[field] / WaterInFieldMax[field], _parameters.Beta);;
                 _logger.Write($"DirectRunoff = {DirectRunoff[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.DirectRunoff, DirectRunoff[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.DirectRunoff, DirectRunoff[field]);
 
                 WaterInput[field] = PrecipOnField[field] + IrrigOfField[field] - DirectRunoff[field];
                 _logger.Write($"WaterInput = {WaterInput[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInput, WaterInput[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInput, WaterInput[field]);
 
                 WaterInField[field] = Math.Min(WaterInFieldMax[field], WaterInField[field] + AcInToAcFt * WaterInput[field]);
                 _logger.Write($"WaterInField + AcInToFt3 * WaterInput = {WaterInField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField, WaterInField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField, WaterInField[field]);
 
                 if (fieldHistory.Plant == Plant.Nothing)
                     EvapTransFromField[field] = 0;
@@ -183,48 +183,45 @@ namespace CHAD.Model.AgroHydrologyModule
                         Math.Min(_cropEvapTrans.First(et => et.Day == dayNumber).GetEvapTrans(fieldHistory.Plant) * fieldHistory.Field.FieldSize, 
                                     WaterInField[field] / AcInToAcFt);
                 _logger.Write($"EvapTransFromField = {EvapTransFromField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.EvapTransFromField, EvapTransFromField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.EvapTransFromField, EvapTransFromField[field]);
 
                 WaterInField[field] = WaterInField[field] - AcInToAcFt * EvapTransFromField[field];
                 _logger.Write($"WaterInField - EvapTransFromField = {WaterInField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField2, WaterInField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField2, WaterInField[field]);
 
                 WaterInAquifer = WaterInAquifer - AcInToAcFt * IrrigOfField.Sum(i => i.Value);
                 _logger.Write($"WaterInAquifer = {WaterInAquifer}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInAquifer, WaterInAquifer.ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInAquifer, WaterInAquifer);
 
                 PercFromField[field] = Math.Min(_parameters.PercFromFieldFrac * WaterInField[field],
                     _parameters.WaterInAquiferMax - WaterInAquifer);
                 _logger.Write($"PercFromField = {PercFromField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.PercFromField, PercFromField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.PercFromField, PercFromField[field]);
 
                 WaterInAquifer = WaterInAquifer + PercFromField[field];
                 _logger.Write($"WaterInAquifer = WaterInAquifer + PercFromField = {WaterInAquifer}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInAquifer2, WaterInAquifer.ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInAquifer2, WaterInAquifer);
 
                 WaterInField[field] = WaterInField[field] - PercFromField[field];
                 _logger.Write($"WaterInField = WaterInField - PercFromField = {WaterInField[field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField3, WaterInField[field].ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField3, WaterInField[field]);
 
                 EvapTransFromFieldToDate[fieldHistory.Field] = EvapTransFromFieldToDate[fieldHistory.Field] + EvapTransFromField[field];
                 _logger.Write($"EvapTransFromFieldToDate = EvapTransFromFieldToDate + EvapTransFromField = {EvapTransFromFieldToDate[fieldHistory.Field]}", Severity.Level3);
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.EvapTransToDate, EvapTransFromFieldToDate[field].ToString("F2", CultureInfo.CurrentCulture));
-
-                var harvestable = EvapTransFromFieldSeasonMax[fieldHistory.Field] != 0 ? EvapTransFromFieldToDate[fieldHistory.Field] / EvapTransFromFieldSeasonMax[fieldHistory.Field] : 0;
-                _calculationLogger.AddFieldRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.Harvestable, harvestable.ToString("F2", CultureInfo.CurrentCulture));
+                _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.EvapTransToDate, EvapTransFromFieldToDate[field]);
             }
 
             LeakAquifer = _parameters.LeakAquiferFrac * WaterInAquifer;
             _logger.Write($"LeakAquifer = {LeakAquifer}", Severity.Level3);
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.LeakAquifer, LeakAquifer.ToString("F2", CultureInfo.CurrentCulture));
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.LeakAquifer, LeakAquifer);
 
             WaterInAquifer = WaterInAquifer - LeakAquifer;
             _logger.Write($"WaterInAquifer = {WaterInAquifer}", Severity.Level3);
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.WaterInAquifer3, WaterInAquifer.ToString("F2", CultureInfo.CurrentCulture));
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.WaterInAquifer3, WaterInAquifer);
 
             WaterInAquiferChange = WaterInAquifer - WaterInAquiferPrior;
             _logger.Write($"WaterInAquiferChange = {WaterInAquiferChange}", Severity.Level3);
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.WaterInAquiferChange, WaterInAquiferChange.ToString("F2", CultureInfo.CurrentCulture));
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.WaterInAquiferChange, WaterInAquiferChange);
 
             DailyHydrology.Add(new DailyHydrology(dayNumber, WaterInAquifer, WaterInSnowpack));
 
@@ -232,7 +229,7 @@ namespace CHAD.Model.AgroHydrologyModule
             _calculationLogger.Complete();
         }
 
-        public void ProcessSeasonEnd(List<FieldHistory> fieldHistories)
+        public void ProcessSeasonEnd(int seasonNumber, List<FieldHistory> fieldHistories)
         {
             _logger.Write("AgroHydrology: start the processing of season result", Severity.Level2);
 
@@ -264,9 +261,13 @@ namespace CHAD.Model.AgroHydrologyModule
                 }
             }
 
-            HarvestableAlfalfa = alfalfaSumMax != 0 ? alfalfaSumToDate / alfalfaSumMax : 0;
-            HarvestableBarley = barleySumMax != 0 ? barleySumToDate / barleySumMax : 0;
-            HarvestableWheat = wheatSumMax != 0 ? wheatSumToDate / wheatSumMax : 0;
+            HarvestableAlfalfa = alfalfaSumMax != 0 ? alfalfaSumToDate / alfalfaSumMax : HarvestableAlfalfa;
+            HarvestableBarley = barleySumMax != 0 ? barleySumToDate / barleySumMax : HarvestableBarley;
+            HarvestableWheat = wheatSumMax != 0 ? wheatSumToDate / wheatSumMax : HarvestableWheat;
+
+            _calculationLogger.AddRecord(seasonNumber, SimulationInfo.HarvestableAlfalfa, HarvestableAlfalfa);
+            _calculationLogger.AddRecord(seasonNumber, SimulationInfo.HarvestableBarley, HarvestableBarley);
+            _calculationLogger.AddRecord(seasonNumber, SimulationInfo.HarvestableWheat, HarvestableWheat);
 
             _logger.Write($"HarvestableAlfalfa = {HarvestableAlfalfa}", Severity.Level3);
             _logger.Write($"HarvestableBarley = {HarvestableBarley}", Severity.Level3);
@@ -278,10 +279,6 @@ namespace CHAD.Model.AgroHydrologyModule
         public void ProcessSeasonStart(List<FieldHistory> fieldHistories, double waterCurtailmentRate)
         {
             _logger.Write("AgroHydrology: start the processing of season preparation", Severity.Level2);
-
-            HarvestableAlfalfa = 0;
-            HarvestableBarley = 0;
-            HarvestableWheat = 0;
 
             IrrigSeason = 0;
 

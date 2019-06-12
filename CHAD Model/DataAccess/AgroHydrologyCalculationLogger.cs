@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CHAD.Model.Infrastructure;
 
 namespace CHAD.DataAccess
@@ -30,7 +31,7 @@ namespace CHAD.DataAccess
 
         #region Public Interface
 
-        public void AddFieldRecord(int season, int day, string field, string property, string value)
+        public void AddRecord(int season, int day, string field, string property, object value)
         {
             var record = new AgroHydrologyFieldRecord(season, day, field, property, value);
             _records.Add(record);
@@ -38,13 +39,22 @@ namespace CHAD.DataAccess
             ProcessRecords();
         }
 
-        public void AddRecord(int season, int day, string property, string value)
+        public void AddRecord(int season, int day, string property, object value)
         {
-            var record = new AgroHydrologyRecord(season, day, property, value);
+            var record = new AgroHydrologyDayRecord(season, day, property, value);
             _records.Add(record);
 
             ProcessRecords();
         }
+
+        public void AddRecord(int season, string property, object value)
+        {
+            var record = new AgroHydrologyRecord(season,property, value);
+            _records.Add(record);
+
+            ProcessRecords();
+        }
+
 
         public void Complete()
         {
@@ -57,16 +67,33 @@ namespace CHAD.DataAccess
 
         private void ProcessRecords()
         {
+            if(!_records.Any())
+                return;
+
             switch (_saveFrequency)
             {
-                case SaveFrequency.PerSeason:
-                    if (_records.Count > 2 &&
-                        _records[_records.Count - 1].Season != _records[_records.Count - 2].Season)
+                case SaveFrequency.PerRecord:
+                    if(_saveFrequency == SaveFrequency.PerRecord)
                         Save();
                     break;
                 case SaveFrequency.PerDay:
-                    if (_records.Count > 2 &&
-                        _records[_records.Count - 1].Day != _records[_records.Count - 2].Day)
+                    if(_records.Count == 1)
+                        return;
+
+                    var preLast = _records[_records.Count - 2];
+                    var last = _records[_records.Count - 1];
+
+                    if (preLast is AgroHydrologyDayRecord preLastDayRecord && last is AgroHydrologyDayRecord lastDayRecord && preLastDayRecord.Day != lastDayRecord.Day)
+                        Save();
+                    break;
+                case SaveFrequency.PerSeason:
+                    if(_records.Count == 1)
+                        return;
+
+                    var preLastRecord = _records[_records.Count - 2];
+                    var lastRecord = _records[_records.Count - 1];
+
+                    if (preLastRecord.Season != lastRecord.Season)
                         Save();
                     break;
             }

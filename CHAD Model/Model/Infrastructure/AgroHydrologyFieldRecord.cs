@@ -1,13 +1,21 @@
 ﻿namespace CHAD.Model.Infrastructure
 {
-    public class AgroHydrologyFieldRecord : AgroHydrologyRecord
+    public class AgroHydrologyFieldRecord : AgroHydrologyDayRecord
     {
-        public AgroHydrologyFieldRecord(int season, int day, string field, string recordName, string value) : base(
+        #region Constructors
+
+        public AgroHydrologyFieldRecord(int season, int day, string field, string recordName, object value) : base(
             season, day, recordName, value)
         {
             Field = field;
         }
 
+        #endregion
+
+        #region Public Interface
+
         public string Field { get; }
+
+        #endregion
     }
 }

@@ -44,7 +44,7 @@
     <None Update="Templates\InputDrought.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\InputFieldSize.xlsx">
+    <None Update="Templates\InputFieldSpecs.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Templates\InputFinancials.xlsx">

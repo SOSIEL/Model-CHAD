@@ -33,7 +33,7 @@ namespace CHAD.DataAccess
         private const string DecisionMakingOutput = "OutputDecisionMaking.xlsx";
         private const string DefaultConfigurationFolder = "Templates";
         private const string DroughtLevelInput = "InputDrought.xlsx";
-        private const string FieldsInput = "InputFieldSize.xlsx";
+        private const string FieldsInput = "InputFieldSpecs.xlsx";
         private const string HydrologyOutput = "OutputHydrology.xlsx";
         private const string MarketPricesInput = "InputFinancials.xlsx";
         private const string OutputFolder = "Output";

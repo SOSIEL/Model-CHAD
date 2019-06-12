@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using CHAD.Model.Infrastructure;
@@ -13,9 +12,28 @@ namespace CHAD.DataAccess
 {
     public partial class FileStorageService
     {
+        #region Static Fields and Constants
+
+        private const int AfterDaysRecordCount = 1;
+
         private const string HydrologyDetailedOutput = "OutputHydrologyDetailed.xlsx";
 
-        private readonly List<string> _beforeFieldsRecordNames = new List<string> {SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
+        #endregion
+
+        #region Fields
+
+        private readonly List<string> _afterFieldsRecordNames = new List<string>
+        {
+            SimulationInfo.LeakAquifer,
+            SimulationInfo.WaterInAquifer3,
+            SimulationInfo.WaterInAquiferChange,
+            SimulationInfo.HarvestableAlfalfa,
+            SimulationInfo.HarvestableBarley,
+            SimulationInfo.HarvestableWheat
+        };
+
+        private readonly List<string> _beforeFieldsRecordNames =
+            new List<string> {SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
 
         private readonly List<string> _fieldRecordNames = new List<string>
         {
@@ -33,11 +51,12 @@ namespace CHAD.DataAccess
             SimulationInfo.PercFromField,
             SimulationInfo.WaterInAquifer2,
             SimulationInfo.WaterInField3,
-            SimulationInfo.EvapTransToDate,
-            SimulationInfo.Harvestable
+            SimulationInfo.EvapTransToDate
         };
 
-        private readonly List<string> _afterFieldsRecordNames = new List<string> {SimulationInfo.LeakAquifer, SimulationInfo.WaterInAquifer3, SimulationInfo.WaterInAquiferChange};
+        #endregion
+
+        #region Public Interface
 
         public void SaveAgroHydrologyResults(SimulationInfo simulationInfo,
             IEnumerable<AgroHydrologyRecord> records)
@@ -58,10 +77,17 @@ namespace CHAD.DataAccess
             SaveAgroHydrologyResults(filePath, simulationInfo, records);
         }
 
+        #endregion
+
+        #region All other members
+
         private void CreateAgroHydrologyDetailedFile(string path, SimulationInfo simulationInfo)
         {
             using (var spreadsheetDocument = SpreadsheetDocument.Create(path, SpreadsheetDocumentType.Workbook))
             {
+                //var workbookStylesPart = spreadsheetDocument.AddNewPart<WorkbookStylesPart>();
+                //workbookStylesPart.Stylesheet = CreateStylesheet();
+
                 // Add a WorkbookPart to the document.
                 var workbookPart = spreadsheetDocument.AddWorkbookPart();
                 workbookPart.Workbook = new Workbook();
@@ -103,23 +129,33 @@ namespace CHAD.DataAccess
                 newCell.CellValue = new CellValue(string.Empty);
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                for (int i = 1; i <= simulationInfo.SeasonCount; i++)
+                for (var seasonNumber = 1; seasonNumber <= simulationInfo.SeasonCount; seasonNumber++)
                 {
-                    for (int j = 1; j <= simulationInfo.DaysCount; j++)
+                    for (var dayNumber = 1; dayNumber <= simulationInfo.DaysCount; dayNumber++)
                     {
-                        newCell = row1.InsertAt(new Cell(), (i - 1) * simulationInfo.DaysCount + j + 1);
-                        newCell.CellValue = new CellValue($"Season {i}");
+                        newCell = row1.InsertAt(new Cell(),
+                            (seasonNumber - 1) * (simulationInfo.DaysCount + AfterDaysRecordCount) + dayNumber + 1);
+                        newCell.CellValue = new CellValue($"Season {seasonNumber}");
                         newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                        newCell = row2.InsertAt(new Cell(), (i - 1) * simulationInfo.DaysCount + j + 1);
-                        newCell.CellValue = new CellValue($"Day {j}");
+                        newCell = row2.InsertAt(new Cell(),
+                            (seasonNumber - 1) * (simulationInfo.DaysCount + AfterDaysRecordCount) + dayNumber + 1);
+                        newCell.CellValue = new CellValue($"Day {dayNumber}");
                         newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                     }
+
+                    newCell = row1.InsertAt(new Cell(), seasonNumber * simulationInfo.DaysCount + seasonNumber + 1);
+                    newCell.CellValue = new CellValue($"Season {seasonNumber}");
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+
+                    newCell = row2.InsertAt(new Cell(), seasonNumber * simulationInfo.DaysCount + seasonNumber + 1);
+                    newCell.CellValue = new CellValue("Total");
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                 }
 
                 var rowIndex = 2u;
 
-                for (int j = 1; j <= _beforeFieldsRecordNames.Count; j++)
+                for (var j = 1; j <= _beforeFieldsRecordNames.Count; j++)
                 {
                     var row = new Row {RowIndex = ++rowIndex};
 
@@ -134,25 +170,23 @@ namespace CHAD.DataAccess
                     sheetData.Append(row);
                 }
 
-                for (int i = 1; i <= simulationInfo.FieldNames.Count; i++)
+                for (var i = 1; i <= simulationInfo.FieldNames.Count; i++)
+                for (var j = 1; j <= _fieldRecordNames.Count; j++)
                 {
-                    for (int j = 1; j <= _fieldRecordNames.Count; j++)
-                    {
-                        var row = new Row {RowIndex = ++rowIndex};
+                    var row = new Row {RowIndex = ++rowIndex};
 
-                        newCell = row.InsertAt(new Cell(), 0);
-                        newCell.CellValue = new CellValue($"{simulationInfo.FieldNames[i - 1]}");
-                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    newCell = row.InsertAt(new Cell(), 0);
+                    newCell.CellValue = new CellValue($"{simulationInfo.FieldNames[i - 1]}");
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                        newCell = row.InsertAt(new Cell(), 1);
-                        newCell.CellValue = new CellValue($"{_fieldRecordNames[j - 1]}");
-                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    newCell = row.InsertAt(new Cell(), 1);
+                    newCell.CellValue = new CellValue($"{_fieldRecordNames[j - 1]}");
+                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                        sheetData.Append(row);
-                    }
+                    sheetData.Append(row);
                 }
 
-                for (int j = 1; j <= _afterFieldsRecordNames.Count; j++)
+                for (var j = 1; j <= _afterFieldsRecordNames.Count; j++)
                 {
                     var row = new Row {RowIndex = ++rowIndex};
 
@@ -167,17 +201,89 @@ namespace CHAD.DataAccess
                     sheetData.Append(row);
                 }
 
+                for (var rowNumber = 3;
+                    rowNumber <= _beforeFieldsRecordNames.Count + _fieldRecordNames.Count +
+                    _afterFieldsRecordNames.Count + 2;
+                    rowNumber++)
+                {
+                    var row = sheetData.ChildElements[rowNumber - 1];
+
+                    for (var dayNumber = 1;
+                        dayNumber <= simulationInfo.SeasonCount * (simulationInfo.DaysCount + 1);
+                        dayNumber++)
+                    {
+                        newCell = row.InsertAt(new Cell(), dayNumber + 1);
+                        newCell.CellValue = new CellValue();
+                        newCell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    }
+                }
 
                 spreadsheetDocument.Save();
             }
         }
 
-        private CellValues GetCellValues(AgroHydrologyRecord record)
+        private Stylesheet CreateStylesheet()
         {
-            if (record.RecordName.Equals(SimulationInfo.Plant))
-                return CellValues.String;
+            var stylesheet = new Stylesheet();
 
-            return CellValues.String;
+            stylesheet.NumberingFormats = new NumberingFormats();
+
+            var nf2decimal = new NumberingFormat
+            {
+                NumberFormatId = UInt32Value.FromUInt32(3453), 
+                FormatCode = StringValue.FromString("0.00")
+            };
+            stylesheet.NumberingFormats.Append(nf2decimal);
+
+            var cellFormat = new CellFormat
+            {
+                FontId = 0,
+                FillId = 0,
+                BorderId = 0,
+                FormatId = 0,
+                NumberFormatId = nf2decimal.NumberFormatId,
+                ApplyNumberFormat = BooleanValue.FromBoolean(true),
+                ApplyFont = true
+            };
+            stylesheet.CellFormats.AppendChild(cellFormat);
+
+            stylesheet.CellFormats.Count = UInt32Value.FromUInt32((uint)stylesheet.CellFormats.ChildElements.Count);
+
+            stylesheet.Save();
+
+            return stylesheet;
+        }
+
+        private Point GetRecordCoordinate(AgroHydrologyRecord record, SimulationInfo simulationInfo)
+        {
+            if (record is AgroHydrologyFieldRecord fieldRecord)
+                return new Point(
+                    (fieldRecord.Season - 1) * simulationInfo.DaysCount + fieldRecord.Day + 1 +
+                    (fieldRecord.Season - 1),
+                    _beforeFieldsRecordNames.Count +
+                    simulationInfo.FieldNames.IndexOf(fieldRecord.Field) * _fieldRecordNames.Count +
+                    _fieldRecordNames.IndexOf(fieldRecord.RecordName) + 2);
+
+            if (record is AgroHydrologyDayRecord dayRecord)
+            {
+                if (_beforeFieldsRecordNames.Contains(dayRecord.RecordName))
+                    return new Point(
+                        (dayRecord.Season - 1) * simulationInfo.DaysCount + dayRecord.Day + 1 + (dayRecord.Season - 1),
+                        _beforeFieldsRecordNames.IndexOf(dayRecord.RecordName) + 2);
+
+                if (_afterFieldsRecordNames.Contains(dayRecord.RecordName))
+                    return new Point(
+                        (dayRecord.Season - 1) * simulationInfo.DaysCount + dayRecord.Day + 1 + (dayRecord.Season - 1),
+                        _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.Count * _fieldRecordNames.Count +
+                        _afterFieldsRecordNames.IndexOf(dayRecord.RecordName) + 2);
+            }
+
+            if (_afterFieldsRecordNames.Contains(record.RecordName))
+                return new Point(record.Season * simulationInfo.DaysCount + 1 + (record.Season - 1) + 1,
+                    _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.Count * _fieldRecordNames.Count +
+                    _afterFieldsRecordNames.IndexOf(record.RecordName) + 2);
+
+            throw new ArgumentException(nameof(record));
         }
 
         private void SaveAgroHydrologyResults(string path, SimulationInfo simulationInfo,
@@ -195,36 +301,21 @@ namespace CHAD.DataAccess
 
                     var row = sheetData.ChildElements[coordinates.Y];
 
-                    var newCell = row.InsertAt(new Cell(), coordinates.X);
-                    newCell.DataType = GetCellValues(record);
-                    newCell.CellValue = new CellValue($"{record.Value}");
+                    var cell = (Cell) row.ChildElements[coordinates.X];
+                    cell.DataType = GetCellValues(record);
+                    cell.CellValue = new CellValue($"{record.Value}");
                 }
             }
         }
 
-        private Point GetRecordCoordinate(AgroHydrologyRecord record, SimulationInfo simulationInfo)
+        private CellValues GetCellValues(AgroHydrologyRecord record)
         {
-            if (record is AgroHydrologyFieldRecord fieldRecord)
-            {
-                return new Point((fieldRecord.Season - 1) * simulationInfo.DaysCount + fieldRecord.Day + 1,
-                    _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.IndexOf(fieldRecord.Field) * _fieldRecordNames.Count +
-                    _fieldRecordNames.IndexOf(fieldRecord.RecordName) + 2);
-            }
+            if (record.RecordName.Equals(SimulationInfo.Plant))
+                return CellValues.String;
 
-            if (_beforeFieldsRecordNames.Contains(record.RecordName))
-            {
-                return new Point((record.Season - 1) * simulationInfo.DaysCount + record.Day + 1,
-                    _beforeFieldsRecordNames.IndexOf(record.RecordName) + 2);
-            }
-
-            if (_afterFieldsRecordNames.Contains(record.RecordName))
-            {
-                return new Point((record.Season - 1) * simulationInfo.DaysCount + record.Day + 1,
-                    _beforeFieldsRecordNames.Count + simulationInfo.FieldNames.Count * _fieldRecordNames.Count +
-                    _afterFieldsRecordNames.IndexOf(record.RecordName) + 2);
-            }
-
-            throw new ArgumentException(nameof(record));
+            return CellValues.String;
         }
+
+        #endregion
     }
 }

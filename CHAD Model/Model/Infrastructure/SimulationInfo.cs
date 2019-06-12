@@ -27,6 +27,9 @@ namespace CHAD.Model.Infrastructure
         public const string WaterInField2 = "WaterInField 2 (ac-ft)";
         public const string WaterInField3 = "WaterInField 3 (ac-ft)";
         public const string WaterInput = "WaterInput (ac-in)";
+        public const string HarvestableAlfalfa = "HarvestableAlfalfa";
+        public const string HarvestableBarley = "HarvestableBarley";
+        public const string HarvestableWheat = "HarvestableWheat";
 
         #endregion
 

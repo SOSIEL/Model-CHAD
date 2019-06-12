@@ -286,7 +286,7 @@ namespace CHAD.Model
                         logger.Write($"Finish day {dayNumber}", Severity.Level1);
                     }
 
-                    agroHydrology.ProcessSeasonEnd(fieldHistories);
+                    agroHydrology.ProcessSeasonEnd(seasonNumber, fieldHistories);
                     rvac.ProcessSeason(marketPrice, sosielResult, agroHydrology);
 
                     simulationResult.AddSeasonResult(new SeasonResult(seasonNumber, sosielModel.WaterCurtailmentRate,
@@ -294,6 +294,8 @@ namespace CHAD.Model
 
                     logger.Write($"Finish season {seasonNumber}", Severity.Level1);
                 }
+
+                calculationLogger.Complete();
 
                 RaiseSimulationResultObtained(simulationResult);
             }
