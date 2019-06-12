@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using CHAD.Model.Infrastructure;
@@ -171,6 +172,14 @@ namespace CHAD.DataAccess
             }
         }
 
+        private CellValues GetCellValues(AgroHydrologyRecord record)
+        {
+            if (record.RecordName.Equals(SimulationInfo.Plant))
+                return CellValues.String;
+
+            return CellValues.String;
+        }
+
         private void SaveAgroHydrologyResults(string path, SimulationInfo simulationInfo,
             IEnumerable<AgroHydrologyRecord> records)
         {
@@ -187,8 +196,8 @@ namespace CHAD.DataAccess
                     var row = sheetData.ChildElements[coordinates.Y];
 
                     var newCell = row.InsertAt(new Cell(), coordinates.X);
+                    newCell.DataType = GetCellValues(record);
                     newCell.CellValue = new CellValue($"{record.Value}");
-                    newCell.DataType = new EnumValue<CellValues>(CellValues.String);
                 }
             }
         }

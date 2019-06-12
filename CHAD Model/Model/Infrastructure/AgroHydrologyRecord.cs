@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public AgroHydrologyRecord(int season, int day, string recordName, string value)
+        public AgroHydrologyRecord(int season, int day, string recordName, object value)
         {
             Season = season;
             Day = day;
@@ -24,7 +24,7 @@
 
         public int Season { get; }
 
-        public string Value { get; }
+        public object Value { get; }
 
         #endregion
     }
