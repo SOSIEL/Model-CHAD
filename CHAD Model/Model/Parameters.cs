@@ -13,9 +13,9 @@ namespace CHAD.Model
             NumOfDays = 356;
             UseDemographicProcesses = false;
 
-            MeanTonsAlfalfaPerAcre = 5;
-            MeanBushelsBarleyPerAcre = 135;
-            MeanBushelsWheatPerAcre = 130;
+            MeanAlfalfa = 5;
+            MeanBarley = 135;
+            MeanWheat = 130;
 
             ClimateChangePrecipMean = 1;
             ClimateChangePrecipSD = 1;
@@ -36,7 +36,7 @@ namespace CHAD.Model
             SustainableLevelAquifer = 1000000;
             WaterInAquifer = 1500000;
             WaterInAquiferMax = 10000000;
-            WaterInSnowpack = 0;
+            SnowInSnowpack = 0;
         }
 
         #endregion
@@ -59,11 +59,11 @@ namespace CHAD.Model
         public bool UseDemographicProcesses { get; set; }
 
 
-        public double MeanTonsAlfalfaPerAcre { get; set; }
+        public double MeanAlfalfa { get; set; }
 
-        public double MeanBushelsBarleyPerAcre { get; set; }
+        public double MeanBarley { get; set; }
 
-        public double MeanBushelsWheatPerAcre { get; set; }
+        public double MeanWheat { get; set; }
 
 
         public double ClimateChangePrecipMean { get; set; }
@@ -102,7 +102,7 @@ namespace CHAD.Model
 
         public double WaterInAquiferMax { get; set; }
 
-        public double WaterInSnowpack { get; set; }
+        public double SnowInSnowpack { get; set; }
 
         #endregion
 

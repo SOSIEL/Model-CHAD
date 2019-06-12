@@ -84,32 +84,32 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double MeanTonsAlfalfaPerAcre
+        public double MeanAlfalfa
         {
-            get => Configuration.Parameters.MeanTonsAlfalfaPerAcre;
+            get => Configuration.Parameters.MeanAlfalfa;
             set
             {
-                Configuration.Parameters.MeanTonsAlfalfaPerAcre = value;
+                Configuration.Parameters.MeanAlfalfa = value;
                 RaisePropertyChanged();
             }
         }
 
-        public double MeanBushelsBarleyPerAcre
+        public double MeanBarley
         {
-            get => Configuration.Parameters.MeanBushelsBarleyPerAcre;
+            get => Configuration.Parameters.MeanBarley;
             set
             {
-                Configuration.Parameters.MeanBushelsBarleyPerAcre = value;
+                Configuration.Parameters.MeanBarley = value;
                 RaisePropertyChanged();
             }
         }
 
-        public double MeanBushelsWheatPerAcre
+        public double MeanWheat
         {
-            get => Configuration.Parameters.MeanBushelsWheatPerAcre;
+            get => Configuration.Parameters.MeanWheat;
             set
             {
-                Configuration.Parameters.MeanBushelsWheatPerAcre = value;
+                Configuration.Parameters.MeanWheat = value;
                 RaisePropertyChanged();
             }
         }
@@ -286,12 +286,12 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double WaterInSnowpack
+        public double SnowInSnowpack
         {
-            get => Configuration.Parameters.WaterInSnowpack;
+            get => Configuration.Parameters.SnowInSnowpack;
             set
             {
-                Configuration.Parameters.WaterInSnowpack = value;
+                Configuration.Parameters.SnowInSnowpack = value;
                 RaisePropertyChanged();
             }
         }

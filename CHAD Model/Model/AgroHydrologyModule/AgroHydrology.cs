@@ -62,7 +62,7 @@ namespace CHAD.Model.AgroHydrologyModule
             DailyHydrology = new List<DailyHydrology>();
 
             WaterInAquifer = _parameters.WaterInAquifer;
-            WaterInSnowpack = _parameters.WaterInSnowpack;
+            WaterInSnowpack = _parameters.SnowInSnowpack;
 
             var fieldsCount = fields.Count;
 

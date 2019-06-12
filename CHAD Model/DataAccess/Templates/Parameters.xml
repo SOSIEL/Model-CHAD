@@ -5,9 +5,9 @@
   <NumOfSeasons>50</NumOfSeasons>
   <NumOfDays>365</NumOfDays>
   <UseDemographicProcesses>false</UseDemographicProcesses>
-  <MeanTonsAlfalfaPerAcre>5</MeanTonsAlfalfaPerAcre>
-  <MeanBushelsBarleyPerAcre>135</MeanBushelsBarleyPerAcre>
-  <MeanBushelsWheatPerAcre>130</MeanBushelsWheatPerAcre>
+  <MeanAlfalfa>5</MeanAlfalfa>
+  <MeanBarley>135</MeanBarley>
+  <MeanWheat>130</MeanWheat>
   <ClimateChangePrecipMean>1</ClimateChangePrecipMean>
   <ClimateChangePrecipSD>1</ClimateChangePrecipSD>
   <ClimateChangeTempMean>1</ClimateChangeTempMean>
@@ -25,5 +25,5 @@
   <SustainableLevelAquifer>12677</SustainableLevelAquifer>
   <WaterInAquifer>12677</WaterInAquifer>
   <WaterInAquiferMax>100000</WaterInAquiferMax>
-  <WaterInSnowpack>0</WaterInSnowpack>
+  <SnowInSnowpack>0</SnowInSnowpack>
 </Parameters>

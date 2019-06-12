@@ -101,36 +101,36 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.MeanTonsAlfalfaPerAcre}" />
+                        Text="{x:Static properties:Resources.MeanAlfalfa}" />
                     <controls:ChadTextBox
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.MeanTonsAlfalfaPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+                        Text="{Binding Path=Value.MeanAlfalfa, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="2"
                         Margin="16,0,0,0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.MeanBushelsBarleyPerAcre}" />
+                        Text="{x:Static properties:Resources.MeanBarley}" />
                     <controls:ChadTextBox
                         Grid.Row="2"
                         Grid.Column="3"
                         Margin="8,0,0,0"
-                        Text="{Binding Path=Value.MeanBushelsBarleyPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+                        Text="{Binding Path=Value.MeanBarley, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
                         Grid.Column="0"
                         Margin="0,16,0,0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.MeanBushelsWheatPerAcre}" />
+                        Text="{x:Static properties:Resources.MeanWheat}" />
                     <controls:ChadTextBox
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.MeanBushelsWheatPerAcre, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+                        Text="{Binding Path=Value.MeanWheat, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
 
                 </Grid>
@@ -432,12 +432,12 @@
                         Grid.Column="0"
                         Margin="0,16,0,0"
                         VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.WaterInSnowpack}" />
+                        Text="{x:Static properties:Resources.SnowInSnowpack}" />
                     <controls:ChadTextBox
                         Grid.Row="6"
                         Grid.Column="1"
                         Margin="8,16,0,0"
-                        Text="{Binding Path=Value.WaterInSnowpack, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
+                        Text="{Binding Path=Value.SnowInSnowpack, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                 </Grid>
 

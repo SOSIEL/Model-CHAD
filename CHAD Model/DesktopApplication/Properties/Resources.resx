@@ -177,14 +177,14 @@
   <data name="LeakAquiferFrac" xml:space="preserve">
     <value>LeakAquiferFrac</value>
   </data>
-  <data name="MeanBushelsAlfalfaPerAcre" xml:space="preserve">
-    <value>MeanBushelsAlfalfaPerAcre</value>
+  <data name="MeanAlfalfa" xml:space="preserve">
+    <value>MeanAlfalfa</value>
   </data>
-  <data name="MeanBushelsBarleyPerAcre" xml:space="preserve">
-    <value>MeanBushelsBarleyPerAcre</value>
+  <data name="MeanBarley" xml:space="preserve">
+    <value>MeanBarley</value>
   </data>
-  <data name="MeanBushelsWheatPerAcre" xml:space="preserve">
-    <value>MeanBushelsWheatPerAcre</value>
+  <data name="MeanWheat" xml:space="preserve">
+    <value>MeanWheat</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -279,8 +279,8 @@
   <data name="MeltingRate" xml:space="preserve">
     <value>MeltingRate</value>
   </data>
-  <data name="WaterInSnowpack" xml:space="preserve">
-    <value>WaterInSnowpack</value>
+  <data name="SnowInSnowpack" xml:space="preserve">
+    <value>SnowInSnowpack</value>
   </data>
   <data name="ClimateFileInvalid" xml:space="preserve">
     <value>InputClimate.xlsx is invalid.</value>
@@ -323,9 +323,6 @@
   </data>
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
-  </data>
-  <data name="MeanTonsAlfalfaPerAcre" xml:space="preserve">
-    <value>MeanTonsAlfalfaPerAcre</value>
   </data>
   <data name="ParametersInfo" xml:space="preserve">
     <value>Configurable parameters with only one value. Parameters with two or more values are modified in the files in the "Configurations" folder.</value>

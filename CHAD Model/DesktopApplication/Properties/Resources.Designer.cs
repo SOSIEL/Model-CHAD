@@ -394,38 +394,29 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на MeanBushelsAlfalfaPerAcre.
+        ///   Ищет локализованную строку, похожую на MeanAlfalfa.
         /// </summary>
-        public static string MeanBushelsAlfalfaPerAcre {
+        public static string MeanAlfalfa {
             get {
-                return ResourceManager.GetString("MeanBushelsAlfalfaPerAcre", resourceCulture);
+                return ResourceManager.GetString("MeanAlfalfa", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на MeanBushelsBarleyPerAcre.
+        ///   Ищет локализованную строку, похожую на MeanBarley.
         /// </summary>
-        public static string MeanBushelsBarleyPerAcre {
+        public static string MeanBarley {
             get {
-                return ResourceManager.GetString("MeanBushelsBarleyPerAcre", resourceCulture);
+                return ResourceManager.GetString("MeanBarley", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на MeanBushelsWheatPerAcre.
+        ///   Ищет локализованную строку, похожую на MeanWheat.
         /// </summary>
-        public static string MeanBushelsWheatPerAcre {
+        public static string MeanWheat {
             get {
-                return ResourceManager.GetString("MeanBushelsWheatPerAcre", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на MeanTonsAlfalfaPerAcre.
-        /// </summary>
-        public static string MeanTonsAlfalfaPerAcre {
-            get {
-                return ResourceManager.GetString("MeanTonsAlfalfaPerAcre", resourceCulture);
+                return ResourceManager.GetString("MeanWheat", resourceCulture);
             }
         }
         
@@ -574,6 +565,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на SnowInSnowpack.
+        /// </summary>
+        public static string SnowInSnowpack {
+            get {
+                return ResourceManager.GetString("SnowInSnowpack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на SOSIEL.
         /// </summary>
         public static string SOSIEL {
@@ -651,15 +651,6 @@ namespace CHAD.DesktopApplication.Properties {
         public static string WaterInAquiferMax {
             get {
                 return ResourceManager.GetString("WaterInAquiferMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на WaterInSnowpack.
-        /// </summary>
-        public static string WaterInSnowpack {
-            get {
-                return ResourceManager.GetString("WaterInSnowpack", resourceCulture);
             }
         }
         

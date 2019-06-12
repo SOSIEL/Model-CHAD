@@ -94,15 +94,16 @@
                     VerticalAlignment="Center"
                     Text="{x:Static properties:Resources.SOSIELConfiguration}" />
 
-                <ComboBox Grid.Row="1"
-                          SelectionChanged="SosielConfigurationsCombobox_OnSelectionChanged"
-                          SelectedItem="{Binding Path=ConfigurationViewModel.SosielConfiguration, Mode=TwoWay}"
-                          ItemsSource="{Binding Path=ConfigurationViewModel.AvailableSosielConfigurations}"
-                          Grid.Column="1"
-                          IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                          Width="352"
-                          Margin="0,8,0,0"
-                          HorizontalAlignment="Left"/>
+                <ComboBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="352"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Left"
+                    IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
+                    ItemsSource="{Binding Path=ConfigurationViewModel.AvailableSosielConfigurations}"
+                    SelectedItem="{Binding Path=ConfigurationViewModel.SosielConfiguration, Mode=TwoWay}"
+                    SelectionChanged="SosielConfigurationsCombobox_OnSelectionChanged" />
 
                 <TextBlock
                     Grid.Row="2"

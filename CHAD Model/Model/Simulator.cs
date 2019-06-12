@@ -177,9 +177,9 @@ namespace CHAD.Model
             sosielModel.SustainableLevelAquifer = _configuration.Parameters.SustainableLevelAquifer;
             sosielModel.WaterInAquifer = agroHydrology.WaterInAquifer;
 
-            sosielModel.ExpectedProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _configuration.Parameters.CostAlfalfa) * _configuration.Parameters.MeanTonsAlfalfaPerAcre * harvestableAlfalfa;
-            sosielModel.ExpectedProfitBarley = (marketPrice.MarketPriceBarley - _configuration.Parameters.CostBarley) * _configuration.Parameters.MeanBushelsBarleyPerAcre * harvestableBarley;
-            sosielModel.ExpectedProfitWheat = (marketPrice.MarketPriceWheat - _configuration.Parameters.CostWheat) * _configuration.Parameters.MeanBushelsWheatPerAcre * harvestableWheat;
+            sosielModel.ExpectedProfitAlfalfa = (marketPrice.MarketPriceAlfalfa - _configuration.Parameters.CostAlfalfa) * _configuration.Parameters.MeanAlfalfa * harvestableAlfalfa;
+            sosielModel.ExpectedProfitBarley = (marketPrice.MarketPriceBarley - _configuration.Parameters.CostBarley) * _configuration.Parameters.MeanBarley * harvestableBarley;
+            sosielModel.ExpectedProfitWheat = (marketPrice.MarketPriceWheat - _configuration.Parameters.CostWheat) * _configuration.Parameters.MeanWheat * harvestableWheat;
             sosielModel.ExpectedCRP = marketPrice.SubsidyCRP;
         }
 
