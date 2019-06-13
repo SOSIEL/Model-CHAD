@@ -306,7 +306,7 @@ namespace CHAD.DataAccess
                     cell.DataType = GetCellValues(record);
 
                     cell.CellValue = double.TryParse(record.Value.ToString(), out var value)
-                        ? new CellValue($"{value:F2}")
+                        ? new CellValue(Math.Round(value, 2, MidpointRounding.ToEven).ToString(CultureInfo.InvariantCulture))
                         : new CellValue(record.Value.ToString());
                 }
             }
@@ -317,7 +317,7 @@ namespace CHAD.DataAccess
             if (record.RecordName.Equals(SimulationInfo.Plant))
                 return CellValues.String;
 
-            return CellValues.String;
+            return new EnumValue<CellValues>(CellValues.Number);
         }
 
         #endregion
