@@ -202,7 +202,7 @@ namespace CHAD.DataAccess
                 }
 
                 for (var rowNumber = 3;
-                    rowNumber <= _beforeFieldsRecordNames.Count + _fieldRecordNames.Count +
+                    rowNumber <= _beforeFieldsRecordNames.Count + _fieldRecordNames.Count*simulationInfo.FieldNames.Count +
                     _afterFieldsRecordNames.Count + 2;
                     rowNumber++)
                 {
