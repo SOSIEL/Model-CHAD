@@ -682,11 +682,11 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на WaterUseRate.
+        ///   Ищет локализованную строку, похожую на WaterUseRedFrac.
         /// </summary>
-        public static string WaterUseRate {
+        public static string WaterUseRedFrac {
             get {
-                return ResourceManager.GetString("WaterUseRate", resourceCulture);
+                return ResourceManager.GetString("WaterUseRedFrac", resourceCulture);
             }
         }
     }

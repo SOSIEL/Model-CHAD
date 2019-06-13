@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Templates\configuration.json" />
     <None Remove="Templates\configuration_PM_disable.json" />
+    <None Remove="Templates\configuration_PM_disable_alfalfa_only.json" />
     <None Remove="Templates\configuration_PM_without_innovation.json" />
   </ItemGroup>
 
@@ -21,6 +22,7 @@
     <EmbeddedResource Include="Templates\configuration_PM_disable.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Templates\configuration_PM_disable_alfalfa_only.json" />
     <EmbeddedResource Include="Templates\configuration_PM_without_innovation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

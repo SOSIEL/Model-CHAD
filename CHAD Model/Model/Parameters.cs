@@ -26,7 +26,7 @@ namespace CHAD.Model
             CostBarley = 2.96;
             CostWheat = 3.23;
             WaterUseBase = 8400000;
-            WaterUseRate = 12.6;
+            WaterUseRedFrac = 12.6;
 
             Beta = 2;
             FieldDepth = 72;
@@ -83,7 +83,7 @@ namespace CHAD.Model
 
         public double WaterUseBase { get; set; }
 
-        public double WaterUseRate { get; set; }
+        public double WaterUseRedFrac { get; set; }
 
 
         public double Beta { get; set; }

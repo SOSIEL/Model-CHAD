@@ -240,8 +240,8 @@
   <data name="WaterUseBase" xml:space="preserve">
     <value>WaterUseBase</value>
   </data>
-  <data name="WaterUseRate" xml:space="preserve">
-    <value>WaterUseRate</value>
+  <data name="WaterUseRedFrac" xml:space="preserve">
+    <value>WaterUseRedFrac</value>
   </data>
   <data name="WaterInAquifer" xml:space="preserve">
     <value>WaterInAquifer</value>

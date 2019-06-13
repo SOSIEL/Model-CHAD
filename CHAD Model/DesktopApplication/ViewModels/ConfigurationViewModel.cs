@@ -195,12 +195,12 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double WaterUseRate
+        public double WaterUseRedFrac
         {
-            get => Configuration.Parameters.WaterUseRate;
+            get => Configuration.Parameters.WaterUseRedFrac;
             set
             {
-                Configuration.Parameters.WaterUseRate = value;
+                Configuration.Parameters.WaterUseRedFrac = value;
                 RaisePropertyChanged();
             }
         }

@@ -572,7 +572,7 @@ namespace CHAD.DataAccess
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                 newCell = row.InsertAt(new Cell(), 1);
-                newCell.CellValue = new CellValue("Water\nCurtailmentRate");
+                newCell.CellValue = new CellValue("WaterUseRedFrac");
                 newCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                 newCell = row.InsertAt(new Cell(), 2);

@@ -276,7 +276,7 @@ namespace CHAD.Model.AgroHydrologyModule
             _logger.Write("AgroHydrology: finish the processing of season result", Severity.Level2);
         }
 
-        public void ProcessSeasonStart(List<FieldHistory> fieldHistories, double waterCurtailmentRate)
+        public void ProcessSeasonStart(List<FieldHistory> fieldHistories, double waterUseRedFrac)
         {
             _logger.Write("AgroHydrology: start the processing of season preparation", Severity.Level2);
 
@@ -287,9 +287,9 @@ namespace CHAD.Model.AgroHydrologyModule
                 EvapTransFromFieldToDate[field] = 0;
             }
            
-            _logger.Write($"WaterCurtailmentRate = {waterCurtailmentRate}", Severity.Level3);
+            _logger.Write($"WaterUseRedFrac = {waterUseRedFrac}", Severity.Level3);
 
-            WaterUsageMax = _parameters.WaterUseBase * (1 - waterCurtailmentRate / 100);
+            WaterUsageMax = _parameters.WaterUseBase * (1 - waterUseRedFrac / 100);
             _logger.Write($"WaterUsageMax = {WaterUsageMax} for current season", Severity.Level3);
 
             // The maximum amount of water that can evaporate from field when accounting for plant type and field size.
