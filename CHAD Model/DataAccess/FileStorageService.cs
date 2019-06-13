@@ -265,6 +265,14 @@ namespace CHAD.DataAccess
             FillSOSIELConfiguration(Path.Combine(configurationPath, configuration.Parameters.SosielConfiguration), configuration);
             FillDroughtLevelConfiguration(Path.Combine(configurationPath, DroughtLevelInput), configuration);
 
+            if (configuration.SOSIELConfiguration.AgentConfiguration.ContainsKey("PolicyMakerArchetype"))
+            {
+                var policyMaker = configuration.SOSIELConfiguration.AgentConfiguration["PolicyMakerArchetype"];
+
+                if (policyMaker.CommonVariables.ContainsKey("InitialWaterCurtailmentRate"))
+                    policyMaker.CommonVariables["InitialWaterCurtailmentRate"] = configuration.Parameters.WaterUseRedFrac;
+            }
+
             return configuration;
         }
 
