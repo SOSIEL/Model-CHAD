@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using CHAD.Model.Infrastructure;
@@ -303,7 +304,10 @@ namespace CHAD.DataAccess
 
                     var cell = (Cell) row.ChildElements[coordinates.X];
                     cell.DataType = GetCellValues(record);
-                    cell.CellValue = new CellValue($"{record.Value}");
+
+                    cell.CellValue = double.TryParse(record.Value.ToString(), out var value)
+                        ? new CellValue($"{value:F2}")
+                        : new CellValue(record.Value.ToString());
                 }
             }
         }
