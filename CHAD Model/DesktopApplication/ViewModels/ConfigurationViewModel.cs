@@ -205,16 +205,6 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
-        public double Beta
-        {
-            get => Configuration.Parameters.Beta;
-            set
-            {
-                Configuration.Parameters.Beta = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public double LeakAquiferFrac
         {
             get => Configuration.Parameters.LeakAquiferFrac;

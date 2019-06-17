@@ -28,7 +28,6 @@ namespace CHAD.Model
             WaterUseBase = 8400000;
             WaterUseRedFrac = 12.6;
 
-            Beta = 2;
             FieldDepth = 72;
             LeakAquiferFrac = 0;
             PercFromFieldFrac = 0.25;
@@ -85,8 +84,6 @@ namespace CHAD.Model
 
         public double WaterUseRedFrac { get; set; }
 
-
-        public double Beta { get; set; }
 
         public double FieldDepth { get; set; }
 

@@ -15,6 +15,8 @@ namespace CHAD.Model.AgroHydrologyModule
 
         private const double RainToSnow = 10;
 
+        private const int Beta = 2;
+
         #endregion
 
         #region Fields
@@ -164,7 +166,7 @@ namespace CHAD.Model.AgroHydrologyModule
                 _logger.Write($"IrrigSeason = {IrrigSeason}", Severity.Level3);
                 _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.IrrigSeason, IrrigSeason);
 
-                DirectRunoff[field] = (PrecipOnField[field] + IrrigOfField[field]) * Math.Pow(WaterInField[field] / WaterInFieldMax[field], _parameters.Beta);;
+                DirectRunoff[field] = (PrecipOnField[field] + IrrigOfField[field]) * Math.Pow(WaterInField[field] / WaterInFieldMax[field], Beta);
                 _logger.Write($"DirectRunoff = {DirectRunoff[field]}", Severity.Level3);
                 _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.DirectRunoff, DirectRunoff[field]);
 

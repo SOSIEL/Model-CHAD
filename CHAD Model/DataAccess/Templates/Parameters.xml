@@ -17,7 +17,6 @@
   <CostWheat>3.23</CostWheat>
   <WaterUseBase>8400000</WaterUseBase>
   <WaterUseRate>12.6</WaterUseRate>
-  <Beta>2</Beta>
   <FieldDepth>72</FieldDepth>
   <LeakAquiferFrac>0</LeakAquiferFrac>
   <PercFromFieldFrac>0.25</PercFromFieldFrac>

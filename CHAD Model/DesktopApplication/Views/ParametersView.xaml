@@ -335,107 +335,96 @@
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="{x:Static properties:Resources.Beta}" />
-                    <controls:ChadTextBox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        Text="{Binding Path=Value.Beta, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
-
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="16,0,0,0"
+                        Margin="0,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.FieldDepth}" />
                     <controls:ChadTextBox
                         Grid.Row="2"
-                        Grid.Column="3"
-                        Margin="8,0,0,0"
+                        Grid.Column="1"
+                        Margin="8,16,0,0"
                         Text="{Binding Path=Value.FieldDepth, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Margin="0,16,0,0"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="16,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.LeakAquiferFrac}" />
                     <controls:ChadTextBox
-                        Grid.Row="3"
-                        Grid.Column="1"
+                        Grid.Row="2"
+                        Grid.Column="3"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.LeakAquiferFrac, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="3"
-                        Grid.Column="2"
-                        Margin="16,16,0,0"
+                        Grid.Column="0"
+                        Margin="0,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.PercFromFieldFrac}" />
                     <controls:ChadTextBox
                         Grid.Row="3"
-                        Grid.Column="3"
+                        Grid.Column="1"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.PercFromFieldFrac, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Margin="0,16,0,0"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Margin="16,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.MeltingPoint}" />
                     <controls:ChadTextBox
-                        Grid.Row="4"
-                        Grid.Column="1"
+                        Grid.Row="3"
+                        Grid.Column="3"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.MeltingPoint, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="4"
-                        Grid.Column="2"
-                        Margin="16,16,0,0"
+                        Grid.Column="0"
+                        Margin="0,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.SustainableLevelAquifer}" />
                     <controls:ChadTextBox
                         Grid.Row="4"
-                        Grid.Column="3"
+                        Grid.Column="1"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.SustainableLevelAquifer, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Margin="0,16,0,0"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Margin="16,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.WaterInAquifer}" />
                     <controls:ChadTextBox
-                        Grid.Row="5"
-                        Grid.Column="1"
+                        Grid.Row="4"
+                        Grid.Column="3"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.WaterInAquifer, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
                         Grid.Row="5"
-                        Grid.Column="2"
-                        Margin="16,16,0,0"
+                        Grid.Column="0"
+                        Margin="0,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.WaterInAquiferMax}" />
                     <controls:ChadTextBox
                         Grid.Row="5"
-                        Grid.Column="3"
+                        Grid.Column="1"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.WaterInAquiferMax, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
                     <TextBlock
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        Margin="0,16,0,0"
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Margin="16,16,0,0"
                         VerticalAlignment="Center"
                         Text="{x:Static properties:Resources.SnowInSnowpack}" />
                     <controls:ChadTextBox
-                        Grid.Row="6"
-                        Grid.Column="1"
+                        Grid.Row="5"
+                        Grid.Column="3"
                         Margin="8,16,0,0"
                         Text="{Binding Path=Value.SnowInSnowpack, Mode=TwoWay, StringFormat='{}{0:F2}'}" />
 
