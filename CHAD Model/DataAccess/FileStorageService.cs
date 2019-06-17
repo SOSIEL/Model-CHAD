@@ -226,6 +226,7 @@ namespace CHAD.DataAccess
             {
                 var xmlSerializer = new XmlSerializer(typeof(Parameters));
                 var parameters = (Parameters)xmlSerializer.Deserialize(fileStream);
+                parameters.WaterUseRedFrac *= 100;
                 configuration.Parameters = parameters;
             }
         }

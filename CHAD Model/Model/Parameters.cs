@@ -26,7 +26,7 @@ namespace CHAD.Model
             CostBarley = 2.96;
             CostWheat = 3.23;
             WaterUseBase = 8400000;
-            WaterUseRedFrac = 12.6;
+            WaterUseRedFrac = 0.126;
 
             FieldDepth = 72;
             LeakAquiferFrac = 0;
