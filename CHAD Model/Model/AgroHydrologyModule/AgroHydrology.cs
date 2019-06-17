@@ -291,7 +291,7 @@ namespace CHAD.Model.AgroHydrologyModule
            
             _logger.Write($"WaterUseRedFrac = {waterUseRedFrac}", Severity.Level3);
 
-            WaterUsageMax = _parameters.WaterUseBase * (1 - waterUseRedFrac / 100);
+            WaterUsageMax = _parameters.WaterUseBase * (1 - waterUseRedFrac);
             _logger.Write($"WaterUsageMax = {WaterUsageMax} for current season", Severity.Level3);
 
             // The maximum amount of water that can evaporate from field when accounting for plant type and field size.

@@ -226,7 +226,6 @@ namespace CHAD.DataAccess
             {
                 var xmlSerializer = new XmlSerializer(typeof(Parameters));
                 var parameters = (Parameters)xmlSerializer.Deserialize(fileStream);
-                parameters.WaterUseRedFrac *= 100;
                 configuration.Parameters = parameters;
             }
         }
@@ -271,7 +270,7 @@ namespace CHAD.DataAccess
                 var policyMaker = configuration.SOSIELConfiguration.AgentConfiguration["PolicyMakerArchetype"];
 
                 if (policyMaker.CommonVariables.ContainsKey("InitialWaterCurtailmentRate"))
-                    policyMaker.CommonVariables["InitialWaterCurtailmentRate"] = configuration.Parameters.WaterUseRedFrac;
+                    policyMaker.CommonVariables["InitialWaterCurtailmentRate"] = configuration.Parameters.WaterUseRedFrac * 100;
             }
 
             return configuration;
