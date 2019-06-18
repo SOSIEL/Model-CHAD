@@ -376,6 +376,15 @@ namespace CHAD.DesktopApplication.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Generate detailed output.
+        /// </summary>
+        public static string GenerateDetailedOutput {
+            get {
+                return ResourceManager.GetString("GenerateDetailedOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Hydrology.
         /// </summary>
         public static string Hydrology {

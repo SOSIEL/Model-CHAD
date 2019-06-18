@@ -228,7 +228,6 @@ namespace CHAD.Model.AgroHydrologyModule
             DailyHydrology.Add(new DailyHydrology(dayNumber, WaterInAquifer, WaterInSnowpack));
 
             _logger.Write($"AgroHydrology: finish the processing of day {dayNumber}", Severity.Level2);
-            _calculationLogger.Complete();
         }
 
         public void ProcessSeasonEnd(int seasonNumber, List<FieldHistory> fieldHistories)

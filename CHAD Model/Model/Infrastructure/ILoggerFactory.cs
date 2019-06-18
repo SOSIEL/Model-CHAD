@@ -2,6 +2,6 @@
 {
     public interface ILoggerFactory
     {
-        ILogger MakeLogger(string configurationName, string simulationSession, int simulationNumber);
+        ILogger MakeLogger(Configuration configuration, string simulationSession, int simulationNumber);
     }
 }

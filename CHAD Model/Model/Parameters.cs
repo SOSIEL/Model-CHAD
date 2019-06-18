@@ -11,6 +11,7 @@ namespace CHAD.Model
             NumOfSimulations = 1;
             NumOfSeasons = 1;
             NumOfDays = 356;
+            GenerateDetailedOutput = false;
             UseDemographicProcesses = false;
 
             MeanAlfalfa = 5;
@@ -54,6 +55,8 @@ namespace CHAD.Model
         public int NumOfSeasons { get; set; }
 
         public int NumOfDays { get; set; }
+
+        public bool GenerateDetailedOutput { get; set; }
 
         public bool UseDemographicProcesses { get; set; }
 

@@ -82,7 +82,7 @@ namespace CHAD.DesktopApplication.Views
             _applicationViewModel.Stop();
         }
 
-        private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        private void Edit_OnLostFocus(object sender, RoutedEventArgs e)
         {
             if (_applicationViewModel.ConfigurationViewModel != null)
                 _applicationViewModel.SaveConfiguration(_applicationViewModel.ConfigurationViewModel);

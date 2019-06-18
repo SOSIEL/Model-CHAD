@@ -54,6 +54,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -120,7 +121,7 @@
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                    LostFocus="TextBox_OnLostFocus"
+                    LostFocus="Edit_OnLostFocus"
                     Text="{Binding Path=ConfigurationViewModel.SimulationsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
                 <TextBlock
@@ -138,7 +139,7 @@
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                    LostFocus="TextBox_OnLostFocus"
+                    LostFocus="Edit_OnLostFocus"
                     Text="{Binding Path=ConfigurationViewModel.SeasonsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
 
                 <TextBlock
@@ -149,15 +150,27 @@
                     Text="{x:Static properties:Resources.NumberOfDays}" />
 
                 <controls:ChadTextBox
-                    Grid.Row="5"
+                    Grid.Row="4"
                     Grid.Column="1"
                     Width="64"
                     Margin="0,8,0,0"
                     HorizontalAlignment="Left"
                     InputType="Integer"
                     IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
-                    LostFocus="TextBox_OnLostFocus"
+                    LostFocus="Edit_OnLostFocus"
                     Text="{Binding Path=ConfigurationViewModel.DaysCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:d}'}" />
+
+                <CheckBox
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,8,0,0"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="{x:Static properties:Resources.GenerateDetailedOutput}"
+                    IsChecked="{Binding Path=ConfigurationViewModel.GenerateDetailedOutput, Mode=TwoWay}"
+                    IsEnabled="{Binding Path=IsConfigurationEditingEnabled}"
+                    LostFocus="Edit_OnLostFocus" />
 
             </Grid>
 

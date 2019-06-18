@@ -1,4 +1,5 @@
-﻿using CHAD.Model.Infrastructure;
+﻿using CHAD.Model;
+using CHAD.Model.Infrastructure;
 
 namespace CHAD.DataAccess
 {
@@ -13,9 +14,12 @@ namespace CHAD.DataAccess
             _saveFrequency = saveFrequency;
         }
 
-        public IAgroHydrologyCalculationLogger MakeLogger(SimulationInfo simulationInfo)
+        public IAgroHydrologyCalculationLogger MakeLogger(Configuration configuration, SimulationInfo simulationInfo)
         {
-            return new AgroHydrologyCalculationLogger(_storageService, _saveFrequency, simulationInfo);
+            if(configuration.Parameters.GenerateDetailedOutput)
+                return new AgroHydrologyCalculationLogger(_storageService, _saveFrequency, simulationInfo);
+
+            return new DummyAgroHydrologyCalculationLogger();
         }
     }
 }

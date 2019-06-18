@@ -1,4 +1,5 @@
-﻿using CHAD.Model.Infrastructure;
+﻿using CHAD.Model;
+using CHAD.Model.Infrastructure;
 
 namespace CHAD.DataAccess
 {
@@ -6,12 +7,17 @@ namespace CHAD.DataAccess
     {
         #region Public Interface
 
-        public ILogger MakeLogger(string configurationName, string simulationSession, int simulationNumber)
+        public ILogger MakeLogger(Configuration configuration, string simulationSession, int simulationNumber)
         {
-            var folderPath =
-                FileStorageService.MakeSimulationPath(configurationName, simulationSession, simulationNumber);
+            if (configuration.Parameters.GenerateDetailedOutput)
+            {
+                var folderPath =
+                    FileStorageService.MakeSimulationPath(configuration.Name, simulationSession, simulationNumber);
 
-            return new FileLogger(folderPath);
+                return new FileLogger(folderPath);
+            }
+
+            return new DummyLogger();
         }
 
         #endregion

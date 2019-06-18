@@ -84,6 +84,18 @@ namespace CHAD.DesktopApplication.ViewModels
             }
         }
 
+        public bool GenerateDetailedOutput
+        {
+            get => Configuration.Parameters.GenerateDetailedOutput;
+            set
+            {
+                if (value == Configuration.Parameters.GenerateDetailedOutput)
+                    return;
+                Configuration.Parameters.GenerateDetailedOutput = value;
+                RaisePropertyChanged(nameof(GenerateDetailedOutput));
+            }
+        }
+
         public double MeanAlfalfa
         {
             get => Configuration.Parameters.MeanAlfalfa;

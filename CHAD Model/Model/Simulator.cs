@@ -228,8 +228,8 @@ namespace CHAD.Model
                 simulationNumber <= _configuration.Parameters.NumOfSimulations;
                 simulationNumber++)
             {
-                var logger = _loggerFactory.MakeLogger(_configuration.Name, simulationSession, simulationNumber);
-                var calculationLogger = _agroHydrologyCalculationLoggerFactory.MakeLogger(new SimulationInfo(_configuration.Name, simulationSession, simulationNumber,_configuration.Parameters.NumOfSeasons, _configuration.Parameters.NumOfDays, _configuration.Fields.Select(f => f.FieldNumber.ToString())));
+                var logger = _loggerFactory.MakeLogger(_configuration, simulationSession, simulationNumber);
+                var calculationLogger = _agroHydrologyCalculationLoggerFactory.MakeLogger(_configuration, new SimulationInfo(_configuration.Name, simulationSession, simulationNumber,_configuration.Parameters.NumOfSeasons, _configuration.Parameters.NumOfDays, _configuration.Fields.Select(f => f.FieldNumber.ToString())));
 
                 var simulationResult = new SimulationResult(simulationSession, logger, _configuration, simulationNumber);
 

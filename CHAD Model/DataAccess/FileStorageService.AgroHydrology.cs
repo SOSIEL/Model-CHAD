@@ -220,39 +220,8 @@ namespace CHAD.DataAccess
                 }
 
                 spreadsheetDocument.Save();
+                spreadsheetDocument.Close();
             }
-        }
-
-        private Stylesheet CreateStylesheet()
-        {
-            var stylesheet = new Stylesheet();
-
-            stylesheet.NumberingFormats = new NumberingFormats();
-
-            var nf2decimal = new NumberingFormat
-            {
-                NumberFormatId = UInt32Value.FromUInt32(3453), 
-                FormatCode = StringValue.FromString("0.00")
-            };
-            stylesheet.NumberingFormats.Append(nf2decimal);
-
-            var cellFormat = new CellFormat
-            {
-                FontId = 0,
-                FillId = 0,
-                BorderId = 0,
-                FormatId = 0,
-                NumberFormatId = nf2decimal.NumberFormatId,
-                ApplyNumberFormat = BooleanValue.FromBoolean(true),
-                ApplyFont = true
-            };
-            stylesheet.CellFormats.AppendChild(cellFormat);
-
-            stylesheet.CellFormats.Count = UInt32Value.FromUInt32((uint)stylesheet.CellFormats.ChildElements.Count);
-
-            stylesheet.Save();
-
-            return stylesheet;
         }
 
         private Point GetRecordCoordinate(AgroHydrologyRecord record, SimulationInfo simulationInfo)
@@ -309,6 +278,9 @@ namespace CHAD.DataAccess
                         ? new CellValue(Math.Round(value, 2, MidpointRounding.ToEven).ToString(CultureInfo.InvariantCulture))
                         : new CellValue(record.Value.ToString());
                 }
+
+                spreadsheetDocument.Save();
+                spreadsheetDocument.Close();
             }
         }
 

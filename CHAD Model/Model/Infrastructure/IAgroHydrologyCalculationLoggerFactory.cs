@@ -2,6 +2,6 @@
 {
     public interface IAgroHydrologyCalculationLoggerFactory
     {
-        IAgroHydrologyCalculationLogger MakeLogger(SimulationInfo simulationInfo);
+        IAgroHydrologyCalculationLogger MakeLogger(Configuration configuration, SimulationInfo simulationInfo);
     }
 }
