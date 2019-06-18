@@ -94,10 +94,6 @@ namespace CHAD.Model.AgroHydrologyModule
                 WaterInField[field] = field.InitialWaterVolume;
                 WaterInFieldMax[field] = _parameters.FieldDepth * field.FieldSize;
             }
-
-            HarvestableAlfalfa = 1;
-            HarvestableBarley = 1;
-            HarvestableWheat = 1;
         }
 
         #endregion
