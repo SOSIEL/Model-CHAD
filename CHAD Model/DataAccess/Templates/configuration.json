@@ -135,21 +135,6 @@
           "Id": "MM1_L1_DO1",
           "Antecedent": [
             {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
               "Param": "FieldHistoryNonCrop",
               "Sign": "<",
               "ReferenceVariable": "NonCropAgeThreshold"
@@ -167,21 +152,6 @@
           "PositionNumber": 2,
           "Id": "MM1_L1_DO2",
           "Antecedent": [
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
             {
               "Param": "FieldHistoryCrop",
               "Sign": "<",
@@ -201,21 +171,6 @@
           "Id": "MM1_L1_DO3",
           "Antecedent": [
             {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
               "Param": "FieldHistoryCrop",
               "Sign": "<",
               "ReferenceVariable": "CropAgeThreshold"
@@ -234,300 +189,9 @@
           "Id": "MM1_L1_DO4",
           "Antecedent": [
             {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Nothing"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 5,
-          "Id": "MM1_L1_DO5",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryNonCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "NonCropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Barley"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 6,
-          "Id": "MM1_L1_DO6",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryNonCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "NonCropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Wheat"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 7,
-          "Id": "MM1_L1_DO7",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryNonCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "NonCropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Nothing"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 8,
-          "Id": "MM1_L1_DO8",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "CropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Alfalfa"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 9,
-          "Id": "MM1_L1_DO9",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitWheat"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitBarley",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "CropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Nothing"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 10,
-          "Id": "MM1_L1_DO10",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "CropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitAlfalfa",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            }
-          ],
-          "Consequent": {
-            "Param": "PlantInField",
-            "Value": "Alfalfa"
-          },
-          "RequiredParticipants": 1
-        },
-        {
-          "MentalModel": 1,
-          "DecisionOptionsLayer": 1,
-          "PositionNumber": 11,
-          "Id": "MM1_L1_DO11",
-          "Antecedent": [
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitBarley"
-            },
-            {
-              "Param": "ExpectedProfitWheat",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitCRP"
-            },
-            {
-              "Param": "FieldHistoryCrop",
-              "Sign": ">=",
-              "ReferenceVariable": "CropAgeThreshold"
-            },
-            {
-              "Param": "ExpectedProfitCRP",
-              "Sign": ">=",
-              "ReferenceVariable": "ExpectedProfitAlfalfa"
+              "Param": "IsActive",
+              "Sign": "==",
+              "Value": true
             }
           ],
           "Consequent": {
@@ -580,37 +244,16 @@
 
         "AnticipatedInfluenceState": {
           "MM1_L1_DO1": {
-            "G2": 0
+            "G2": 843002
           },
           "MM1_L1_DO2": {
-            "G2": 0
+            "G2": 710921
           },
           "MM1_L1_DO3": {
-            "G2": 0
+            "G2": 807370
           },
           "MM1_L1_DO4": {
-            "G2": 0
-          },
-          "MM1_L1_DO5": {
-            "G2": 0
-          },
-          "MM1_L1_DO6": {
-            "G2": 0
-          },
-          "MM1_L1_DO7": {
-            "G2": 0
-          },
-          "MM1_L1_DO8": {
-            "G2": 0
-          },
-          "MM1_L1_DO9": {
-            "G2": 0
-          },
-          "MM1_L1_DO10": {
-            "G2": 0
-          },
-          "MM1_L1_DO11": {
-            "G2": 0
+            "G2": 51516
           }
         },
 
@@ -618,14 +261,7 @@
           "MM1_L1_DO1",
           "MM1_L1_DO2",
           "MM1_L1_DO3",
-          "MM1_L1_DO4",
-          "MM1_L1_DO5",
-          "MM1_L1_DO6",
-          "MM1_L1_DO7",
-          "MM1_L1_DO8",
-          "MM1_L1_DO9",
-          "MM1_L1_DO10",
-          "MM1_L1_DO11"
+          "MM1_L1_DO4"
         ],
 
         "AssignedGoals": [ "G2" ],
