@@ -125,6 +125,8 @@ namespace CHAD.Model.AgroHydrologyModule
                 Precip = 0;
             }
 
+            WaterInSnowpack = Math.Round(WaterInSnowpack, 2);
+
             _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip);
             _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.SnowInSnowpack, WaterInSnowpack);
 
