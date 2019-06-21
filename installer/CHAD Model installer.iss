@@ -1,6 +1,6 @@
 ; Extension infomation
 #define ExtensionName "CHAD Model"
-#define AppVersion "1.18"
+#define AppVersion "1.19"
 #define AppPublisher "Garry Sotnik"
 
 ; Build directory
@@ -25,7 +25,7 @@ DefaultGroupName={#ExtensionName}
 DisableProgramGroupPage=yes
 LicenseFile=THE SOSIEL LICENSE AGREEMENT.rtf
 OutputDir={#SourcePath}
-OutputBaseFilename={#ExtensionName} {#AppVersion}-setup
+OutputBaseFilename={#ExtensionName} latest-setup
 Compression=lzma
 SolidCompression=yes
 
