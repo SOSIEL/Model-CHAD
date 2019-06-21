@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CHAD.DesktopApplication.Controls"
+    xmlns:converters="clr-namespace:CHAD.DesktopApplication.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:CHAD.DesktopApplication.Properties"
@@ -15,8 +16,11 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <converters:FinishEnabledConverter x:Key="FinishEnabledConverter" />
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/StylesDictionary.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -44,7 +48,7 @@
             <TextBox
                 Width="192"
                 Margin="16,0,0,0"
-                Text="{Binding Path=Value.Name, Mode=TwoWay}" />
+                Text="{Binding Path=Value.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel
@@ -59,8 +63,14 @@
             <Button
                 Margin="8,0,0,0"
                 Click="NextButton_OnClick"
-                Content="{x:Static properties:Resources.Finish}"
-                IsEnabled="{Binding ElementName=UserControl, Path=NavigationService.CanNavigateNext}" />
+                Content="{x:Static properties:Resources.Finish}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource FinishEnabledConverter}">
+                        <Binding ElementName="UserControl" Path="NavigationService.CanNavigateNext" />
+                        <Binding Path="Value.Name" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
         </StackPanel>
 
         <controls:Logo
