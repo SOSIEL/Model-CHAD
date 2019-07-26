@@ -280,6 +280,8 @@ namespace CHAD.Model.AgroHydrologyModule
         {
             _logger.Write("AgroHydrology: start the processing of season preparation", Severity.Level2);
 
+            DailyHydrology.Clear();
+
             IrrigSeason = 0;
 
             foreach (var field in _fields)
