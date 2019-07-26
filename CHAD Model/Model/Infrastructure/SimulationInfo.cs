@@ -16,8 +16,8 @@ namespace CHAD.Model.Infrastructure
         public const string LeakAquifer = "LeakAquifer (ac-ft)";
         public const string PercFromField = "PercFromField (ac-ft)";
         public const string Plant = "Plant";
-        public const string Precipitation = "Precipitation";
         public const string Precip = "Precip (in)";
+        public const string Precip2 = "Precip2 (in)";
         public const string PrecipOnField = "PrecipOnField (ac-in)";
         public const string SnowInSnowpack = "SnowInSnowpack (in)";
         public const string WaterInAquifer = "WaterInAquifer (ac-ft)";

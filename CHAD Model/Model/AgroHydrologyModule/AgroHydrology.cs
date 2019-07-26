@@ -110,7 +110,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
             var Precip = dailyClimate.Precipitation;
             var MeltingRate = Math.Max(0, (dailyClimate.Temperature - _parameters.MeltingPoint) / 100);
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precipitation, Precip);
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip);
 
             if (dailyClimate.Temperature > _parameters.MeltingPoint)
             {
@@ -128,7 +128,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
             WaterInSnowpack = Math.Round(WaterInSnowpack, 2);
 
-            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip, Precip);
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precip2, Precip);
             _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.SnowInSnowpack, WaterInSnowpack);
 
             foreach (var fieldHistory in fieldHistories)
