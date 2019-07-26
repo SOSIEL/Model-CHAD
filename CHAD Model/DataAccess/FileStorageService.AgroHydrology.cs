@@ -34,7 +34,7 @@ namespace CHAD.DataAccess
         };
 
         private readonly List<string> _beforeFieldsRecordNames =
-            new List<string> {SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
+            new List<string> {SimulationInfo.Precipitation, SimulationInfo.Precip, SimulationInfo.SnowInSnowpack};
 
         private readonly List<string> _fieldRecordNames = new List<string>
         {

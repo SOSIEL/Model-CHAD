@@ -110,6 +110,7 @@ namespace CHAD.Model.AgroHydrologyModule
 
             var Precip = dailyClimate.Precipitation;
             var MeltingRate = Math.Max(0, (dailyClimate.Temperature - _parameters.MeltingPoint) / 100);
+            _calculationLogger.AddRecord(seasonNumber, dayNumber, SimulationInfo.Precipitation, Precip);
 
             if (dailyClimate.Temperature > _parameters.MeltingPoint)
             {
