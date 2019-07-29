@@ -100,10 +100,10 @@ namespace CHAD.Model.ClimateModule
             var u2 = 1d - _precipitationRandom.NextDouble();
             var randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
 
-            var mean = GetDroughtLevel(seasonNumber) * Math.Pow(_parameters.ClimateChangePrecipMean, seasonNumber) * climateForecast.PrecipMean;
+            var mean = Math.Pow(_parameters.ClimateChangePrecipMean, seasonNumber) * climateForecast.PrecipMean;
             var deviation = Math.Pow(_parameters.ClimateChangePrecipSD, seasonNumber) * climateForecast.PrecipSD;
 
-            var precipitation = mean + deviation * randStdNormal;
+            var precipitation = GetDroughtLevel(seasonNumber) * (mean + deviation * randStdNormal);
 
             return Math.Round(precipitation, 2);
         }
