@@ -272,7 +272,7 @@ namespace CHAD.Model
 
                     var sosielResult = ProcessSosielResult(seasonNumber, sosielModel, fieldHistories);
                     climate.ProcessSeason(seasonNumber);
-                    agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate);
+                    agroHydrology.ProcessSeasonStart(fieldHistories, sosielModel.WaterCurtailmentRate / 100);
 
                     for (var dayNumber = 1; dayNumber <= _configuration.Parameters.NumOfDays; dayNumber++)
                     {
