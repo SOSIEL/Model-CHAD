@@ -1,6 +1,6 @@
 ; Extension infomation
 #define ExtensionName "CHAD Model"
-#define AppVersion "1.19"
+#define AppVersion "1.21"
 #define AppPublisher "Garry Sotnik"
 
 ; Build directory
