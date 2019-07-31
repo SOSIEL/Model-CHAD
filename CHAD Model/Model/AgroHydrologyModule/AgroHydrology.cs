@@ -190,7 +190,7 @@ namespace CHAD.Model.AgroHydrologyModule
                 _logger.Write($"WaterInField - EvapTransFromField = {WaterInField[field]}", Severity.Level3);
                 _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInField2, WaterInField[field]);
 
-                WaterInAquifer = WaterInAquifer - AcInToAcFt * IrrigOfField.Sum(i => i.Value);
+                WaterInAquifer = WaterInAquifer - AcInToAcFt * IrrigOfField[field];
                 _logger.Write($"WaterInAquifer = {WaterInAquifer}", Severity.Level3);
                 _calculationLogger.AddRecord(seasonNumber, dayNumber, fieldHistory.Field.FieldNumber.ToString(), SimulationInfo.WaterInAquifer, WaterInAquifer);
 
