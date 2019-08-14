@@ -63,7 +63,13 @@ namespace CHAD.DesktopApplication.Views
 
         private void SosielConfigurationsCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _applicationViewModel.ConfigurationViewModel.SosielConfiguration = (string) e.AddedItems[0];
+            var name = (string) e.AddedItems[0];
+
+            if (_applicationViewModel.ConfigurationViewModel == null ||
+                _applicationViewModel.ConfigurationViewModel.SosielConfiguration.Equals(name))
+                return;
+
+            _applicationViewModel.ConfigurationViewModel.SosielConfiguration = name;
             _applicationViewModel.SaveConfiguration(_applicationViewModel.ConfigurationViewModel);
             _applicationViewModel.ConfigurationViewModel = _applicationViewModel.ConfigurationViewModel;
         }
