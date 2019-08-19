@@ -62,7 +62,7 @@
               "MinConsequentReference": "",
               "MaxConsequentReference": "",
               "ConsequentRelationshipSign": {
-                "G1": "-"
+                "G1": "+"
               }
             }
           }

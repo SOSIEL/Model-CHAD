@@ -161,17 +161,15 @@ namespace SOSIEL.Processes
                 {
                     double ai = baseAI[g];
 
-                    ConsequentRelationship relationship = DecisionOptionLayerConfiguration.ConvertSign(protDecisionOption.Layer.LayerConfiguration.ConsequentRelationshipSign[g.Name]);
+                    // ConsequentRelationship relationship = DecisionOptionLayerConfiguration.ConvertSign(protDecisionOption.Layer.LayerConfiguration.ConsequentRelationshipSign[g.Name]);
 
-                    // I'm not sure that we should use absolute value;
-                    //double difference = Math.Abs(ai * consequentChangeProportion);
                     double difference = ai * consequentChangeProportion;
 
                     switch (selectedGoalState.AnticipatedDirection)
                     {
                         case AnticipatedDirection.Up:
                             {
-                                if (relationship == ConsequentRelationship.Positive)
+                                if (ai >= 0)
                                 {
                                     ai += difference;
                                 }
@@ -184,7 +182,7 @@ namespace SOSIEL.Processes
                             }
                         case AnticipatedDirection.Down:
                             {
-                                if (relationship == ConsequentRelationship.Positive)
+                                if (ai >= 0)
                                 {
                                     ai -= difference;
                                 }
