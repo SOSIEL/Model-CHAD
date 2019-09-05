@@ -70,8 +70,10 @@ namespace SOSIEL.Processes
 
                 double newConsequent = consequentValue;
 
-                var probabilityTable =
-                    probabilities.GetProbabilityTable<int>(SosielProbabilityTables.GeneralProbabilityTable);
+                ExtendedProbabilityTable<int> probabilityTable =
+                    probabilities.GetExtendedProbabilityTable<int>(SosielProbabilityTables.GeneralProbabilityTable);
+
+                double minStep = Math.Pow(0.1d, parameters.ConsequentRound);
 
                 switch (selectedGoalState.AnticipatedDirection)
                 {
@@ -81,13 +83,13 @@ namespace SOSIEL.Processes
                             {
                                 if (consequentValue == max) return;
 
-                                newConsequent = probabilityTable.GetRandomValue((int)consequentValue + 1, max, false);
+                                newConsequent = probabilityTable.GetRandomValue(consequentValue + minStep, max, false);
                             }
                             if (DecisionOptionLayerConfiguration.ConvertSign(parameters.ConsequentRelationshipSign[goal.Name]) == ConsequentRelationship.Negative)
                             {
                                 if (consequentValue == min) return;
 
-                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue, true);
+                                newConsequent = probabilityTable.GetRandomValue(min, consequentValue - minStep, true);
                             }
 
                             break;
@@ -98,13 +100,13 @@ namespace SOSIEL.Processes
                             {
                                 if (consequentValue == min) return;
 
-                                newConsequent = probabilityTable.GetRandomValue(min, (int)consequentValue, true);
+                                newConsequent = probabilityTable.GetRandomValue(min, consequentValue - minStep, true);
                             }
                             if (DecisionOptionLayerConfiguration.ConvertSign(parameters.ConsequentRelationshipSign[goal.Name]) == ConsequentRelationship.Negative)
                             {
                                 if (consequentValue == max) return;
 
-                                newConsequent = probabilityTable.GetRandomValue((int)consequentValue + 1, max, false);
+                                newConsequent = probabilityTable.GetRandomValue(consequentValue + minStep, max, false);
                             }
 
                             break;
@@ -114,6 +116,8 @@ namespace SOSIEL.Processes
                             throw new Exception("Not implemented for AnticipatedDirection == 'stay'");
                         }
                 }
+
+                newConsequent = Math.Round(newConsequent, parameters.ConsequentRound);
 
                 DecisionOptionConsequent consequent = DecisionOptionConsequent.Renew(protDecisionOption.Consequent, newConsequent);
                 #endregion
@@ -150,12 +154,9 @@ namespace SOSIEL.Processes
                     consequentChangeProportion = Math.Abs(newDecisionOption.Consequent.Value - consequentValue) / consequentValue;
                 }
 
-                
                 Dictionary<Goal, double> baseAI = agent.AnticipationInfluence[protDecisionOption];
 
                 Dictionary<Goal, double> proportionalAI = new Dictionary<Goal, double>();
-
-
 
                 agent.AssignedGoals.ForEach(g =>
                 {

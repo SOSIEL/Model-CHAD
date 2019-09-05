@@ -59,6 +59,7 @@
               "Modifiable": true,
               "MaxNumberOfDecisionOptions": 7,
               "ConsequentValueInterval": [ 0, 100 ],
+              "ConsequentRound": 2, 
               "MinConsequentReference": "",
               "MaxConsequentReference": "",
               "ConsequentRelationshipSign": {
