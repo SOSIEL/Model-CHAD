@@ -15,7 +15,7 @@ namespace SOSIEL.Helpers
         /// <param name="table">The table.</param>
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
-        /// <param name="isReversed">if set to <c>true</c> [isReversed].</param>
+        /// <param name="isReversed">If true, reversed probability table will be used.</param>
         /// <returns></returns>
         public static double GetRandomValue(this ExtendedProbabilityTable<int> table, double min, double max, bool isReversed)
         {
@@ -33,7 +33,7 @@ namespace SOSIEL.Helpers
             double randomValue = batchMin + batchSize * r2;
 
             if (isReversed)
-                randomValue = max - randomValue;
+                randomValue = min + max - randomValue;
 
             return randomValue;
         }

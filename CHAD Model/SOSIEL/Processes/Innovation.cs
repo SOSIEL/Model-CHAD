@@ -73,7 +73,7 @@ namespace SOSIEL.Processes
                 ExtendedProbabilityTable<int> probabilityTable =
                     probabilities.GetExtendedProbabilityTable<int>(SosielProbabilityTables.GeneralProbabilityTable);
 
-                double minStep = Math.Pow(0.1d, parameters.ConsequentRound);
+                double minStep = Math.Pow(0.1d, parameters.ConsequentPrecisionDigitsAfterDecimalPoint);
 
                 switch (selectedGoalState.AnticipatedDirection)
                 {
@@ -117,7 +117,7 @@ namespace SOSIEL.Processes
                         }
                 }
 
-                newConsequent = Math.Round(newConsequent, parameters.ConsequentRound);
+                newConsequent = Math.Round(newConsequent, parameters.ConsequentPrecisionDigitsAfterDecimalPoint);
 
                 DecisionOptionConsequent consequent = DecisionOptionConsequent.Renew(protDecisionOption.Consequent, newConsequent);
                 #endregion

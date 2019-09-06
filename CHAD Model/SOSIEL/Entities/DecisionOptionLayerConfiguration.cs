@@ -12,7 +12,7 @@ namespace SOSIEL.Entities
 
         public int[] ConsequentValueInterval { get; set; }
 
-        public int ConsequentRound { get; set; }
+        public int ConsequentPrecisionDigitsAfterDecimalPoint { get; set; }
 
         public Dictionary<string, string> ConsequentRelationshipSign { get; set; }
 
