@@ -13,7 +13,7 @@ using SOSIEL.Processes;
 
 namespace CHADSOSIEL
 {
-    public sealed class Algorithm : SosielAlgorithm<SosielModel, ChadField>, IAlgorithm<SosielModel>
+    public sealed class Algorithm : SosielAlgorithm<ChadField>, IAlgorithm<SosielModel>
     {
         public string Name { get { return "SOSIEL"; } }
 

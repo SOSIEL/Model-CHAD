@@ -7,7 +7,7 @@ using SOSIEL.Processes;
 
 namespace SOSIEL.Algorithm
 {
-    public abstract class SosielAlgorithm<TModel, TSite> where TSite : new()
+    public abstract class SosielAlgorithm<TSite> where TSite : new()
     {
         protected readonly TSite DefaultSite = new TSite();
 

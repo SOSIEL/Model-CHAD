@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using Microsoft.CSharp.RuntimeBinder;
 using SOSIEL.Algorithm;
-using SOSIEL.Configuration;
 
 namespace SOSIEL.Helpers
 {

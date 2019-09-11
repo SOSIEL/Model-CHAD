@@ -30,7 +30,7 @@ namespace SOSIEL.Processes
 
             //gets prior period activated decision options
             DecisionOptionsHistory history = priorIteration[agent].DecisionOptionsHistories[site];
-            DecisionOption protDecisionOption = history.Activated.FirstOrDefault(r=>r.Layer == layer);
+            DecisionOption protDecisionOption = history.Activated.FirstOrDefault(r => r.Layer == layer);
 
             LinkedListNode<Dictionary<IAgent, AgentState<TSite>>> tempNode = lastIteration.Previous;
 
